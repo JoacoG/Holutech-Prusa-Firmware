@@ -352,6 +352,7 @@ void recover_print(uint8_t automatic) {
     //No need to wait for hotend heatup while host printing, as print will pause and wait for host.
     if (eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE) == PowerPanic::PRINT_TYPE_SD) {
         enquecommandf_P(PSTR("M109 S%d"), target_temperature[active_extruder]);
+        enquecommandf_P(PSTR("M190 S%d"), target_temperature_bed); // Wait for bed heatup too
     }
     enquecommand_P(MSG_M83); //E axis relative mode
 
