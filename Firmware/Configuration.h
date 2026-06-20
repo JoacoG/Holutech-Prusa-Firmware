@@ -20,11 +20,11 @@ extern const char _sPrinterMmuName[] PROGMEM;
 // Otherwise the repository information takes precedence.
 #ifndef CMAKE_CONTROL
 #define FW_MAJOR 3
-#define FW_MINOR 14
-#define FW_REVISION 1
-#define FW_COMMITNR 8225
-#define FW_FLAVOR RC      //uncomment if DEV, ALPHA, BETA or RC
-#define FW_FLAVERSION 1     //uncomment if FW_FLAVOR is defined and versioning is needed. Limited to max 8.
+#define FW_MINOR 15
+#define FW_REVISION 0
+#define FW_COMMITNR 8225  // Not changing this since fork
+//#define FW_FLAVOR RC      //uncomment if DEV, ALPHA, BETA or RC
+//#define FW_FLAVERSION 1     //uncomment if FW_FLAVOR is defined and versioning is needed. Limited to max 8.
 #endif
 
 #ifndef FW_FLAVOR
