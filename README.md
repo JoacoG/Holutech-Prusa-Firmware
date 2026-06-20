@@ -1,3 +1,11 @@
+# Why forking Prusa Firmware?
+
+This fork is intended to apply enhancements to Original Prusa i3 MK3S printers owned by Holutech.
+
+All information related to those changes can be found using git log.
+
+Warning: this firmware only builds for Original Prusa i3 MK3S printers, no other variant should work, and that is intentional.
+
 # Prusa Firmware MK3
 
 This repository contains the source code and the development versions of the firmware running on the [Original Prusa i3](https://prusa3d.com/) MK3S/MK3/MK2.5S/MK2.5 line of printers.
