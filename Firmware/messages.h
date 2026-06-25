@@ -444,6 +444,9 @@ extern const char MSG_M600[];
 extern const char MSG_M701[];
 extern const char MSG_M702[];
 
+// --- Custom messages ---
+extern const char MSG_PRESS_KNOB_RESUME [];
+
 #if defined(__cplusplus)
 }
 #endif //defined(__cplusplus)

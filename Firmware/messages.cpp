@@ -441,3 +441,6 @@ const char MSG_M500[] PROGMEM_N1 = "M500";
 const char MSG_M600[] PROGMEM_N1 = "M600";
 const char MSG_M701[] PROGMEM_N1 = "M701";
 const char MSG_M702[] PROGMEM_N1 = "M702";
+
+// --- Custom messages ---
+extern const char MSG_PRESS_KNOB_RESUME [] PROGMEM_I1 = ISTR("Press the knob\nto resume print"); ////MSG_PRESS_KNOB_RESUME c=20 r=2
