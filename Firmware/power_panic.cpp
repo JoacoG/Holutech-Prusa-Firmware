@@ -24,6 +24,8 @@
 
 static const char MSG_INT4[] PROGMEM = "INT4";
 
+bool uvlo_wait_for_knob = false;
+
 static bool recover_machine_state_after_power_panic();
 static void restore_print_from_eeprom(bool mbl_was_active);
 
@@ -367,16 +369,10 @@ void recover_print(uint8_t automatic) {
     puts_P(_N("Temperature Restored\n"));
     gcode_M114();
 
-    // Wait for user to press the knob
+    // Queue user confirmation to execute after extrude/retract in the command queue
     if (eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE) == PowerPanic::PRINT_TYPE_SD) {
-        lcd_consume_click();
-        lcd_display_message_fullscreen_P(_T(MSG_PRESS_KNOB_RESUME));
-        KEEPALIVE_STATE(PAUSED_FOR_USER);
-        while (!lcd_clicked()) {
-            delay_keep_alive(10);
-        }
-        KEEPALIVE_STATE(IN_HANDLER);
-        lcd_update_enabled = true;
+        uvlo_wait_for_knob = true;
+        enquecommand_P(PSTR("M997"));
     }
 
     // Restart the print.

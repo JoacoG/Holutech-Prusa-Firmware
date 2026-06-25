@@ -4992,6 +4992,24 @@ void process_commands()
 
 #endif //SDSUPPORT
 
+// --- Custom M-codes ---
+#ifdef UVLO_SUPPORT
+    case 997: // Power panic recovery: wait for user to press knob before restoring print
+        if (uvlo_wait_for_knob) {
+            uvlo_wait_for_knob = false;
+            lcd_consume_click();
+            lcd_display_message_fullscreen_P(_T(MSG_PRESS_KNOB_RESUME));
+            KEEPALIVE_STATE(PAUSED_FOR_USER);
+            while (!lcd_clicked()) {
+                delay_keep_alive(10);
+            }
+            KEEPALIVE_STATE(IN_HANDLER);
+            lcd_update_enabled = true;
+        }
+        break;
+#endif //UVLO_SUPPORT
+// --- End custom M-codes ---
+
     /*!
     ### M31 - Report current print time <a href="https://reprap.org/wiki/G-code#M31:_Output_time_since_last_M109_or_SD_card_start_to_serial">M31: Output time since last M109 or SD card start to serial</a>
     */
