@@ -805,7 +805,7 @@ int uart_putchar(char c, FILE *)
 void lcd_splash()
 {
 	lcd_clear(); // clears display and homes screen
-	lcd_printf_P(PSTR("\n      Holutech\nMK3S Custom Firmware\n%20.20S"), PSTR(FW_VERSION));
+	lcd_printf_P(PSTR("\n      Holutech\n  Custom Firmware\n%20.20S"), PSTR(FW_VERSION));
 }
 
 
@@ -7971,12 +7971,12 @@ void process_commands()
 
         // Z lift. For safety only allow positive values
         if (code_seen('Z')) z_target = fabs(code_value());
-        
+
         // Raise the Z axis
         float delta = raise_z(z_target);
 
         // Load filament
-        gcode_M701(fastLoadLength, mmuSlotIndex, !code_seen('Z')); // if no z -> trigger MIN_Z_FOR_LOAD for backwards compatibility on 3.12 and older FW 
+        gcode_M701(fastLoadLength, mmuSlotIndex, !code_seen('Z')); // if no z -> trigger MIN_Z_FOR_LOAD for backwards compatibility on 3.12 and older FW
 
         // Restore Z axis
         raise_z(-delta);
