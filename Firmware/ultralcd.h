@@ -52,7 +52,7 @@ void show_preheat_nozzle_warning();
 void lcd_wait_interact(const char* filament_name);
 void lcd_loading_filament(const char* filament_name);
 void lcd_change_success();
-void lcd_loading_color();
+void lcd_loading_color(uint16_t feed_mm);
 void lcd_sdcard_stop();
 void lcd_pause_print();
 void lcd_pause_usb_print();

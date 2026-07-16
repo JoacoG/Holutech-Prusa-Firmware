@@ -10336,8 +10336,13 @@ bool M600_check_state_and_repeat(const char* filament_name)
         // Filament loaded properly but color is not clear
         case 2:
             st_synchronize();
-            load_filament_final_feed();
-            lcd_loading_color();
+
+            // Alternative to load_filament_final_feed()
+            // Extrudes more, depending on FILAMENTCHANGE_NOTCOLOR_MULTIPLIER
+            current_position[E_AXIS] += FILAMENTCHANGE_FINALFEED * FILAMENTCHANGE_NOTCOLOR_MULTIPLIER;
+            plan_buffer_line_curposXYZE(FILAMENTCHANGE_EFEED_FINAL);
+            lcd_loading_color(FILAMENTCHANGE_FINALFEED * FILAMENTCHANGE_NOTCOLOR_MULTIPLIER);
+
             st_synchronize();
             break;
 

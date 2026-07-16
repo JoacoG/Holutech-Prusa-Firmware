@@ -2168,14 +2168,11 @@ static void lcd_loading_progress_bar(uint16_t loading_time_ms) {
 }
 
 
-void lcd_loading_color() {
-	//we are extruding 25mm with feedrate 200mm/min -> 7.5 seconds for whole action, 0.375 s for one character
-
+void lcd_loading_color(uint16_t feed_mm) {
   lcd_clear();
-
   lcd_puts_at_P(0, 0, _T(MSG_LOADING_COLOR));
   lcd_puts_at_P(0, 2, _T(MSG_PLEASE_WAIT));
-  lcd_loading_progress_bar((FILAMENTCHANGE_FINALFEED * 1000ul) / FILAMENTCHANGE_EFEED_FINAL); //show progress bar during filament loading slow sequence
+  lcd_loading_progress_bar((feed_mm * 1000ul) / FILAMENTCHANGE_EFEED_FINAL);
 }
 
 
