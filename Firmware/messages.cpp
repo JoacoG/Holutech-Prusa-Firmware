@@ -253,6 +253,8 @@ extern const char MSG_LOADING_COLOR [] PROGMEM_I1 = ISTR("Loading color"); ////M
 extern const char MSG_CORRECTLY [] PROGMEM_I1 = ISTR("Changed correctly"); ////MSG_CORRECTLY c=19
 extern const char MSG_NOT_LOADED [] PROGMEM_I1 = ISTR("Filament not loaded"); ////MSG_NOT_LOADED c=19
 extern const char MSG_NOT_COLOR [] PROGMEM_I1 = ISTR("Color not correct"); ////MSG_NOT_COLOR c=19
+extern const char MSG_LONG_EXTRUSION [] PROGMEM_I1 = ISTR("Long extrusion"); ////MSG_LONG_EXTRUSION c=19
+extern const char MSG_SHORT_EXTRUSION [] PROGMEM_I1 = ISTR("Short extrusion"); ////MSG_SHORT_EXTRUSION c=19
 #ifndef REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
 extern const char MSG_AUTOLOADING_ENABLED [] PROGMEM_I1 = ISTR("Autoloading filament is active, just press the knob and insert filament..."); ////MSG_AUTOLOADING_ENABLED c=20 r=4
 #endif //REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY

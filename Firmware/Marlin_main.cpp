@@ -10308,7 +10308,7 @@ void load_filament_final_feed()
 bool M600_check_state_and_repeat(const char* filament_name)
 {
     uint8_t lcd_change_filament_state = 10;
-    while (lcd_change_filament_state != 0 && lcd_change_filament_state != 3)
+    while (lcd_change_filament_state != 0 && lcd_change_filament_state != 4)
     {
         KEEPALIVE_STATE(PAUSED_FOR_USER);
         lcd_change_filament_state = lcd_alright();
@@ -10333,7 +10333,7 @@ bool M600_check_state_and_repeat(const char* filament_name)
             }
             break;
 
-        // Filament loaded properly but color is not clear
+        // Long purge
         case 2:
             st_synchronize();
 
@@ -10346,8 +10346,16 @@ bool M600_check_state_and_repeat(const char* filament_name)
             st_synchronize();
             break;
 
-        // Unload filament
+        // Short purge
         case 3:
+            st_synchronize();
+            load_filament_final_feed();
+            lcd_loading_color(FILAMENTCHANGE_FINALFEED);
+            st_synchronize();
+            break;
+
+        // Unload filament
+        case 4:
            return true;
 
         // Everything good

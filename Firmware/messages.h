@@ -252,6 +252,8 @@ extern const char MSG_LOADING_COLOR [];
 extern const char MSG_CORRECTLY [];
 extern const char MSG_NOT_LOADED [];
 extern const char MSG_NOT_COLOR [];
+extern const char MSG_LONG_EXTRUSION [];
+extern const char MSG_SHORT_EXTRUSION [];
 #ifndef REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
 extern const char MSG_AUTOLOADING_ENABLED [];
 #endif //REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY

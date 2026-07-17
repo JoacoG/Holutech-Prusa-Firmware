@@ -2195,13 +2195,21 @@ void lcd_loading_filament(const char* filament_name) {
 
 
 uint8_t lcd_alright() {
-    uint8_t cursor_pos = 0;
+    int8_t cursor_pos = 0;
+    uint8_t first_visible = 0;
+    const char* const items[] = {
+        _T(MSG_CORRECTLY),
+        _T(MSG_NOT_LOADED),
+        _T(MSG_LONG_EXTRUSION),
+        _T(MSG_SHORT_EXTRUSION),
+        _T(MSG_UNLOAD_FILAMENT),
+    };
+    const uint8_t num_items = sizeof(items)/sizeof(items[0]);
 
     lcd_clear();
-    lcd_puts_at_P(1, 0, _T(MSG_CORRECTLY));
-    lcd_puts_at_P(1, 1, _T(MSG_NOT_LOADED));
-    lcd_puts_at_P(1, 2, _T(MSG_NOT_COLOR));
-    lcd_puts_at_P(1, 3, _T(MSG_UNLOAD_FILAMENT));
+    for (uint8_t i = 0; i < 4; i++) {
+        lcd_puts_at_P(1, i, items[first_visible + i]);
+    }
     lcd_putc_at(0, cursor_pos, '>');
 
     lcd_consume_click();
@@ -2212,26 +2220,39 @@ uint8_t lcd_alright() {
 
         if (lcd_encoder)
         {
-
             if (lcd_encoder < 0 ) {
-                // Rotating knob counter clockwise
-                if (cursor_pos > 0)
-                    cursor_pos--;
-                else
-                    Sound_MakeSound(e_SOUND_TYPE_BlindAlert);
+                cursor_pos--;
             } else if (lcd_encoder > 0) {
-                // Rotating knob clockwise
-                if (cursor_pos < 3)
-                    cursor_pos++;
-                else
-                    Sound_MakeSound(e_SOUND_TYPE_BlindAlert);
+                cursor_pos++;
             }
 
-            // Update '>' render only
+            if (cursor_pos > 3) {
+                cursor_pos = 3;
+                Sound_MakeSound(e_SOUND_TYPE_BlindAlert);
+                if (first_visible < num_items - 4) {
+                    first_visible++;
+                    lcd_clear();
+                    for (uint8_t i = 0; i < 4; i++) {
+                        lcd_puts_at_P(1, i, items[first_visible + i]);
+                    }
+                }
+            }
+
+            if (cursor_pos < 0) {
+                cursor_pos = 0;
+                Sound_MakeSound(e_SOUND_TYPE_BlindAlert);
+                if (first_visible > 0) {
+                    first_visible--;
+                    lcd_clear();
+                    for (uint8_t i = 0; i < 4; i++) {
+                        lcd_puts_at_P(1, i, items[first_visible + i]);
+                    }
+                }
+            }
+
             lcd_puts_at_P(0, 0, PSTR(" \n \n \n "));
             lcd_putc_at(0, cursor_pos, '>');
 
-            // Consume rotation event and make feedback sound
             lcd_encoder = 0;
             _delay(100);
         }
@@ -2240,7 +2261,7 @@ uint8_t lcd_alright() {
         {
             lcd_clear();
             lcd_return_to_status();
-            return cursor_pos;
+            return first_visible + cursor_pos;
         }
     };
 }

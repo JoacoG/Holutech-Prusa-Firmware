@@ -374,7 +374,7 @@
 #define FILAMENTCHANGE_FIRSTFEED 70 //E distance in mm for fast filament loading sequence used used in filament change (M600)
 #define FILAMENTCHANGE_FINALFEED 25 //E distance in mm for slow filament loading sequence used used in filament change (M600) and filament load (M701)
 // CAUTION: Do not set this to a value higher than 8 (8 itself is safe)
-#define FILAMENTCHANGE_NOTCOLOR_MULTIPLIER 4 //Multiplier for "Color not correct" button - extrudes this many times FILAMENTCHANGE_FINALFEED
+#define FILAMENTCHANGE_NOTCOLOR_MULTIPLIER 4 //Multiplier for "Long extrusion" button - extrudes this many times FILAMENTCHANGE_FINALFEED
 #define FILAMENTCHANGE_RECFEED 5
 
 #define FILAMENTCHANGE_XYFEED 50
