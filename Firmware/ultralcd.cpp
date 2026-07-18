@@ -557,7 +557,7 @@ void lcdui_print_status_line(void) {
         const char* longFilenameOLD = (card.longFilename[0] ? card.longFilename : card.filename);
         if( lcd_print_pad(&longFilenameOLD[scrollstuff], LCD_WIDTH) == 0)
         {
-            scrollstuff++;
+            scrollstuff += 5;
         } else {
             scrollstuff = 0;
         }
@@ -6010,7 +6010,7 @@ void lcd_sdcard_menu()
 				if( lcd_print_pad(&_md->scrollPointer[_md->offset], len) == 0)
 				{
 					_md->lcd_scrollTimer.start();
-					_md->offset++;
+					_md->offset += 5;
 				} else {
 					// stop at the end of the string
 					_md->lcd_scrollTimer.stop();
