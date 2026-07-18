@@ -137,6 +137,8 @@ static void lcd_belttest_v();
 
 static void lcd_selftest_v();
 
+static void lcd_cold_pull();
+
 #ifdef TMC2130
 static void reset_crash_det(uint8_t axis);
 static bool lcd_selfcheck_axis_sg(uint8_t axis);
@@ -1024,6 +1026,70 @@ void lcd_commands()
                 SetPrinterState(PrinterState::Idle);
                 menu_goto(lcd_hw_setup_menu, 2, true);
                 menu_depth = 3;
+                break;
+            }
+        }
+    }
+    if (lcd_commands_type == LcdCommands::ColdPull)
+    {
+        if (!blocks_queued() && cmd_buffer_empty() && !saved_printing)
+        {
+#ifdef THERMAL_MODEL
+            static bool was_tm_enabled;
+#endif //THERMAL_MODEL
+            switch(lcd_commands_step)
+            {
+            case 0:
+                lcd_commands_step = 5;
+                break;
+            case 5:
+                enquecommand_P(G28W);
+                enquecommand_P(PSTR("G1 X125 Z200 F1000"));
+                enquecommand_P(PSTR("M109 S280"));
+#ifdef THERMAL_MODEL
+                was_tm_enabled = thermal_model_enabled();
+                thermal_model_set_enabled(false);
+#endif //THERMAL_MODEL
+                lcd_commands_step = 4;
+                break;
+            case 4:
+                lcd_show_fullscreen_message_and_wait_P(_T(MSG_COLD_PULL_INSERT));
+                enquecommand_P(PSTR("G92 E0"));
+                enquecommand_P(PSTR("G1 E100 F200"));
+                lcd_commands_step = 3;
+                break;
+            case 3:
+                fanSpeed = 255;
+                setTargetHotend(90);
+                lcd_display_message_fullscreen_P(_T(MSG_COLD_PULL_COOLING));
+                lcd_commands_step = 2;
+                break;
+            case 2:
+                if (degHotend(0) <= 90)
+                {
+                    fanSpeed = 0;
+                    disable_e0();
+                    lcd_commands_step = 1;
+                }
+                break;
+            case 1:
+                lcd_show_fullscreen_message_and_wait_P(_T(MSG_COLD_PULL_PULL));
+                {
+                    uint8_t choice = lcd_show_multiscreen_message_yes_no_and_wait_P(
+                        _T(MSG_COLD_PULL_REPEAT), false, LCD_MIDDLE_BUTTON_CHOICE);
+                    if (choice == LCD_LEFT_BUTTON_CHOICE)
+                        lcd_commands_step = 5;
+                    else
+                        lcd_commands_step = 0;
+                }
+                break;
+            default:
+#ifdef THERMAL_MODEL
+                thermal_model_set_enabled(was_tm_enabled);
+#endif //THERMAL_MODEL
+                lcd_commands_step = 0;
+                lcd_commands_type = LcdCommands::Idle;
+                SetPrinterState(PrinterState::Idle);
                 break;
             }
         }
@@ -4395,6 +4461,18 @@ static void nozzle_change()
     lcd_return_to_status();
 }
 
+static void lcd_cold_pull()
+{
+    if (printer_active())
+    {
+        lcd_return_to_status();
+        return;
+    }
+    lcd_commands_type = LcdCommands::ColdPull;
+    lcd_commands_step = 0;
+    lcd_return_to_status();
+}
+
 void lcd_hw_setup_menu(void)                      // can not be "static"
 {
     typedef struct
@@ -4418,6 +4496,8 @@ void lcd_hw_setup_menu(void)                      // can not be "static"
     MENU_ITEM_SUBMENU_P(_T(MSG_STEEL_SHEETS), sheets_menu);
     SETTINGS_NOZZLE;
     MENU_ITEM_FUNCTION_P(_T(MSG_NOZZLE_CNG_MENU),nozzle_change);
+    if (!printer_active())
+        MENU_ITEM_FUNCTION_P(_T(MSG_COLD_PULL), lcd_cold_pull);
     MENU_ITEM_SUBMENU_P(_T(MSG_CHECKS), lcd_checking_menu);
 
 #if defined(FILAMENT_SENSOR) && (FILAMENT_SENSOR_TYPE == FSENSOR_IR_ANALOG)

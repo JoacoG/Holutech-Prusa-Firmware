@@ -129,6 +129,7 @@ enum class LcdCommands : uint_least8_t
     ThermalModel,
 #endif //THERMAL_MODEL
     NozzleCNG,
+    ColdPull,
 };
 
 extern LcdCommands lcd_commands_type;
