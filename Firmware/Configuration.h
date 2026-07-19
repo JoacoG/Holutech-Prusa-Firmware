@@ -19,6 +19,7 @@ extern const char _sPrinterMmuName[] PROGMEM;
 // NOTE: These are ONLY used if you are not building via cmake and/or not in a git repository.
 // Otherwise the repository information takes precedence.
 #ifndef CMAKE_CONTROL
+// Not changing these 3 macros below anymore because they are only fallbacks
 #define FW_MAJOR 3
 #define FW_MINOR 15
 #define FW_REVISION 6
