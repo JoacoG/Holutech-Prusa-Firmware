@@ -4,7 +4,15 @@ This fork is intended to apply enhancements to Original Prusa i3 MK3S printers o
 
 All information related to those changes can be found using git log.
 
-Warning: this firmware only builds for Original Prusa i3 MK3S printers, no other variant should work, and that is intentional.
+Warning: this firmware only builds in english language for Original Prusa i3 MK3S printers, no other variant should work, and that is intentional.
+
+# Holutech Fork Features
+
+- **Power Panic Recovery**: Restored prints now wait for the bed to heat up before continuing. After heatup, the printer waits for a knob press before resuming.
+- **Splash Screen**: Custom boot splash screen displaying the firmware version. Version string now includes the git commit number for traceability.
+- **Color Change (Manual Filament Swap)**: The "Color not correct" purge now extrudes more filament for better color transition. Added short and long purge duration options to the color change menu.
+- **LCD Interface**: Added a cold pull sequence option directly in the printer menu. Faster scrolling behavior for long G-code filenames.
+- **Build Output**: CMake build filenames now include the git commit count and hash (e.g. `MK3S_MK3S+_FW_3.13.2-RC1+7651_deadbeef_ENGLISH.hex`).
 
 # Prusa Firmware MK3
 
