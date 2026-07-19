@@ -4997,12 +4997,40 @@ void process_commands()
     case 997: // Power panic recovery: wait for user to press knob before restoring print
         if (uvlo_wait_for_knob) {
             uvlo_wait_for_knob = false;
-            lcd_consume_click();
-            lcd_display_message_fullscreen_P(_T(MSG_PRESS_KNOB_RESUME));
-            KEEPALIVE_STATE(PAUSED_FOR_USER);
-            while (!lcd_clicked()) {
-                delay_keep_alive(10);
+            for (;;) {
+                lcd_consume_click();
+                lcd_display_message_fullscreen_P(_T(MSG_PRESS_KNOB_RESUME));
+                KEEPALIVE_STATE(PAUSED_FOR_USER);
+                while (!lcd_clicked() && CHECK_ALL_HEATERS) {
+                    delay_keep_alive(10);
+                }
+
+                if (CHECK_ALL_HEATERS) {
+                    break; // Normal path: user pressed knob before safety timer fired
+                }
+
+                // Safety timer disabled heaters while waiting
+                const uint8_t btn = lcd_show_multiscreen_message_yes_no_and_wait_P(
+                    _T(MSG_REHEAT_AND_RESUME), false);
+                if (btn != LCD_LEFT_BUTTON_CHOICE) {
+                    // User said NO: cancel recovery cleanly
+                    cancel_saved_printing();
+                    cmdqueue_reset();
+                    lcd_return_to_status();
+                    break;
+                }
+
+                // User said YES: restore original temperatures from EEPROM and wait for heatup
+                uint16_t t_hotend = eeprom_read_word((uint16_t*)EEPROM_UVLO_TARGET_HOTEND);
+                uint8_t t_bed = eeprom_read_byte((uint8_t*)EEPROM_UVLO_TARGET_BED);
+                setTargetHotend((int)t_hotend);
+                setTargetBed((int)t_bed);
+                while (isHeatingHotend(active_extruder) || isHeatingBed()) {
+                    delay_keep_alive(1000);
+                }
+                // Loop back to show "Press knob to resume print" again
             }
+
             KEEPALIVE_STATE(IN_HANDLER);
             lcd_update_enabled = true;
         }

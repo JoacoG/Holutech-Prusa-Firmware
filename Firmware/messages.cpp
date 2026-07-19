@@ -451,3 +451,5 @@ const char MSG_M702[] PROGMEM_N1 = "M702";
 
 // --- Custom messages ---
 extern const char MSG_PRESS_KNOB_RESUME [] PROGMEM_I1 = ISTR("Press the knob\nto resume print"); ////MSG_PRESS_KNOB_RESUME c=20 r=2
+
+extern const char MSG_REHEAT_AND_RESUME [] PROGMEM_I1 = ISTR("Heaters cooled.\nReheat and resume?"); ////MSG_REHEAT_AND_RESUME c=20 r=2

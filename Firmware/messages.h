@@ -453,6 +453,7 @@ extern const char MSG_M702[];
 
 // --- Custom messages ---
 extern const char MSG_PRESS_KNOB_RESUME [];
+extern const char MSG_REHEAT_AND_RESUME [];
 
 #if defined(__cplusplus)
 }
