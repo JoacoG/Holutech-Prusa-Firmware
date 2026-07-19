@@ -805,7 +805,7 @@ int uart_putchar(char c, FILE *)
 void lcd_splash()
 {
 	lcd_clear(); // clears display and homes screen
-	lcd_printf_P(PSTR("\n      Holutech\n  Custom Firmware\n%20.20S"), PSTR(FW_VERSION));
+	lcd_printf_P(PSTR("\n      Holutech\n  Custom Firmware\n%20.20S"), PSTR(FW_VERSION_FULL));
 }
 
 
