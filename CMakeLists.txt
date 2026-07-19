@@ -430,7 +430,7 @@ function(fw_add_variant variant_name)
   if(hex_variant_name STRGREATER_EQUAL "MK3S")
     string(REPLACE "MK3S" "MK3S_MK3S+" hex_variant_name ${hex_variant_name})
   endif()
-  set(FW_HEX "${CMAKE_BINARY_DIR}/${hex_variant_name}_${FN_VERSION_SUFFIX}_ENGLISH.hex")
+  set(FW_HEX "${CMAKE_BINARY_DIR}/${hex_variant_name}_${FN_VERSION_DEBUG_SUFFIX}_ENGLISH.hex")
   #message(STATUS "Hex filename: ${FW_HEX}")
 
   add_base_binary(${FW_EN})
