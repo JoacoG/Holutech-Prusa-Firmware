@@ -1061,7 +1061,7 @@ void lcd_commands()
                 break;
             case 3:
                 fanSpeed = 255;
-                setTargetHotend(90);
+                setTargetHotend(0);
                 lcd_display_message_fullscreen_P(_T(MSG_COLD_PULL_COOLING));
                 lcd_commands_step = 2;
                 break;
@@ -1069,6 +1069,7 @@ void lcd_commands()
                 if (degHotend(0) <= (90 + TEMP_WINDOW))
                 {
                     fanSpeed = 0;
+                    setTargetHotend(90);
                     disable_e0();
                     lcd_commands_step = 1;
                 }
