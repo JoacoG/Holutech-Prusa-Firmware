@@ -138,6 +138,7 @@ static void lcd_belttest_v();
 static void lcd_selftest_v();
 
 static void lcd_cold_pull();
+static void lcd_menu_maintenance();
 
 #ifdef TMC2130
 static void reset_crash_det(uint8_t axis);
@@ -4473,6 +4474,15 @@ static void lcd_cold_pull()
     lcd_return_to_status();
 }
 
+static void lcd_menu_maintenance()
+{
+    MENU_BEGIN();
+    MENU_ITEM_BACK_P(_T(MSG_BACK));
+    if (!printer_active())
+        MENU_ITEM_FUNCTION_P(_T(MSG_COLD_PULL), lcd_cold_pull);
+    MENU_END();
+}
+
 void lcd_hw_setup_menu(void)                      // can not be "static"
 {
     typedef struct
@@ -4496,8 +4506,6 @@ void lcd_hw_setup_menu(void)                      // can not be "static"
     MENU_ITEM_SUBMENU_P(_T(MSG_STEEL_SHEETS), sheets_menu);
     SETTINGS_NOZZLE;
     MENU_ITEM_FUNCTION_P(_T(MSG_NOZZLE_CNG_MENU),nozzle_change);
-    if (!printer_active())
-        MENU_ITEM_FUNCTION_P(_T(MSG_COLD_PULL), lcd_cold_pull);
     MENU_ITEM_SUBMENU_P(_T(MSG_CHECKS), lcd_checking_menu);
 
 #if defined(FILAMENT_SENSOR) && (FILAMENT_SENSOR_TYPE == FSENSOR_IR_ANALOG)
@@ -5246,6 +5254,8 @@ static void lcd_shutdown_menu()
 //! |01234567890123456789|
 //! | Info screen        | allways
 //!
+//! | Maintenance      | allways
+//!
 //! | tst - Save         | ifdef RESUME_DEBUG
 //! | tst - Restore      | ifdef RESUME_DEBUG
 //!
@@ -5292,6 +5302,8 @@ static void lcd_main_menu()
 
 
     MENU_ITEM_BACK_P(_T(MSG_INFO_SCREEN));
+
+    MENU_ITEM_SUBMENU_P(_T(MSG_MAINTENANCE), lcd_menu_maintenance);
 
 #ifdef RESUME_DEBUG
     if (!saved_printing)
