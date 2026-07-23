@@ -66,6 +66,9 @@ int8_t SilentModeMenu = SILENT_MODE_OFF;
 LcdCommands lcd_commands_type = LcdCommands::Idle;
 static uint8_t lcd_commands_step = 0;
 static bool extraPurgeNeeded = false; ///< lcd_commands - detect if extra purge after MMU-toolchange is necessary or not
+#ifdef THERMAL_MODEL
+static bool was_tm_enabled;
+#endif //THERMAL_MODEL
 
 CustomMsg custom_message_type = CustomMsg::Status;
 uint8_t custom_message_state = 0;
@@ -1035,28 +1038,23 @@ void lcd_commands()
     {
         if (!blocks_queued() && cmd_buffer_empty() && !saved_printing)
         {
-#ifdef THERMAL_MODEL
-            static bool was_tm_enabled;
-#endif //THERMAL_MODEL
             switch(lcd_commands_step)
             {
-            case 0:
-                lcd_commands_step = 5;
-                break;
             case 5:
                 enquecommand_P(G28W);
                 enquecommand_P(PSTR("G1 X125 Z200 F1000"));
                 enquecommand_P(PSTR("M109 S280"));
 #ifdef THERMAL_MODEL
-                was_tm_enabled = thermal_model_enabled();
                 thermal_model_set_enabled(false);
 #endif //THERMAL_MODEL
                 lcd_commands_step = 4;
                 break;
             case 4:
                 lcd_show_fullscreen_message_and_wait_P(_T(MSG_COLD_PULL_INSERT));
-                enquecommand_P(PSTR("G92 E0"));
-                enquecommand_P(PSTR("G1 E100 F200"));
+                current_position[E_AXIS] += FILAMENTCHANGE_FIRSTFEED;
+                plan_buffer_line_curposXYZE(FILAMENTCHANGE_EFEED_FIRST);
+                current_position[E_AXIS] += 150;
+                plan_buffer_line_curposXYZE(FILAMENTCHANGE_EFEED_FINAL);
                 lcd_commands_step = 3;
                 break;
             case 3:
@@ -4469,8 +4467,11 @@ static void lcd_cold_pull()
         lcd_return_to_status();
         return;
     }
+#ifdef THERMAL_MODEL
+    was_tm_enabled = thermal_model_enabled();
+#endif //THERMAL_MODEL
     lcd_commands_type = LcdCommands::ColdPull;
-    lcd_commands_step = 0;
+    lcd_commands_step = 5;
     lcd_return_to_status();
 }
 
