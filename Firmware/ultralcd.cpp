@@ -1062,7 +1062,6 @@ void lcd_commands()
             case 3:
                 fanSpeed = 255;
                 setTargetHotend(0);
-                lcd_display_message_fullscreen_P(_T(MSG_COLD_PULL_COOLING));
                 lcd_commands_step = 2;
                 break;
             case 2:
