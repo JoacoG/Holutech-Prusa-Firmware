@@ -295,6 +295,7 @@ extern const char MSG_BED_SKEW_OFFSET_DETECTION_PERFECT [] PROGMEM_I1 = ISTR("XY
 extern const char MSG_BED_SKEW_OFFSET_DETECTION_SKEW_MILD [] PROGMEM_I1 = ISTR("XYZ calibration all right. X/Y axes are slightly skewed. Good job!"); ////MSG_BED_SKEW_OFFSET_DETECTION_SKEW_MILD c=20 r=8
 extern const char MSG_BED_SKEW_OFFSET_DETECTION_SKEW_EXTREME [] PROGMEM_I1 = ISTR("XYZ calibration all right. Skew will be corrected automatically."); ////MSG_BED_SKEW_OFFSET_DETECTION_SKEW_EXTREME c=20 r=8
 extern const char MSG_PINDA_CAL_FAILED [] PROGMEM_I1 = ISTR("PINDA calibration failed"); ////MSG_PINDA_CAL_FAILED c=20 r=4
+extern const char MSG_MOVE_TOP_CENTER [] PROGMEM_I1 = ISTR("Move to top center"); ////MSG_MOVE_TOP_CENTER c=18
 extern const char MSG_MOVE_X [] PROGMEM_I1 = ISTR("Move X"); ////MSG_MOVE_X c=18
 extern const char MSG_MOVE_Y [] PROGMEM_I1 = ISTR("Move Y"); ////MSG_MOVE_Y c=18
 extern const char MSG_MOVE_Z [] PROGMEM_I1 = ISTR("Move Z"); ////MSG_MOVE_Z c=18

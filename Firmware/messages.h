@@ -294,6 +294,7 @@ extern const char MSG_BED_SKEW_OFFSET_DETECTION_PERFECT [];
 extern const char MSG_BED_SKEW_OFFSET_DETECTION_SKEW_MILD [];
 extern const char MSG_BED_SKEW_OFFSET_DETECTION_SKEW_EXTREME [];
 extern const char MSG_PINDA_CAL_FAILED [];
+extern const char MSG_MOVE_TOP_CENTER [];
 extern const char MSG_MOVE_X [];
 extern const char MSG_MOVE_Y [];
 extern const char MSG_MOVE_Z [];
