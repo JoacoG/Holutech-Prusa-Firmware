@@ -1066,7 +1066,7 @@ void lcd_commands()
                 lcd_commands_step = 2;
                 break;
             case 2:
-                if (degHotend(0) <= 90)
+                if (degHotend(0) <= (90 + TEMP_WINDOW))
                 {
                     fanSpeed = 0;
                     disable_e0();
