@@ -80,6 +80,7 @@ static float manual_feedrate[] = MANUAL_FEEDRATE;
 
 /* LCD message status */
 static LongTimer lcd_status_message_timeout;
+static LongTimer cold_pull_cooling_timer;
 static uint8_t lcd_status_message_level;
 static uint8_t lcd_status_message_idx = 0;
 static char lcd_status_message[LCD_WIDTH + 1];
@@ -1063,11 +1064,19 @@ void lcd_commands()
                 lcd_commands_step = 2;
                 break;
             case 2:
-                if (degHotend(0) <= (90 + TEMP_WINDOW))
-                {
+                if (!cold_pull_cooling_timer.running()) {
+                    cold_pull_cooling_timer.start();
+                }
+                if (cold_pull_cooling_timer.expired(5UL * 60 * 1000)) {
+                    cold_pull_cooling_timer.stop();
+                    lcd_setstatuspgm(_T(MSG_TIMEOUT));
+                    lcd_commands_step = 0;
+                } else if (degHotend(0) <= (90 + TEMP_WINDOW)) {
+                    cold_pull_cooling_timer.stop();
                     fanSpeed = 0;
                     setTargetHotend(90);
                     disable_e0();
+                    lcd_setstatuspgm(MSG_WELCOME);
                     lcd_commands_step = 1;
                 }
                 break;
@@ -1086,6 +1095,7 @@ void lcd_commands()
 #ifdef THERMAL_MODEL
                 thermal_model_set_enabled(was_tm_enabled);
 #endif //THERMAL_MODEL
+                enable_e0();
                 lcd_commands_step = 0;
                 lcd_commands_type = LcdCommands::Idle;
                 SetPrinterState(PrinterState::Idle);
