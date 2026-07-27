@@ -371,6 +371,47 @@ void recover_print(uint8_t automatic) {
 
     // Queue user confirmation to execute after extrude/retract in the command queue
     if (eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE) == PowerPanic::PRINT_TYPE_SD) {
+        // Make sure the SD card is present before attempting to restore the file
+        if (!IS_SD_INSERTED || !card.mounted) {
+            KEEPALIVE_STATE(PAUSED_FOR_USER);
+            while (!IS_SD_INSERTED || !card.mounted) {
+                lcd_display_message_fullscreen_P(_T(MSG_INSERT_SD_CARD));
+                delay_keep_alive(100);
+                if (IS_SD_INSERTED && !card.mounted) {
+                    card.mount(false);
+                }
+            }
+            KEEPALIVE_STATE(IN_HANDLER);
+        }
+
+        // Verify the saved file actually exists on the SD card
+        {
+            char filename_check[FILENAME_LENGTH];
+            char dir_name_check[9];
+            char extension_check[5];
+            uint8_t depth = eeprom_read_byte((uint8_t*)EEPROM_DIR_DEPTH);
+            for (uint8_t i = 0; i < depth; i++) {
+                eeprom_read_block(dir_name_check, (const char *)EEPROM_DIRS + 8 * i, 8);
+                dir_name_check[8] = '\0';
+                card.chdir(dir_name_check, false);
+            }
+            eeprom_read_block(filename_check, (const char *)EEPROM_FILENAME, 8);
+            filename_check[8] = '\0';
+            extension_check[0] = '.';
+            eeprom_read_block(&extension_check[1], (const char *)EEPROM_FILENAME_EXTENSION, 3);
+            extension_check[4] = '\0';
+            strcat(filename_check, extension_check);
+
+            if (!card.FileExists(filename_check)) {
+                cancel_saved_printing();
+                lcd_show_fullscreen_message_and_wait_P(_T(MSG_RECOVER_FILE_NOT_FOUND));
+                lcd_return_to_status();
+                return;
+            }
+            // Reset to root so restore_file_from_sd() can reconstitute the path from scratch
+            card.cdroot(false);
+        }
+
         uvlo_wait_for_knob = true;
         enquecommand_P(PSTR("M997"));
     }

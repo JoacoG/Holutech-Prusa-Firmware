@@ -386,6 +386,8 @@ extern const char MSG_SD_REMOVED [];
 extern const char MSG_NEW_FIRMWARE_AVAILABLE [];
 extern const char MSG_NEW_FIRMWARE_PLEASE_UPGRADE [];
 extern const char MSG_FW_MK3_DETECTED [];
+extern const char MSG_INSERT_SD_CARD [];
+extern const char MSG_RECOVER_FILE_NOT_FOUND [];
 
 //not internationalized messages
 extern const char MSG_SPOOL_JOIN[];
