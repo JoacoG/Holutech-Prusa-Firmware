@@ -208,7 +208,7 @@ extern const char MSG_COLD_PULL [];
 extern const char MSG_COLD_PULL_INSERT [];
 extern const char MSG_COLD_PULL_PULL [];
 extern const char MSG_COLD_PULL_REPEAT [];
-extern const char MSG_COLD_PULL_COOLING [];
+extern const char MSG_COLD_PULL_COOLING_SHORT [];
 extern const char MSG_REPRINT [];
 extern const char MSG_FILE_CNT [];
 extern const char MSG_CHANGED_MOTHERBOARD [];

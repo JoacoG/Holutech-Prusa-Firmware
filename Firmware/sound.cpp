@@ -79,6 +79,8 @@ switch(eSoundMode)
                Sound_DoSound_Echo();
           if(eSoundType==e_SOUND_TYPE_StandardPrompt)
                Sound_DoSound_Prompt();
+          if(eSoundType==e_SOUND_TYPE_StandardConfirm)
+               Sound_DoSound_Confirm();
           if(eSoundType==e_SOUND_TYPE_StandardAlert)
                Sound_DoSound_Alert(false);
           break;
@@ -87,10 +89,14 @@ switch(eSoundMode)
               Sound_DoSound_Echo();
           if(eSoundType==e_SOUND_TYPE_StandardPrompt)
                Sound_DoSound_Prompt();
+          if(eSoundType==e_SOUND_TYPE_StandardConfirm)
+               Sound_DoSound_Confirm();
           if(eSoundType==e_SOUND_TYPE_StandardAlert)
                Sound_DoSound_Alert(true);
           break;
      case e_SOUND_MODE_SILENT:
+          if(eSoundType==e_SOUND_TYPE_StandardConfirm)
+               Sound_DoSound_Confirm();
           if(eSoundType==e_SOUND_TYPE_StandardAlert)
                Sound_DoSound_Alert(true);
           break;
@@ -99,6 +105,8 @@ switch(eSoundMode)
                Sound_DoSound_Echo();
           if(eSoundType==e_SOUND_TYPE_StandardPrompt)
                Sound_DoSound_Prompt();
+          if(eSoundType==e_SOUND_TYPE_StandardConfirm)
+               Sound_DoSound_Confirm();
           if(eSoundType==e_SOUND_TYPE_StandardAlert)
                Sound_DoSound_Alert(false);
           if(eSoundType==e_SOUND_TYPE_EncoderMove)
@@ -109,6 +117,18 @@ switch(eSoundMode)
      default:
           break;
      }
+}
+
+static void Sound_DoSound_Confirm(void)
+{
+    uint8_t nI;
+    for(nI=0; nI<2; nI++)
+    {
+        WRITE(BEEPER,HIGH);
+        delayMicroseconds(150);
+        WRITE(BEEPER,LOW);
+        delayMicroseconds(300);
+    }
 }
 
 static void Sound_DoSound_Blind_Alert(void)

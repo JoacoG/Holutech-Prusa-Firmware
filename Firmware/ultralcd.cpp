@@ -1042,8 +1042,6 @@ void lcd_commands()
             switch(lcd_commands_step)
             {
             case 5:
-                enquecommand_P(G28W);
-                enquecommand_P(PSTR("G1 X125 Z200 F1000"));
                 enquecommand_P(PSTR("M109 S280"));
 #ifdef THERMAL_MODEL
                 thermal_model_set_enabled(false);
@@ -1052,6 +1050,7 @@ void lcd_commands()
                 break;
             case 4:
                 lcd_show_fullscreen_message_and_wait_P(_T(MSG_COLD_PULL_INSERT));
+                lcd_setstatuspgm(_T(MSG_LOADING_FILAMENT));
                 current_position[E_AXIS] += FILAMENTCHANGE_FIRSTFEED;
                 plan_buffer_line_curposXYZE(FILAMENTCHANGE_EFEED_FIRST);
                 current_position[E_AXIS] += 150;
@@ -1059,27 +1058,59 @@ void lcd_commands()
                 lcd_commands_step = 3;
                 break;
             case 3:
-                fanSpeed = 255;
+                fanSpeed = 85;
                 setTargetHotend(0);
+                lcd_setstatuspgm(_T(MSG_COLD_PULL_COOLING_SHORT));
                 lcd_commands_step = 2;
                 break;
             case 2:
+            {
+                static float cooling_initial_temp = 0;
+                static bool cooling_safety_checked = false;
+
                 if (!cold_pull_cooling_timer.running()) {
                     cold_pull_cooling_timer.start();
+                    cooling_initial_temp = degHotend(0);
+                    cooling_safety_checked = false;
                 }
+
+                unsigned long elapsed = cold_pull_cooling_timer.elapsed();
+
+                if (elapsed < 1000) {
+                    fanSpeed = 85;
+                } else if (elapsed < 2000) {
+                    fanSpeed = 170;
+                } else {
+                    fanSpeed = 255;
+                }
+
+                if (elapsed > 30UL * 1000 && !cooling_safety_checked) {
+                    cooling_safety_checked = true;
+                    if (cooling_initial_temp - degHotend(0) < 10) {
+                        cold_pull_cooling_timer.stop();
+                        lcd_setstatuspgm(_T(MSG_ERROR));
+                        cooling_safety_checked = false;
+                        lcd_commands_step = 0;
+                        break;
+                    }
+                }
+
                 if (cold_pull_cooling_timer.expired(5UL * 60 * 1000)) {
-                    cold_pull_cooling_timer.stop();
                     lcd_setstatuspgm(_T(MSG_TIMEOUT));
+                    cooling_safety_checked = false;
                     lcd_commands_step = 0;
                 } else if (degHotend(0) <= (90 + TEMP_WINDOW)) {
                     cold_pull_cooling_timer.stop();
+                    cooling_safety_checked = false;
                     fanSpeed = 0;
                     setTargetHotend(90);
                     disable_e0();
+                    Sound_MakeSound(e_SOUND_TYPE_StandardConfirm);
                     lcd_setstatuspgm(MSG_WELCOME);
                     lcd_commands_step = 1;
                 }
                 break;
+            }
             case 1:
                 lcd_show_fullscreen_message_and_wait_P(_T(MSG_COLD_PULL_PULL));
                 {

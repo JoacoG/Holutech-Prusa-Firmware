@@ -209,7 +209,7 @@ extern const char MSG_COLD_PULL [] PROGMEM_I1 = ISTR("Cold pull"); ////MSG_COLD_
 extern const char MSG_COLD_PULL_INSERT [] PROGMEM_I1 = ISTR("Nozzle at 280C\nInsert NPA6 filament\nand press the knob"); ////MSG_COLD_PULL_INSERT c=20 r=3
 extern const char MSG_COLD_PULL_PULL [] PROGMEM_I1 = ISTR("Nozzle at 90C.\nPull filament out\nforcefully and\npress the knob."); ////MSG_COLD_PULL_PULL c=20 r=4
 extern const char MSG_COLD_PULL_REPEAT [] PROGMEM_I1 = ISTR("Repeat cold pull?"); ////MSG_COLD_PULL_REPEAT c=20
-extern const char MSG_COLD_PULL_COOLING [] PROGMEM_I1 = ISTR("Cooling nozzle\nto 90C..."); ////MSG_COLD_PULL_COOLING c=20 r=2
+extern const char MSG_COLD_PULL_COOLING_SHORT [] PROGMEM_I1 = ISTR("Cooling to 90C"); ////MSG_COLD_PULL_COOLING_SHORT c=15
 extern const char MSG_REPRINT [] PROGMEM_I1 = ISTR("Reprint"); ////MSG_REPRINT c=18
 extern const char MSG_FILE_CNT [] PROGMEM_I1 = ISTR("Some files will not be sorted. Max. No. of files in 1 folder for sorting is 100."); ////MSG_FILE_CNT c=20 r=6
 extern const char MSG_CHANGED_MOTHERBOARD [] PROGMEM_I1 = ISTR("Warning: motherboard type changed."); ////MSG_CHANGED_MOTHERBOARD c=20 r=4
