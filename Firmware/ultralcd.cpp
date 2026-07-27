@@ -2383,28 +2383,103 @@ void show_preheat_nozzle_warning()
 
 void lcd_load_filament_color_check()
 {
-    // The total length of the individual messages MSG_YES c=4, MSG_NO c=4 and MSG_EJECT c=9 with the selectors and spaces between
-    // exceeds the LCD width.
+    // 4-choice layout on the 20-char LCD bottom row:
     // 01234567890123456789
-    // >yyyy >nnnn >eeeeeeee
-    // As long the translations of MSG_YES, MSG_NO and MSG_EJECT combined length do not exceed 15 chars, we don't have to shorten
-    // the MSG_EJECT message/translation. We can set the second_col value to the length of the first choice + the selector and space.
-    // Examples:
-    // German
-    // 01234567890123456789
-    // >Ja >Nein >Auswerfen
-    // Hungarian
-    // 01234567890123456789
-    // >Igen >Nem   >Kiadás
+    // >Y >N >Purge >Eject
+    // Columns: selector at 0(Y), 3(N), 6(Purge), 14(Eject)
+    static const char *const choices[] = {
+        PSTR("Y"),
+        PSTR("N"),
+        _T(MSG_PURGE),
+        _T(MSG_EJECT),
+    };
+    static const uint8_t choice_cols[] = {0, 3, 6, 14};
+    const uint8_t num_choices = 4;
 
-    uint8_t clean = lcd_show_multiscreen_message_with_choices_and_wait_P(_T(MSG_FILAMENT_CLEAN), false, LCD_LEFT_BUTTON_CHOICE, _T(MSG_YES), _T(MSG_NO), _T(MSG_EJECT), strlen_P(_T(MSG_YES))+2);
-    while (clean == LCD_MIDDLE_BUTTON_CHOICE) {
-        load_filament_final_feed();
-        st_synchronize();
-        clean = lcd_show_multiscreen_message_with_choices_and_wait_P(_T(MSG_FILAMENT_CLEAN), false, LCD_LEFT_BUTTON_CHOICE, _T(MSG_YES), _T(MSG_NO), _T(MSG_EJECT), strlen_P(_T(MSG_YES))+2);
-    }
-    if (clean == LCD_RIGHT_BUTTON_CHOICE) {
-        unload_filament(FILAMENTCHANGE_FINALRETRACT);
+    const char *const msg = _T(MSG_FILAMENT_CLEAN);
+    uint8_t selection = 0; // default: Y (leftmost)
+
+    while (true) {
+        const char *msg_next = msg ? lcd_display_message_fullscreen_P(msg) : NULL;
+        bool multi_screen = msg_next != NULL;
+
+        if (!msg_next) {
+            for (uint8_t i = 0; i < num_choices; i++) {
+                lcd_putc_at(choice_cols[i], 3, selection == i ? '>' : ' ');
+                lcd_puts_P(choices[i]);
+            }
+        }
+
+        lcd_consume_click();
+        KEEPALIVE_STATE(PAUSED_FOR_USER);
+
+        bool selected = false;
+        for (;;) {
+            for (uint8_t i = 0; i < 100; ++i) {
+                delay_keep_alive(50);
+                if (lcd_encoder) {
+                    if (msg_next == NULL) {
+                        if (lcd_encoder < 0 && selection > 0) {
+                            selection--;
+                        } else if (lcd_encoder > 0 && selection < num_choices - 1) {
+                            selection++;
+                        }
+                        for (uint8_t j = 0; j < num_choices; j++) {
+                            lcd_putc_at(choice_cols[j], 3, selection == j ? '>' : ' ');
+                            lcd_puts_P(choices[j]);
+                        }
+                        lcd_encoder = 0;
+                    } else {
+                        Sound_MakeSound(e_SOUND_TYPE_BlindAlert);
+                        break;
+                    }
+                }
+                if (lcd_clicked()) {
+                    if (msg_next == NULL) {
+                        selected = true;
+                        goto exit_loop;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            if (multi_screen) {
+                if (msg_next == NULL) {
+                    msg_next = msg;
+                }
+                msg_next = lcd_display_message_fullscreen_P(msg_next);
+            }
+            if (msg_next == NULL) {
+                for (uint8_t j = 0; j < num_choices; j++) {
+                    lcd_putc_at(choice_cols[j], 3, selection == j ? '>' : ' ');
+                    lcd_puts_P(choices[j]);
+                }
+            }
+        }
+exit_loop:
+        KEEPALIVE_STATE(IN_HANDLER);
+        lcd_update_enabled = true;
+        lcd_draw_update = 2;
+
+        if (!selected) continue;
+
+        switch (selection) {
+            case 0: // Y - accept
+                return;
+            case 1: // N - short extrusion (25mm), re-ask
+                load_filament_final_feed();
+                st_synchronize();
+                break;
+            case 2: // Purge - long extrusion (100mm), re-ask
+                st_synchronize();
+                current_position[E_AXIS] += FILAMENTCHANGE_FINALFEED * FILAMENTCHANGE_NOTCOLOR_MULTIPLIER;
+                plan_buffer_line_curposXYZE(FILAMENTCHANGE_EFEED_FINAL);
+                st_synchronize();
+                break;
+            case 3: // Eject - unload
+                unload_filament(FILAMENTCHANGE_FINALRETRACT);
+                return;
+        }
     }
 }
 

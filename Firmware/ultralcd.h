@@ -82,6 +82,7 @@ enum LCDButtonChoice : uint_fast8_t {
     LCD_LEFT_BUTTON_CHOICE = 0,
     LCD_MIDDLE_BUTTON_CHOICE = 1,
     LCD_RIGHT_BUTTON_CHOICE = 2,
+    LCD_FOURTH_BUTTON_CHOICE = 3,
     LCD_BUTTON_TIMEOUT      = 0xFF,
 };
 

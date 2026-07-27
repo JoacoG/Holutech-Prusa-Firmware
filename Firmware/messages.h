@@ -260,6 +260,7 @@ extern const char MSG_NOT_LOADED [];
 extern const char MSG_NOT_COLOR [];
 extern const char MSG_LONG_EXTRUSION [];
 extern const char MSG_SHORT_EXTRUSION [];
+extern const char MSG_PURGE [];
 #ifndef REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
 extern const char MSG_AUTOLOADING_ENABLED [];
 #endif //REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
