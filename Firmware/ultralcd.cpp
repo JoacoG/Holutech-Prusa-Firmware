@@ -4605,9 +4605,9 @@ static void lcd_menu_maintenance()
 {
     MENU_BEGIN();
     MENU_ITEM_BACK_P(_T(MSG_BACK));
+    MENU_ITEM_SUBMENU_P(_T(MSG_MOVE_Z), lcd_move_z_maintenance);
     MENU_ITEM_FUNCTION_P(_T(MSG_COLD_PULL), lcd_cold_pull);
     MENU_ITEM_FUNCTION_P(_T(MSG_NOZZLE_CNG_MENU), nozzle_change);
-    MENU_ITEM_SUBMENU_P(_T(MSG_MOVE_Z), lcd_move_z_maintenance);
     MENU_ITEM_FUNCTION_P(_T(MSG_SELFTEST), lcd_selftest_v);
 #ifdef TMC2130
     MENU_ITEM_FUNCTION_P(_T(MSG_BELTTEST), lcd_belttest_v);
