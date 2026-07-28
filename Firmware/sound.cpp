@@ -19,6 +19,7 @@ static void Sound_SaveMode(void);
 static void Sound_DoSound_Echo(void);
 static void Sound_DoSound_Prompt(void);
 static void Sound_DoSound_Alert(bool bOnce);
+static void Sound_DoSound_Confirm(void);
 static void Sound_DoSound_Encoder_Move(void);
 static void Sound_DoSound_Blind_Alert(void);
 
