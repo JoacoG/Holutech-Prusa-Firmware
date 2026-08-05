@@ -384,6 +384,11 @@ void recover_print(uint8_t automatic) {
             KEEPALIVE_STATE(IN_HANDLER);
         }
 
+        // The SD card wait loop disabled LCD updates, re-enable them so the
+        // confirmation screen below and subsequent recovery steps are shown.
+        lcd_update_enable(true);
+        lcd_show_fullscreen_message_and_wait_P(_T(MSG_SD_CARD_DETECTED_PRESS_KNOB));
+
         // Verify the saved file actually exists on the SD card
         {
             char filename_check[FILENAME_LENGTH];
