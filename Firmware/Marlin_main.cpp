@@ -5001,15 +5001,42 @@ void process_commands()
                 lcd_consume_click();
                 lcd_display_message_fullscreen_P(_T(MSG_PRESS_KNOB_RESUME));
                 KEEPALIVE_STATE(PAUSED_FOR_USER);
-                while (!lcd_clicked() && CHECK_ALL_HEATERS) {
+                // Watch the hotend target specifically: the bed is intentionally
+                // kept warm during recovery so CHECK_ALL_HEATERS would stay true.
+                while (!lcd_clicked() && (target_temperature[active_extruder] != 0)) {
                     delay_keep_alive(10);
                 }
 
-                if (CHECK_ALL_HEATERS) {
+                if (target_temperature[active_extruder] != 0) {
                     break; // Normal path: user pressed knob before safety timer fired
                 }
 
-                // Safety timer disabled heaters while waiting
+                if (target_temperature_bed != 0) {
+                    // Safety timer cooled only the nozzle; the bed was kept warm
+                    // so the print stays stuck. Require an explicit knob press to
+                    // confirm the reheat.
+                    lcd_consume_click();
+                    lcd_display_message_fullscreen_P(_T(MSG_NOZZLE_SAFETY_COOLING));
+                    while (!lcd_clicked()) {
+                        delay_keep_alive(10);
+                    }
+
+                    // Restart the safety timer so it cannot fire in the middle of
+                    // the reheat and sabotage it. handleSafetyTimer() will re-arm
+                    // a fresh 30-minute window once the nozzle is hot again.
+                    safetyTimer.stop();
+                    uint16_t t_hotend_target = eeprom_read_word((uint16_t*)EEPROM_UVLO_TARGET_HOTEND);
+                    setTargetHotend((int)t_hotend_target);
+                    lcd_display_message_fullscreen_P(_T(MSG_HEATING));
+                    while (isHeatingHotend(active_extruder)) {
+                        delay_keep_alive(1000);
+                    }
+                    // Loop back to show "Press knob to resume print" again
+                    continue;
+                }
+
+                // Unexpected full cooldown (thermal error, kill, ...): keep the
+                // legacy confirm dialog as a safety net.
                 const uint8_t btn = lcd_show_multiscreen_message_yes_no_and_wait_P(
                     _T(MSG_REHEAT_AND_RESUME), false);
                 if (btn != LCD_LEFT_BUTTON_CHOICE) {
@@ -8910,9 +8937,19 @@ static void handleSafetyTimer()
     }
     else if (safetyTimer.expired(farm_mode?FARM_DEFAULT_SAFETYTIMER_TIME_ms:safetytimer_inactive_time))
     {
-        disable_heater();
-        lcd_show_fullscreen_message_and_wait_P(_T(MSG_BED_HEATING_SAFETY_DISABLED));
-        lcd_return_to_status();
+#ifdef UVLO_SUPPORT
+        if (printer_recovering()) {
+            // During power panic recovery keep the bed warm so the print stays
+            // stuck to the bed; cool only the nozzle. The M997 wait screen
+            // handles the explicit "reheat to resume" prompt for the user.
+            disable_hotend();
+        } else
+#endif //UVLO_SUPPORT
+        {
+            disable_heater();
+            lcd_show_fullscreen_message_and_wait_P(_T(MSG_BED_HEATING_SAFETY_DISABLED));
+            lcd_return_to_status();
+        }
     }
 }
 #endif //SAFETYTIMER

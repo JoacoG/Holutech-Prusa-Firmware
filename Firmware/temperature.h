@@ -158,6 +158,7 @@ FORCE_INLINE bool isCoolingBed() {
 
 int getHeaterPower(int heater);
 void disable_heater(); // Disable all heaters *instantaneously*
+void disable_hotend(); // Disable the hotend heater *instantaneously*, leave the bed untouched
 void updatePID();
 
 

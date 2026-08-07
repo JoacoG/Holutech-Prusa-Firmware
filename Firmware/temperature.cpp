@@ -1985,6 +1985,23 @@ void disable_heater()
   }
 }
 
+void disable_hotend()
+{
+  setTargetHotend(0);
+
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+      // propagate all values down the chain
+      setIsrTargetTemperatures();
+      temp_mgr_pid();
+
+      // we can't call soft_pwm_core directly to toggle the pin as it would require removing the inline
+      // attribute, so disable the hotend pin individually
+#if defined(HEATER_0_PIN) && HEATER_0_PIN > -1 && EXTRUDERS > 0
+      WRITE(HEATER_0_PIN,LOW);
+#endif
+  }
+}
+
 static void check_min_temp_raw()
 {
     static bool bCheckingOnHeater = false; // state variable, which allows to short no-checking delay (is set, when temperature is (first time) over heaterMintemp)
