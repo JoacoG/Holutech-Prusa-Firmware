@@ -49,3 +49,10 @@ For menu system patterns, read `.opencode/patterns/menu-system.md` before editin
 
 ## Tools
 - `tools/` contains host-side Python utilities (EEPROM dump, crash parsing, thermal model decoding). Not part of the firmware build.
+
+## Commits
+- After every answer from a Build subagent, check `git status` for uncommitted changes.
+- If changes exist, suggest a single one-line commit message summarizing all uncommitted work.
+- Use Conventional Commits prefix (`feat:`, `fix:`, `refactor:`, `chore:`, etc.).
+- Keep message ≤50 chars, descriptive, no body.
+- Example: `feat: add print queue sorting to production view`
