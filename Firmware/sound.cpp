@@ -236,3 +236,48 @@ void sound_wait_for_user_reset()
      beep_timer.stop();
      bFirst = false;
 }
+
+// Print finished notification: 3 groups of 3 rapid beeps.
+static constexpr uint8_t PRINT_FINISHED_GROUPS = 3;
+static constexpr uint8_t PRINT_FINISHED_BEEPS_PER_GROUP = 3;
+static constexpr uint16_t PRINT_FINISHED_BEEP_MS = 80;
+static constexpr uint16_t PRINT_FINISHED_BEEP_TONE_HZ = 1000;
+static constexpr uint16_t PRINT_FINISHED_SHORT_GAP_MS = 120;
+static constexpr uint16_t PRINT_FINISHED_LONG_GAP_MS = 800;
+static uint8_t print_finished_group; // number of already played groups
+static uint8_t print_finished_beep;  // number of already played beeps in current group
+static ShortTimer print_finished_timer;
+
+/// @brief Handles the "print finished" notification sound.
+/// Must be non-blocking, called repeatedly from the main loop.
+/// Plays 3 groups of 3 rapid beeps. Respects the sound mode.
+void sound_print_finished() {
+#if BEEPER > 0
+     if (eSoundMode == e_SOUND_MODE_SILENT) return;
+     if (print_finished_group >= PRINT_FINISHED_GROUPS) return;
+
+     // Wait between groups (800 ms) or between beeps (120 ms). No delay before the first beep.
+     if (print_finished_timer.running() && !print_finished_timer.expired(
+         print_finished_beep == 0 ? PRINT_FINISHED_LONG_GAP_MS : PRINT_FINISHED_SHORT_GAP_MS))
+     {
+          return;
+     }
+
+     Sound_MakeCustom(PRINT_FINISHED_BEEP_MS, PRINT_FINISHED_BEEP_TONE_HZ, false);
+     print_finished_beep++;
+     print_finished_timer.start();
+
+     if (print_finished_beep >= PRINT_FINISHED_BEEPS_PER_GROUP) {
+          print_finished_beep = 0;
+          print_finished_group++;
+     }
+#endif // BEEPER > 0
+}
+
+/// @brief Resets the global state of sound_print_finished()
+void sound_print_finished_reset()
+{
+     print_finished_group = 0;
+     print_finished_beep = 0;
+     print_finished_timer.stop();
+}

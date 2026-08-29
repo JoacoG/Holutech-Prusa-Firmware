@@ -289,6 +289,11 @@ extern uint16_t print_time_to_change_silent;
 
 extern LongTimer safetyTimer;
 
+// Post-print keep-warm: after a print finishes, keep the nozzle and bed
+// heated for a limited time unless the user interacts with the knob.
+void post_print_keep_warm_start();
+void post_print_keep_warm_cancel();
+
 #define PRINT_PERCENT_DONE_INIT 0xff
 
 // Returns true if there is a print running. It does not matter if

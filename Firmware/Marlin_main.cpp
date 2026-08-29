@@ -162,6 +162,38 @@ bool did_pause_print;
 LongTimer safetyTimer;
 static LongTimer crashDetTimer;
 
+// Post-print keep-warm: after a print finishes the nozzle and bed stay heated
+// for POST_PRINT_KEEP_WARM_MS unless the user interacts with the knob, in
+// which case the printer cools down as usual.
+static constexpr uint32_t POST_PRINT_KEEP_WARM_MS = 5UL * 60UL * 1000UL;
+static float post_print_saved_nozzle_target = 0;
+static float post_print_saved_bed_target = 0;
+static bool post_print_keep_warm_active = false;
+static LongTimer post_print_keep_warm_timer;
+
+void post_print_keep_warm_start()
+{
+    if (post_print_keep_warm_active) return;
+
+    // The slicer end-gcode (M104 S0 / M140 S0) is processed before the
+    // firmware notices the print has finished. Restore the last non-zero
+    // targets so the keep-warm period really holds the temperature.
+    if (target_temperature[0] == 0 && post_print_saved_nozzle_target > 0)
+        setTargetHotend(post_print_saved_nozzle_target);
+    if (target_temperature_bed == 0 && post_print_saved_bed_target > 0)
+        setTargetBed(post_print_saved_bed_target);
+
+    post_print_keep_warm_active = true;
+    post_print_keep_warm_timer.start();
+    sound_print_finished_reset();
+}
+
+void post_print_keep_warm_cancel()
+{
+    post_print_keep_warm_active = false;
+    post_print_keep_warm_timer.stop();
+}
+
 bool mesh_bed_leveling_flag = false;
 
 uint32_t total_filament_used; // unit mm/100 or 10um
@@ -1722,6 +1754,7 @@ void loop()
 	}
 	else if (usb_timer.expired(USB_TIMER_TIMEOUT)) { //just need to check if it expired. Nothing else is needed to be done.
         SetPrinterState(PrinterState::HostPrintingFinished); //set printer state to show LCD menu after finished SD print
+        post_print_keep_warm_start();
 	}
 
 #ifdef PRUSA_M28
@@ -5406,7 +5439,9 @@ void process_commands()
     {
           if (code_seen('S'))
           {
-              setTargetHotend(code_value());
+              float temp = code_value();
+              if (temp > 0) post_print_saved_nozzle_target = temp;
+              setTargetHotend(temp);
           }
           break;
     }
@@ -5429,7 +5464,11 @@ void process_commands()
        - `S` - Target temperature
     */
     case 140:
-      if (code_seen('S')) setTargetBed(code_value());
+      if (code_seen('S')) {
+          float temp = code_value();
+          if (temp > 0) post_print_saved_bed_target = temp;
+          setTargetBed(temp);
+      }
       break;
 
     /*!
@@ -5519,9 +5558,13 @@ void process_commands()
         autotemp_enabled=false;
       #endif
       if (code_seen('S')) {
-          setTargetHotend(code_value());
+          float temp = code_value();
+          if (temp > 0) post_print_saved_nozzle_target = temp;
+          setTargetHotend(temp);
             } else if (code_seen('R')) {
-                setTargetHotend(code_value());
+                float temp = code_value();
+                if (temp > 0) post_print_saved_nozzle_target = temp;
+                setTargetHotend(temp);
       }
       #ifdef AUTOTEMP
         if (code_seen('S')) autotemp_min=code_value();
@@ -5570,12 +5613,16 @@ void process_commands()
         prusa_statistics(1);
         if (code_seen('S'))
 		{
-          setTargetBed(code_value());
+          float temp = code_value();
+          if (temp > 0) post_print_saved_bed_target = temp;
+          setTargetBed(temp);
           CooldownNoWait = true;
         }
 		else if (code_seen('R'))
 		{
-          setTargetBed(code_value());
+          float temp = code_value();
+          if (temp > 0) post_print_saved_bed_target = temp;
+          setTargetBed(temp);
         }
         codenum = _millis();
 
@@ -8927,7 +8974,7 @@ void controllerFan()
  */
 static void handleSafetyTimer()
 {
-    if (printer_active() || !(CHECK_ALL_HEATERS) || !safetytimer_inactive_time)
+    if (printer_active() || post_print_keep_warm_active || !(CHECK_ALL_HEATERS) || !safetytimer_inactive_time)
     {
         safetyTimer.stop();
     }
@@ -8965,6 +9012,18 @@ void manage_inactivity(bool ignore_stepper_queue/*=false*/) //default argument s
 #ifdef SAFETYTIMER
 	handleSafetyTimer();
 #endif //SAFETYTIMER
+
+    if (post_print_keep_warm_active) {
+        sound_print_finished();
+        if (!CHECK_ALL_HEATERS) {
+            // Heaters were turned off externally (thermal error, power panic, ...),
+            // nothing to keep warm anymore.
+            post_print_keep_warm_cancel();
+        } else if (post_print_keep_warm_timer.expired(POST_PRINT_KEEP_WARM_MS)) {
+            post_print_keep_warm_cancel();
+            disable_heater();
+        }
+    }
 
 #if defined(KILL_PIN) && KILL_PIN > -1
 	static int killCount = 0;   // make the inactivity button a bit less responsive

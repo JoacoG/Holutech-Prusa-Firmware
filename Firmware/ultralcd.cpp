@@ -1175,6 +1175,7 @@ static void lcd_move_menu_axis();
 
 static void lcd_cooldown()
 {
+  post_print_keep_warm_cancel(); // user explicitly wants to cool down
   disable_heater();
   fanSpeed = 0;
   lcd_return_to_status();
@@ -7765,6 +7766,7 @@ void lcd_heat_bed_on_load_toggle()
 
 void lcd_reprint_from_eeprom() {
     restore_file_from_sd();
+    post_print_keep_warm_cancel(); // a new print is starting
 
     // M24: Start/resume SD print
     enquecommand_P(MSG_M24);
@@ -7775,5 +7777,6 @@ void lcd_reprint_from_eeprom() {
 void lcd_send_action_start()
 {
     SERIAL_PROTOCOLLNRPGM(MSG_HOST_ACTION_START);
+    post_print_keep_warm_cancel(); // a new print is starting
     lcd_return_to_status();
 }

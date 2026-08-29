@@ -509,6 +509,9 @@ void lcd_knob_update() {
 	if (lcd_backlight_wake_trigger) {
 		lcd_backlight_wake_trigger = false;
 		backlight_wake();
+		// Any knob activity means the user is at the printer - cancel the
+		// post-print keep-warm period.
+		post_print_keep_warm_cancel();
 		bool did_rotate = false;
 		ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 			if (abs(lcd_encoder_diff) >= ENCODER_PULSES_PER_STEP) {

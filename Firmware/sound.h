@@ -39,6 +39,8 @@ extern void Sound_MakeSound(eSOUND_TYPE eSoundType);
 extern void Sound_MakeCustom(uint16_t ms,uint16_t tone_ ,bool critical);
 void sound_wait_for_user();
 void sound_wait_for_user_reset();
+void sound_print_finished();
+void sound_print_finished_reset();
 
 //static void Sound_DoSound_Echo(void);
 //static void Sound_DoSound_Prompt(void);

@@ -263,6 +263,7 @@ void CardReader::startFileprint()
   {
     sdprinting = true;
     SetPrinterState(PrinterState::IsSDPrinting); //set printer state to hide LCD menu
+    post_print_keep_warm_cancel(); // a new print is starting
 	#ifdef SDCARD_SORT_ALPHA
 		//flush_presort();
 	#endif
@@ -1015,6 +1016,7 @@ void CardReader::printingHasFinished()
           //enquecommand_P(PSTR(SD_FINISHED_RELEASECOMMAND));
       }
       autotempShutdown();
+      post_print_keep_warm_start();
 	  #ifdef SDCARD_SORT_ALPHA
 		  //presort();
 	  #endif
