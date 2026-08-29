@@ -344,6 +344,7 @@ extern const char MSG_CALIBRATE_BED_RESET [];
 extern const char MSG_SELECT [];
 extern const char MSG_RENAME [];
 extern const char MSG_PREHEAT [];
+extern const char MSG_NOZZLE_PREHEAT [];
 extern const char MSG_CNG_SDCARD [];
 extern const char MSG_NO_CARD [];
 extern const char MSG_INIT_SDCARD [];

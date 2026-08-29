@@ -345,6 +345,7 @@ extern const char MSG_CALIBRATE_BED_RESET [] PROGMEM_I1 = ISTR("Reset XYZ calibr
 extern const char MSG_SELECT [] PROGMEM_I1 = ISTR("Select"); ////MSG_SELECT c=18
 extern const char MSG_RENAME [] PROGMEM_I1 = ISTR("Rename"); ////MSG_RENAME c=18
 extern const char MSG_PREHEAT [] PROGMEM_I1 = ISTR("Preheat"); ////MSG_PREHEAT c=18
+extern const char MSG_NOZZLE_PREHEAT [] PROGMEM_I1 = ISTR("Preheat nozzle"); ////MSG_NOZZLE_PREHEAT c=18
 extern const char MSG_CNG_SDCARD [] PROGMEM_I1 = ISTR("Change SD card"); ////MSG_CNG_SDCARD c=18
 extern const char MSG_NO_CARD [] PROGMEM_I1 = ISTR("No SD card"); ////MSG_NO_CARD c=18
 extern const char MSG_INIT_SDCARD [] PROGMEM_I1 = ISTR("Init. SD card"); ////MSG_INIT_SDCARD c=18

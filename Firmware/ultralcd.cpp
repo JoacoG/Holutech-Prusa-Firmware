@@ -1591,6 +1591,13 @@ static void lcd_preheat_menu()
     lcd_generic_preheat_menu();
 }
 
+//! @brief Show Preheat Nozzle Menu (heats only the nozzle)
+static void lcd_preheat_nozzle_menu()
+{
+    eFilamentAction = FilamentAction::PreheatNozzle;
+    lcd_generic_preheat_menu();
+}
+
 
 #ifdef MENU_DUMP
 #include "xflash_dump.h"
@@ -1898,6 +1905,7 @@ bool shouldPreheatOnlyNozzle() {
         case FilamentAction::MmuLoadingTest:
         case FilamentAction::MmuEject:
         case FilamentAction::MmuCut:
+        case FilamentAction::PreheatNozzle:
             return true;
         default:
             return false;
@@ -1936,6 +1944,7 @@ static void mFilamentPrompt() {
         case FilamentAction::MmuCut:
         case FilamentAction::None:
         case FilamentAction::Preheat:
+        case FilamentAction::PreheatNozzle:
         case FilamentAction::Lay1Cal:
             break;
     }
@@ -1965,6 +1974,7 @@ static void mFilamentPrompt() {
             case FilamentAction::MmuCut:
             case FilamentAction::None:
             case FilamentAction::Preheat:
+            case FilamentAction::PreheatNozzle:
             case FilamentAction::Lay1Cal:
                 break;
         }
@@ -1993,7 +2003,7 @@ void mFilamentItem(uint16_t nTemp, uint16_t nTempBed)
 
     {
         const FilamentAction action = eFilamentAction;
-        if (action == FilamentAction::Preheat || action == FilamentAction::Lay1Cal)
+        if (action == FilamentAction::Preheat || action == FilamentAction::PreheatNozzle || action == FilamentAction::Lay1Cal)
         {
             lcd_return_to_status();
             if (action == FilamentAction::Lay1Cal)
@@ -2062,6 +2072,7 @@ void mFilamentItem(uint16_t nTemp, uint16_t nTempBed)
             break;
         case FilamentAction::None:
         case FilamentAction::Preheat:
+        case FilamentAction::PreheatNozzle:
         case FilamentAction::Lay1Cal:
             // handled earlier
             break;
@@ -2120,6 +2131,7 @@ void mFilamentItem(uint16_t nTemp, uint16_t nTempBed)
                 break;
             case FilamentAction::None:
             case FilamentAction::Preheat:
+            case FilamentAction::PreheatNozzle:
             case FilamentAction::Lay1Cal:
                 // handled earlier
                 break;
@@ -2230,7 +2242,7 @@ void lcd_generic_preheat_menu()
         MENU_ITEM_SUBMENU_P(bPreheatOnlyNozzle ? PSTR("PLA  -  " STRINGIFY(PLA_PREHEAT_HOTEND_TEMP))  : PSTR("PLA  -  " STRINGIFY(PLA_PREHEAT_HOTEND_TEMP)   "/" STRINGIFY(PLA_PREHEAT_HPB_TEMP)),  mFilamentItem_PLA);
         MENU_ITEM_SUBMENU_P(bPreheatOnlyNozzle ? PSTR("ASA  -  " STRINGIFY(ASA_PREHEAT_HOTEND_TEMP))  : PSTR("ASA  -  " STRINGIFY(ASA_PREHEAT_HOTEND_TEMP)   "/" STRINGIFY(ASA_PREHEAT_HPB_TEMP)),  mFilamentItem_ASA);
     }
-    if (!eeprom_read_byte((uint8_t*)EEPROM_WIZARD_ACTIVE) && eFilamentAction == FilamentAction::Preheat) MENU_ITEM_FUNCTION_P(_T(MSG_COOLDOWN), lcd_cooldown);
+    if (!eeprom_read_byte((uint8_t*)EEPROM_WIZARD_ACTIVE) && (eFilamentAction == FilamentAction::Preheat || eFilamentAction == FilamentAction::PreheatNozzle)) MENU_ITEM_FUNCTION_P(_T(MSG_COOLDOWN), lcd_cooldown);
     MENU_END();
 }
 
@@ -4616,6 +4628,7 @@ static void lcd_menu_maintenance()
     MENU_ITEM_BACK_P(_T(MSG_BACK));
     MENU_ITEM_FUNCTION_P(_T(MSG_COLD_PULL), lcd_cold_pull);
     MENU_ITEM_FUNCTION_P(_T(MSG_NOZZLE_CNG_MENU), nozzle_change);
+    MENU_ITEM_SUBMENU_P(_T(MSG_NOZZLE_PREHEAT), lcd_preheat_nozzle_menu);
     MENU_ITEM_FUNCTION_P(_T(MSG_SELFTEST), lcd_selftest_v);
 #ifdef TMC2130
     MENU_ITEM_FUNCTION_P(_T(MSG_BELTTEST), lcd_belttest_v);

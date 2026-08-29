@@ -193,6 +193,7 @@ enum class FilamentAction : uint_least8_t
     MmuCut,
     MmuLoadingTest,
     Preheat, // triggered by preheat (cancellable)
+    PreheatNozzle, // triggered by nozzle-only preheat (cancellable)
     Lay1Cal, // triggered by 1st layer calibration (cancellable)
 };
 
