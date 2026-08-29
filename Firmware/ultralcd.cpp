@@ -5654,10 +5654,10 @@ static void lcd_main_menu()
     MENU_ITEM_SUBMENU_P(_T(MSG_SUPPORT), lcd_support_menu);
 
     if (!printer_active())
-        MENU_ITEM_SUBMENU_P(_T(MSG_MAINTENANCE), lcd_menu_maintenance);
+        MENU_ITEM_SUBMENU_P(_T(MSG_QUICK_ACCESS), lcd_menu_quick_access);
 
     if (!printer_active())
-        MENU_ITEM_SUBMENU_P(_T(MSG_QUICK_ACCESS), lcd_menu_quick_access);
+        MENU_ITEM_SUBMENU_P(_T(MSG_MAINTENANCE), lcd_menu_maintenance);
 
     MENU_END();
 }
