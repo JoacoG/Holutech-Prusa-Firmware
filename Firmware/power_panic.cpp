@@ -310,7 +310,9 @@ void check_uvlo_adc() {
 
     if (raw < UVLO_ADC_THRESHOLD_RAW) {
         if (++low_cnt >= UVLO_ADC_DEBOUNCE) {
-            uvlo_trigger_source = 1;
+            EIMSK &= ~(1 << 4); // disable INT4 so it can't nest during uvlo_()
+            // If INT4 is already low, the comparator has triggered too → blackout
+            uvlo_trigger_source = (PINE & (1 << 4)) ? 1 : 0;
             uvlo_();
         }
     } else {
