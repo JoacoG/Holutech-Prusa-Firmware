@@ -87,6 +87,7 @@ const char MSG_PULL_OUT_FILAMENT[] PROGMEM_I1 = ISTR("Please pull out filament i
 const char MSG_QUICK_ACCESS[] PROGMEM_I1 = ISTR("Quick access"); ////MSG_QUICK_ACCESS c=12
 extern const char MSG_MAINTENANCE [] PROGMEM_I1 = ISTR("Maintenance"); ////MSG_MAINTENANCE c=18
 const char MSG_RECOVER_PRINT[] PROGMEM_I1 = ISTR("Blackout occurred. Recover print?"); ////MSG_RECOVER_PRINT c=20 r=3
+const char MSG_RECOVER_PRINT_ADC[] PROGMEM_I1 = ISTR("Voltage drop.\nRecover print?"); ////MSG_RECOVER_PRINT_ADC c=20 r=2
 const char MSG_REFRESH[] PROGMEM_I1 = ISTR(LCD_STR_REFRESH "Refresh"); ////MSG_REFRESH c=18
 const char MSG_REMOVE_STEEL_SHEET[] PROGMEM_I1 = ISTR("Please remove steel sheet from heatbed."); ////MSG_REMOVE_STEEL_SHEET c=20 r=4
 const char MSG_RESET[] PROGMEM_I1 = ISTR("Reset"); ////MSG_RESET c=14

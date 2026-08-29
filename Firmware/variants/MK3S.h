@@ -656,6 +656,10 @@
 #define UVLO_TINY_Z_AXIS_SHIFT 0.16
 // If power panic occured, and the current temperature is higher then target temperature before interrupt minus this offset, print will be recovered automatically.
 #define AUTOMATIC_UVLO_BED_TEMP_OFFSET 5
+// ADC-based power panic early warning: trigger uvlo_() when the PSU voltage drops below
+// this level (raw ADC value, 19.0 V) for UVLO_ADC_DEBOUNCE consecutive temperature cycles.
+#define UVLO_ADC_THRESHOLD_RAW 11917U // 19.0 V
+#define UVLO_ADC_DEBOUNCE 3
 
 #define HEATBED_V2
 

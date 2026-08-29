@@ -14,6 +14,7 @@
 #include "mesh_bed_leveling.h"
 #include "mesh_bed_calibration.h"
 #include "messages.h"
+#include "Marlin.h"
 #include "planner.h"
 #include "power_panic.h"
 #include "stepper.h"
@@ -25,6 +26,9 @@
 static const char MSG_INT4[] PROGMEM = "INT4";
 
 bool uvlo_wait_for_knob = false;
+
+// 0 = triggered by the hardware comparator (INT4), 1 = triggered by the ADC voltage monitor
+uint8_t uvlo_trigger_source = 0;
 
 static bool recover_machine_state_after_power_panic();
 static void restore_print_from_eeprom(bool mbl_was_active);
@@ -210,6 +214,7 @@ void uvlo_() {
     }
 
     eeprom_update_byte_notify((uint8_t*)EEPROM_UVLO, PowerPanic::PENDING_RECOVERY);
+    eeprom_update_byte_notify((uint8_t*)EEPROM_UVLO_TRIGGER_SOURCE, uvlo_trigger_source);
 
     // Increment power failure counter
     eeprom_increment_byte((uint8_t*)EEPROM_POWER_COUNT);
@@ -291,6 +296,29 @@ static void uvlo_tiny() {
     uvlo_drain_reset();
 }
 
+#ifdef UVLO_ADC_THRESHOLD_RAW
+void check_uvlo_adc() {
+    static uint8_t low_cnt = 0;
+
+    if (!printer_active()) { low_cnt = 0; return; }
+    if (eeprom_read_byte((uint8_t*)EEPROM_UVLO) != PowerPanic::NO_PENDING_RECOVERY) { low_cnt = 0; return; }
+
+    int raw;
+    cli();
+    raw = current_voltage_raw_pwr;
+    sei();
+
+    if (raw < UVLO_ADC_THRESHOLD_RAW) {
+        if (++low_cnt >= UVLO_ADC_DEBOUNCE) {
+            uvlo_trigger_source = 1;
+            uvlo_();
+        }
+    } else {
+        low_cnt = 0;
+    }
+}
+#endif //UVLO_ADC_THRESHOLD_RAW
+
 void setup_uvlo_interrupt() {
     DDRE &= ~(1 << 4); //input pin
     PORTE &= ~(1 << 4); //no internal pull-up
@@ -316,6 +344,7 @@ ISR(INT4_vect) {
     if (eeprom_read_byte((uint8_t*)EEPROM_UVLO) == PowerPanic::NO_PENDING_RECOVERY)
     {
         if(printer_active()) {
+            uvlo_trigger_source = 0;
             uvlo_();
         }
     } else {

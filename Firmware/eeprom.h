@@ -494,6 +494,7 @@ static_assert(sizeof(Sheets) == EEPROM_SHEETS_SIZEOF, "Sizeof(Sheets) is not EEP
 
 #define EEPROM_FREE_NR4         (EEPROM_UVLO_SAVED_SEGMENT_IDX - 1) // uint8_t
 #define EEPROM_FREE_NR5         (EEPROM_FREE_NR4 - 1) // uint8_t
+#define EEPROM_UVLO_TRIGGER_SOURCE EEPROM_FREE_NR4 // uint8_t: 0=INT4, 1=ADC
 
 #define EEPROM_CRASH_DET        (EEPROM_FREE_NR5 - 1)      // uint8_t
 #define EEPROM_CRASH_COUNT_Y    (EEPROM_CRASH_DET - 1)     // uint8_t

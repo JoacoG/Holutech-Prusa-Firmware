@@ -89,6 +89,7 @@ extern const char MSG_PULL_OUT_FILAMENT[];
 extern const char MSG_QUICK_ACCESS[];
 extern const char MSG_MAINTENANCE [];
 extern const char MSG_RECOVER_PRINT[];
+extern const char MSG_RECOVER_PRINT_ADC[];
 extern const char MSG_REFRESH[];
 extern const char MSG_REMOVE_STEEL_SHEET[];
 extern const char MSG_RESET[];

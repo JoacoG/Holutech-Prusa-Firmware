@@ -1617,7 +1617,9 @@ void setup()
         if (saved_printing_type == PowerPanic::PRINT_TYPE_HOST) {
           recover_print(0);
         } else {
-          const uint8_t btn = lcd_show_multiscreen_message_yes_no_and_wait_P(_T(MSG_RECOVER_PRINT), false);
+          uint8_t trigger_source = eeprom_read_byte((uint8_t*)EEPROM_UVLO_TRIGGER_SOURCE);
+          const char *msg = (trigger_source == 1) ? _T(MSG_RECOVER_PRINT_ADC) : _T(MSG_RECOVER_PRINT);
+          const uint8_t btn = lcd_show_multiscreen_message_yes_no_and_wait_P(msg, false);
           if ( btn == LCD_LEFT_BUTTON_CHOICE) {
             recover_print(0);
           } else { // LCD_MIDDLE_BUTTON_CHOICE
@@ -1852,6 +1854,9 @@ void loop()
   //check heater every n milliseconds
   manage_heater();
   manage_inactivity(printingIsPaused());
+#ifdef UVLO_ADC_THRESHOLD_RAW
+  check_uvlo_adc();
+#endif //UVLO_ADC_THRESHOLD_RAW
   checkHitEndstops();
   lcd_update(0);
 #ifdef TMC2130
@@ -3989,6 +3994,7 @@ void process_commands()
 
                 // Print is recovered, clear the recovery flag
                 eeprom_update_byte_notify((uint8_t*)EEPROM_UVLO, PowerPanic::NO_PENDING_RECOVERY);
+                eeprom_update_byte_notify((uint8_t*)EEPROM_UVLO_TRIGGER_SOURCE, 0);
                 eeprom_update_byte_notify((uint8_t*)EEPROM_UVLO_Z_LIFTED, 0);
             } else if (eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE) == PowerPanic::PRINT_TYPE_HOST) {
                 // For Host prints we need to start the timer so that the pause has any effect
@@ -10364,6 +10370,7 @@ void restore_print_from_ram_and_continue(float e_move)
 void cancel_saved_printing()
 {
     eeprom_update_byte_notify((uint8_t*)EEPROM_UVLO, PowerPanic::NO_PENDING_RECOVERY);
+    eeprom_update_byte_notify((uint8_t*)EEPROM_UVLO_TRIGGER_SOURCE, 0);
     eeprom_update_byte_notify((uint8_t*)EEPROM_UVLO_Z_LIFTED, 0);
     saved_start_position[0] = SAVED_START_POSITION_UNSET;
     saved_printing_type = PowerPanic::PRINT_TYPE_NONE;
