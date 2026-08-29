@@ -143,6 +143,7 @@ static void lcd_selftest_v();
 
 static void lcd_cold_pull();
 static void lcd_menu_maintenance();
+static void lcd_menu_quick_access();
 
 #ifdef TMC2130
 static void reset_crash_det(uint8_t axis);
@@ -4613,7 +4614,6 @@ static void lcd_menu_maintenance()
 {
     MENU_BEGIN();
     MENU_ITEM_BACK_P(_T(MSG_BACK));
-    MENU_ITEM_SUBMENU_P(_T(MSG_MOVE_Z), lcd_move_z_maintenance);
     MENU_ITEM_FUNCTION_P(_T(MSG_COLD_PULL), lcd_cold_pull);
     MENU_ITEM_FUNCTION_P(_T(MSG_NOZZLE_CNG_MENU), nozzle_change);
     MENU_ITEM_FUNCTION_P(_T(MSG_SELFTEST), lcd_selftest_v);
@@ -4621,6 +4621,19 @@ static void lcd_menu_maintenance()
     MENU_ITEM_FUNCTION_P(_T(MSG_BELTTEST), lcd_belttest_v);
 #endif //TMC2130
     MENU_ITEM_SUBMENU_P(_T(MSG_PID_EXTRUDER), pid_extruder);
+    MENU_END();
+}
+
+static void lcd_menu_quick_access()
+{
+    MENU_BEGIN();
+    MENU_ITEM_BACK_P(_T(MSG_BACK));
+    MENU_ITEM_SUBMENU_P(_T(MSG_MOVE_Z), lcd_move_z_maintenance);
+    MENU_ITEM_SUBMENU_P(_T(MSG_EXTRUDER), lcd_move_e);
+#ifdef FILAMENT_SENSOR
+    MENU_ITEM_TOGGLE_P(_T(MSG_FSENSOR), fsensor.isEnabled() ? _T(MSG_ON) : _T(MSG_OFF), lcd_fsensor_enabled_set);
+#endif //FILAMENT_SENSOR
+    MENU_ITEM_SUBMENU_P(_T(MSG_BABYSTEP_Z), lcd_babystep_z);
     MENU_END();
 }
 
@@ -5629,6 +5642,9 @@ static void lcd_main_menu()
 
     if (!printer_active())
         MENU_ITEM_SUBMENU_P(_T(MSG_MAINTENANCE), lcd_menu_maintenance);
+
+    if (!printer_active())
+        MENU_ITEM_SUBMENU_P(_T(MSG_QUICK_ACCESS), lcd_menu_quick_access);
 
     MENU_END();
 }
