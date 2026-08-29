@@ -399,6 +399,7 @@ extern const char MSG_TOSHIBA_FLASH_AIR_COMPATIBILITY[];
 extern const char MSG_PINDA[];
 extern const char MSG_WELCOME[];
 extern const char MSG_BROWNOUT_RESET[];
+extern const char MSG_BROWNOUT_NO_RECOVERY[];
 extern const char MSG_EXTERNAL_RESET[];
 extern const char MSG_FILE_SAVED[];
 extern const char MSG_SOFTWARE_RESET[];

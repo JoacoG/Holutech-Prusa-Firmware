@@ -1240,6 +1240,7 @@ void setup()
 	if (mcu & 4) puts_P(MSG_BROWNOUT_RESET);
 	if (mcu & 8) puts_P(MSG_WATCHDOG_RESET);
 	if (mcu & 32) puts_P(MSG_SOFTWARE_RESET);
+	bool brownout_reset = (mcu & 4);
 	MCUSR = 0;
 
 	//SERIAL_ECHORPGM(MSG_MARLIN);
@@ -1624,6 +1625,10 @@ void setup()
           }
         }
       }
+  }
+
+  if (brownout_reset && !printer_recovering()) {
+      lcd_show_fullscreen_message_and_wait_P(MSG_BROWNOUT_NO_RECOVERY);
   }
 
   // Only arm the uvlo interrupt _after_ a recovering print has been initialized and

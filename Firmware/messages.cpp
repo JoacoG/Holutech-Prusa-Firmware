@@ -399,6 +399,7 @@ const char MSG_TOSHIBA_FLASH_AIR_COMPATIBILITY[] PROGMEM_N1 = "FlashAir"; ////MS
 const char MSG_PINDA[] PROGMEM_N1 = "PINDA"; ////MSG_PINDA c=5
 const char MSG_WELCOME[] PROGMEM_N1 = WELCOME_MSG;
 const char MSG_BROWNOUT_RESET[] PROGMEM_N1 = " Brown out Reset"; ////
+const char MSG_BROWNOUT_NO_RECOVERY[] PROGMEM_N1 = "Power fluctuation\ndetected.\nPrint recovery\nnot possible."; ////MSG_BROWNOUT_NO_RECOVERY c=20 r=4
 const char MSG_EXTERNAL_RESET[] PROGMEM_N1 = " External Reset"; ////
 const char MSG_FILE_SAVED[] PROGMEM_N1 = "Done saving file."; ////
 const char MSG_SOFTWARE_RESET[] PROGMEM_N1 = " Software Reset"; ////
