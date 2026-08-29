@@ -7602,7 +7602,7 @@ void menu_lcd_longpress_func(void)
 #endif
         || menu_menu == lcd_support_menu
         ){
-            menu_submenu(lcd_move_z);
+            menu_submenu(lcd_menu_quick_access);
         } else {
             lcd_quick_feedback();
         }
