@@ -676,7 +676,14 @@ void lcdui_print_status_screen(void)
 	//Print the Bed temperature (9 chars total)
 	lcdui_print_temp(LCD_STR_BEDTEMP[0], (int)(degBed() + 0.5), (int)(degTargetBed() + 0.5));
 
+#ifdef FILAMENT_SENSOR
+	// Filament sensor status indicator: '_' when enabled, warning sign when disabled
+	lcd_space(1);
+	lcd_putc(fsensor.isEnabled() ? '_' : LCD_STR_FSENSOR_OFF[0]);
+	lcd_space(1);
+#else
 	lcd_space(3); //3 spaces
+#endif
 
 #ifdef PLANNER_DIAGNOSTICS
 	//Print planner diagnostics (8 chars)
