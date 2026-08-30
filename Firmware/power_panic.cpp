@@ -303,7 +303,7 @@ void check_uvlo_adc() {
     if (!printer_active()) { low_cnt = 0; return; }
     if (eeprom_read_byte((uint8_t*)EEPROM_UVLO) != PowerPanic::NO_PENDING_RECOVERY) { low_cnt = 0; return; }
 
-    int raw;
+    uint16_t raw;
     cli();
     raw = current_voltage_raw_pwr;
     sei();
