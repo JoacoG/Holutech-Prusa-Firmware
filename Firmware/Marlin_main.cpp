@@ -159,6 +159,8 @@ int extrudemultiply=100; //100->1 200->2
 bool homing_flag = false;
 bool did_pause_print;
 
+bool lcd_longpause_keep_warm = false;
+
 LongTimer safetyTimer;
 static LongTimer crashDetTimer;
 
@@ -7281,6 +7283,7 @@ void process_commands()
             st_synchronize();
             ClearToSend(); //send OK even before the command finishes executing because we want to make sure it is not skipped because of cmdqueue_pop_front();
             cmdqueue_pop_front(); //trick because we want skip this command (M601) after restore
+            lcd_longpause_keep_warm = true;
             lcd_pause_print();
         }
     }
@@ -10064,9 +10067,13 @@ void long_pause() //long pause print
 {
 	st_synchronize();
 
-    // Stop heaters
-    heating_status = HeatingStatus::NO_HEATING;
-    setTargetHotend(0);
+    if (!lcd_longpause_keep_warm)
+    {
+        // Stop heaters
+        heating_status = HeatingStatus::NO_HEATING;
+        setTargetHotend(0);
+    }
+    lcd_longpause_keep_warm = false;
 
     // Lift z
     raise_z(pause_position[Z_AXIS]);

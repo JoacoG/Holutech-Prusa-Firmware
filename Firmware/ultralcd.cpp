@@ -1152,7 +1152,7 @@ void lcd_return_to_status()
     eFilamentAction = FilamentAction::None; // i.e. non-autoLoad
 }
 
-//! @brief Pause print, disable nozzle heater, move to park position, send host action "paused"
+//! @brief Pause print, move to park position, send host action "paused"
 void lcd_pause_print()
 {
     stop_and_save_print_to_ram(0.0, -default_retraction);
@@ -1167,6 +1167,15 @@ void lcd_pause_print()
     // return to status is required to continue processing in the main loop!
     lcd_commands_type = LcdCommands::LongPause;
     lcd_return_to_status();
+}
+
+extern bool lcd_longpause_keep_warm;
+
+//! @brief Pause print, keep nozzle warm, move to park position, send host action "paused"
+void lcd_pause_print_manual()
+{
+    lcd_longpause_keep_warm = true;
+    lcd_pause_print();
 }
 
 //! @brief Send host action "pause"
@@ -5526,7 +5535,7 @@ static void lcd_main_menu()
             if (usb_timer.running()) {
                 MENU_ITEM_FUNCTION_P(_T(MSG_PAUSE_PRINT), lcd_pause_usb_print);
             } else if (IS_SD_PRINTING) {
-                MENU_ITEM_FUNCTION_P(_T(MSG_PAUSE_PRINT), lcd_pause_print);
+                MENU_ITEM_FUNCTION_P(_T(MSG_PAUSE_PRINT), lcd_pause_print_manual);
             }
         }
     }
