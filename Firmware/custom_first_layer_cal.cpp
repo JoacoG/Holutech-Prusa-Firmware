@@ -46,6 +46,7 @@ static const char extrude_fmt_Y[] PROGMEM = "G1Y%.4fE%.4f";
 
 void custom_lay1cal_before_print()
 {
+    static const char cmd_mbl[] PROGMEM = "G80"; // mesh bed leveling before the print
     static const char cmd_zero[] PROGMEM = "G92E0";
     static const char cmd_abs[] PROGMEM = "G90";
     static const char cmd_retract[] PROGMEM = "G1E-1.5F2100";
@@ -57,6 +58,10 @@ void custom_lay1cal_before_print()
     s_infill_line_count = 0;
     s_infill_started = false;
 
+    // Re-measure the bed mesh. G80 finishes with the Z axis lifted to a safe
+    // height, so the subsequent G1Z5 lift and the pattern header's drop to
+    // layer_height keep the nozzle clear until the print begins.
+    enquecommand_P(cmd_mbl);
     enquecommand_P(cmd_zero);
     enquecommand_P(cmd_abs);
     enquecommand_P(MSG_M83); // use relative distances for extrusion
