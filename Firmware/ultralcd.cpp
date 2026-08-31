@@ -1901,6 +1901,9 @@ void lcd_cutter_enabled()
 #endif //MMU_HAS_CUTTER
 
 bool shouldPreheatOnlyNozzle() {
+    if (eFilamentAction == FilamentAction::PreheatNozzle)
+        return true;
+
     uint8_t eeprom_setting = eeprom_read_byte((uint8_t*)EEPROM_HEAT_BED_ON_LOAD_FILAMENT);
     if (eeprom_setting != 0)
         return false;
@@ -1914,7 +1917,6 @@ bool shouldPreheatOnlyNozzle() {
         case FilamentAction::MmuLoadingTest:
         case FilamentAction::MmuEject:
         case FilamentAction::MmuCut:
-        case FilamentAction::PreheatNozzle:
             return true;
         default:
             return false;
