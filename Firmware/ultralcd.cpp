@@ -678,9 +678,9 @@ void lcdui_print_status_screen(void)
 	lcdui_print_temp(LCD_STR_BEDTEMP[0], (int)(degBed() + 0.5), (int)(degTargetBed() + 0.5));
 
 #ifdef FILAMENT_SENSOR
-	// Filament sensor status indicator: '_' when enabled, warning sign when disabled
+	// Filament sensor status indicator: check mark when enabled, X when disabled
 	lcd_space(1);
-	lcd_putc(fsensor.isEnabled() ? '_' : LCD_STR_FSENSOR_OFF[0]);
+	lcd_putc(fsensor.isEnabled() ? LCD_STR_CONFIRM[0] : 'X');
 	lcd_space(1);
 #else
 	lcd_space(3); //3 spaces
