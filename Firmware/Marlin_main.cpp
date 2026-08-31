@@ -596,6 +596,7 @@ bool __attribute__((noinline)) babystep_allowed() {
         && !mesh_bed_leveling_flag
         && !printingIsPaused()
         && ((lcd_commands_type == LcdCommands::Layer1Cal && CHECK_ALL_HEATERS)
+            || (lcd_commands_type == LcdCommands::CustomLayer1Cal && CHECK_ALL_HEATERS)
             || printJobOngoing()
             || lcd_commands_type == LcdCommands::Idle
         )

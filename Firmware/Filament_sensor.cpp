@@ -117,6 +117,7 @@ void Filament_sensor::triggerFilamentInserted() {
             || moves_planned() != 0
             || printJobOngoing()
             || (lcd_commands_type == LcdCommands::Layer1Cal)
+            || (lcd_commands_type == LcdCommands::CustomLayer1Cal)
             || eeprom_read_byte((uint8_t *)EEPROM_WIZARD_ACTIVE)
             )
         ) {
@@ -136,6 +137,7 @@ void Filament_sensor::triggerFilamentRemoved() {
             saved_printing
             || MMU2::mmu2.Enabled() // quick and dirty hack to prevent spurious runouts just before the toolchange
             || (lcd_commands_type == LcdCommands::Layer1Cal)
+            || (lcd_commands_type == LcdCommands::CustomLayer1Cal)
             || eeprom_read_byte((uint8_t *)EEPROM_WIZARD_ACTIVE)
         )
     ){

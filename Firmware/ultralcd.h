@@ -126,6 +126,7 @@ enum class LcdCommands : uint_least8_t
 	LongPause,
 	PidExtruder,
 	Layer1Cal,
+	CustomLayer1Cal,
 #ifdef THERMAL_MODEL
     ThermalModel,
 #endif //THERMAL_MODEL
@@ -195,6 +196,7 @@ enum class FilamentAction : uint_least8_t
     Preheat, // triggered by preheat (cancellable)
     PreheatNozzle, // triggered by nozzle-only preheat (cancellable)
     Lay1Cal, // triggered by 1st layer calibration (cancellable)
+    Lay1CalCustom, // triggered by custom first layer calibration print (cancellable)
 };
 
 extern FilamentAction eFilamentAction;

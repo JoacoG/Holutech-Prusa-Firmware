@@ -213,6 +213,7 @@ set(FW_SOURCES
     cmdqueue.cpp
     Configuration.cpp
     ConfigurationStore.cpp
+    custom_first_layer_cal.cpp
     Dcodes.cpp
     eeprom.cpp
     fancheck.cpp

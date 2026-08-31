@@ -39,6 +39,7 @@
 
 #include "static_assert.h"
 #include "first_lay_cal.h"
+#include "custom_first_layer_cal.h"
 
 #include "adc.h"
 #include "config.h"
@@ -115,6 +116,9 @@ static void lcd_menu_fails_stats_mmu_print();
 static void lcd_menu_fails_stats_mmu_total();
 static void lcd_menu_toolchange_stats_mmu_total();
 static void lcd_v2_calibration();
+static void lcd_live_z_small();
+static void lcd_live_z_small_reset();
+static void lcd_first_layer_prints_menu();
 //static void lcd_menu_show_sensors_state();      // NOT static due to using inside "Marlin_main" module ("manage_inactivity()")
 
 static void mmu_fil_eject_menu();
@@ -885,6 +889,56 @@ void lcd_commands()
                 lay1cal_finish();
                 break;
             case 1:
+                lcd_setstatuspgm(MSG_WELCOME);
+                lcd_commands_step = 0;
+                lcd_commands_type = LcdCommands::Idle;
+                SetPrinterState(PrinterState::Idle);
+                if (eeprom_read_byte((uint8_t*)EEPROM_WIZARD_ACTIVE))
+                    lcd_wizard(WizState::RepeatLay1Cal);
+                break;
+            }
+        }
+    }
+
+	if (lcd_commands_type == LcdCommands::CustomLayer1Cal)
+	{
+		const uint16_t nozzle_dia = eeprom_read_word((uint16_t*)EEPROM_NOZZLE_DIAMETER_uM);
+		const float extrusion_width = (nozzle_dia + 20)/1000.0f;
+		const float layer_height = 0.2f;
+
+        if (!blocks_queued() && cmd_buffer_empty() && !saved_printing)
+        {
+            if (lcd_commands_step == 0)
+                lcd_commands_step = 6;
+            else
+                lcd_commands_step--;
+
+            switch(lcd_commands_step)
+            {
+            case 6:
+                lay1cal_wait_preheat();
+                break;
+            case 5:
+                extraPurgeNeeded = lay1cal_load_filament(lay1cal_filament);
+                break;
+            case 4:
+                lcd_clear();
+                menu_depth = 0;
+                menu_submenu(lcd_babystep_z, true);
+                lay1cal_intro_line(extraPurgeNeeded, layer_height, extrusion_width);
+                break;
+            case 3:
+                custom_lay1cal_before_print();
+                break;
+            case 2:
+                // Enqueue the custom pattern in batches. Stay here while more remain.
+                if (custom_lay1cal_print_step(layer_height, extrusion_width))
+                    lcd_commands_step = 3;
+                break;
+            case 1:
+                lay1cal_finish();
+                break;
+            case 0:
                 lcd_setstatuspgm(MSG_WELCOME);
                 lcd_commands_step = 0;
                 lcd_commands_type = LcdCommands::Idle;
@@ -1957,6 +2011,7 @@ static void mFilamentPrompt() {
         case FilamentAction::Preheat:
         case FilamentAction::PreheatNozzle:
         case FilamentAction::Lay1Cal:
+        case FilamentAction::Lay1CalCustom:
             break;
     }
 
@@ -1987,6 +2042,7 @@ static void mFilamentPrompt() {
             case FilamentAction::Preheat:
             case FilamentAction::PreheatNozzle:
             case FilamentAction::Lay1Cal:
+            case FilamentAction::Lay1CalCustom:
                 break;
         }
     }
@@ -2014,12 +2070,17 @@ void mFilamentItem(uint16_t nTemp, uint16_t nTempBed)
 
     {
         const FilamentAction action = eFilamentAction;
-        if (action == FilamentAction::Preheat || action == FilamentAction::PreheatNozzle || action == FilamentAction::Lay1Cal)
+        if (action == FilamentAction::Preheat || action == FilamentAction::PreheatNozzle || action == FilamentAction::Lay1Cal || action == FilamentAction::Lay1CalCustom)
         {
             lcd_return_to_status();
             if (action == FilamentAction::Lay1Cal)
             {
                 lcd_commands_type = LcdCommands::Layer1Cal;
+            }
+            else if (action == FilamentAction::Lay1CalCustom)
+            {
+                lcd_commands_step = 0;
+                lcd_commands_type = LcdCommands::CustomLayer1Cal;
             }
             else
             {
@@ -2085,6 +2146,7 @@ void mFilamentItem(uint16_t nTemp, uint16_t nTempBed)
         case FilamentAction::Preheat:
         case FilamentAction::PreheatNozzle:
         case FilamentAction::Lay1Cal:
+        case FilamentAction::Lay1CalCustom:
             // handled earlier
             break;
         }
@@ -2144,6 +2206,7 @@ void mFilamentItem(uint16_t nTemp, uint16_t nTempBed)
             case FilamentAction::Preheat:
             case FilamentAction::PreheatNozzle:
             case FilamentAction::Lay1Cal:
+            case FilamentAction::Lay1CalCustom:
                 // handled earlier
                 break;
             }
@@ -2234,7 +2297,7 @@ void lcd_generic_preheat_menu()
         ON_MENU_LEAVE(
             clearFilamentAction();
         );
-        MENU_ITEM_BACK_P(_T(eFilamentAction == FilamentAction::Lay1Cal ? MSG_BACK : MSG_MAIN));
+        MENU_ITEM_BACK_P(_T((eFilamentAction == FilamentAction::Lay1Cal || eFilamentAction == FilamentAction::Lay1CalCustom) ? MSG_BACK : MSG_MAIN));
     }
     if (farm_mode)
     {
@@ -3902,6 +3965,95 @@ void lcd_v2_calibration() {
 	menu_goto(lcd_generic_preheat_menu, 0, true);
 }
 
+//! @brief Continue custom first layer print with previous value or start from zero?
+//!
+//! Mirrors lcd_first_layer_calibration_reset() but continues to the custom
+//! Live-Z_Small print instead of the stock first layer calibration.
+static void lcd_live_z_small_reset()
+{
+    typedef struct
+    {
+        bool reset;
+    } MenuData;
+    static_assert(sizeof(menu_data)>= sizeof(MenuData),"_menu_data_t doesn't fit into menu_data");
+    MenuData* menuData = (MenuData*)&(menu_data[0]);
+
+    if(LCD_CLICKED || !eeprom_is_sheet_initialized(eeprom_read_byte(&(EEPROM_Sheets_base->active_sheet))) ||
+            (!calibration_status_get(CALIBRATION_STATUS_LIVE_ADJUST)) ||
+            (0 == static_cast<int16_t>(eeprom_read_word(reinterpret_cast<uint16_t*>
+            (&EEPROM_Sheets_base->s[(eeprom_read_byte(&(EEPROM_Sheets_base->active_sheet)))].z_offset)))))
+    {
+        if (menuData->reset)
+        {
+            eeprom_update_word_notify(reinterpret_cast<uint16_t*>(&EEPROM_Sheets_base->s[(eeprom_read_byte(&(EEPROM_Sheets_base->active_sheet)))].z_offset), 0xffff);
+        }
+
+        // If the knob was clicked, don't produce feedback
+        // It should only be done when the firmware changes the menu
+        // on its own (silently)
+        menu_goto(lcd_live_z_small, 0, true, !lcd_clicked());
+    }
+
+    if (lcd_encoder) {
+        menuData->reset = lcd_encoder > 0;
+        lcd_encoder = 0; // Reset
+    }
+
+    char sheet_name[sizeof(Sheet::name)];
+    eeprom_read_block(sheet_name, &EEPROM_Sheets_base->s[(eeprom_read_byte(&(EEPROM_Sheets_base->active_sheet)))].name, sizeof(Sheet::name));
+    lcd_home();
+    float offset = static_cast<int16_t>(eeprom_read_word(reinterpret_cast<uint16_t*>(&EEPROM_Sheets_base->s[(eeprom_read_byte(&(EEPROM_Sheets_base->active_sheet)))].z_offset)))/cs.axis_steps_per_mm[Z_AXIS];
+    lcd_printf_P(_T(MSG_SHEET_OFFSET),
+            sheet_name, offset, menuData->reset ? ' ' : '>', menuData->reset ? '>' : ' ');
+
+}
+
+//! @brief Entry point for the custom Live-Z_Small first layer print.
+//!
+//! Mirrors lcd_v2_calibration() without MMU support: checks filament presence
+//! (when the wizard is not active), then continues to the preheat menu.
+static void lcd_live_z_small()
+{
+#ifdef FILAMENT_SENSOR
+    if (!eeprom_read_byte((uint8_t*)EEPROM_WIZARD_ACTIVE))
+    {
+        bool loaded = false;
+        if (fsensor.isReady()) {
+            loaded = fsensor.getFilamentPresent();
+        } else {
+            loaded = !lcd_show_multiscreen_message_yes_no_and_wait_P(_T(MSG_FILAMENT_LOADED), false, LCD_MIDDLE_BUTTON_CHOICE);
+            lcd_update_enabled = true;
+        }
+
+        if (!loaded) {
+            lcd_display_message_fullscreen_P(_T(MSG_PLEASE_LOAD_PLA));
+            lcd_consume_click();
+            for (uint_least8_t i = 0; i < 20; i++) { //wait max. 2s
+                delay_keep_alive(100);
+                if (lcd_clicked()) {
+                    break;
+                }
+            }
+            lcd_update_enabled = true;
+            menu_back();
+            return;
+        }
+    }
+#endif //FILAMENT_SENSOR
+
+    eFilamentAction = FilamentAction::Lay1CalCustom;
+    menu_goto(lcd_generic_preheat_menu, 0, true);
+}
+
+//! @brief Submenu listing the available custom first layer calibration prints.
+static void lcd_first_layer_prints_menu()
+{
+    MENU_BEGIN();
+    MENU_ITEM_BACK_P(_T(MSG_BACK));
+    MENU_ITEM_SUBMENU_P(_N("Live-Z_Small"), lcd_live_z_small_reset);
+    MENU_END();
+}
+
 void lcd_wizard() {
 	bool result = true;
 	if (calibration_status_get(CALIBRATION_WIZARD_STEPS)) {
@@ -4645,6 +4797,7 @@ static void lcd_menu_maintenance()
     MENU_ITEM_FUNCTION_P(_T(MSG_BELTTEST), lcd_belttest_v);
 #endif //TMC2130
     MENU_ITEM_SUBMENU_P(_T(MSG_PID_EXTRUDER), pid_extruder);
+    MENU_ITEM_SUBMENU_P(_N("First layer prints"), lcd_first_layer_prints_menu);
     MENU_END();
 }
 
@@ -5506,7 +5659,7 @@ static void lcd_main_menu()
     }
 
     // Menu is never shown when idle
-    if (babystep_allowed_strict() && (printJobOngoing() || lcd_commands_type == LcdCommands::Layer1Cal))
+    if (babystep_allowed_strict() && (printJobOngoing() || lcd_commands_type == LcdCommands::Layer1Cal || lcd_commands_type == LcdCommands::CustomLayer1Cal))
         MENU_ITEM_SUBMENU_P(_T(MSG_BABYSTEP_Z), lcd_babystep_z);//8
 
     if (farm_mode)
@@ -7721,7 +7874,7 @@ void menu_lcd_lcdupdate_func(void)
 		lcd_next_update_millis = _millis() + LCD_UPDATE_INTERVAL;
 	}
 	prusa_statistics_update_from_lcd_update();
-	if (lcd_commands_type == LcdCommands::Layer1Cal) lcd_commands();
+	if (lcd_commands_type == LcdCommands::Layer1Cal || lcd_commands_type == LcdCommands::CustomLayer1Cal) lcd_commands();
 }
 
 #ifdef TMC2130
