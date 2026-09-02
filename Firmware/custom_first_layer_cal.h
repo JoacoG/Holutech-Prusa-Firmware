@@ -4,6 +4,9 @@
 #ifndef FIRMWARE_CUSTOM_FIRST_LAYER_CAL_H_
 #define FIRMWARE_CUSTOM_FIRST_LAYER_CAL_H_
 
+//! @brief Enqueue the custom short intro line (matches the Live-Z G-code).
+void custom_lay1cal_intro_line();
+
 //! @brief Enqueue setup commands before printing the custom pattern.
 //! Resets the internal batch state for a fresh print.
 void custom_lay1cal_before_print();

@@ -912,36 +912,55 @@ void lcd_commands()
         if (!blocks_queued() && cmd_buffer_empty() && !saved_printing)
         {
             if (lcd_commands_step == 0)
-                lcd_commands_step = 6;
+                lcd_commands_step = 10;
             else
                 lcd_commands_step--;
 
             switch(lcd_commands_step)
             {
-            case 6:
-                lay1cal_wait_preheat();
+            case 10:
+                // Start heating, do not wait for the target temperatures.
+                enquecommandf_P(PSTR("M140S%d"), PETG_PREHEAT_HPB_TEMP);
+                enquecommandf_P(PSTR("M104S%d"), PETG_PREHEAT_HOTEND_TEMP);
                 break;
-            case 5:
-                extraPurgeNeeded = lay1cal_load_filament(lay1cal_filament);
+            case 9:
+                // Home all axes while the heaters are warming up.
+                enquecommand_P(PSTR("G28"));
                 break;
-            case 4:
+            case 8:
+                // Wait for the nozzle to reach temperature. The bed keeps
+                // heating up in the background while the intro line and the
+                // mesh bed leveling run.
+                enquecommandf_P(PSTR("M109S%d"), PETG_PREHEAT_HOTEND_TEMP);
+                break;
+            case 7:
                 lcd_clear();
                 menu_depth = 0;
                 menu_submenu(lcd_babystep_z, true);
-                lay1cal_intro_line(extraPurgeNeeded, layer_height, extrusion_width);
+                lcd_setstatuspgm(_N("Live-Z"));
+                custom_lay1cal_intro_line();
                 break;
-            case 3:
+            case 6:
+                // Mesh bed leveling over the print region only. Runs while the
+                // bed is still heating up.
+                enquecommand_P(PSTR("G80 X85.1229 Y65.1229 W79.7542 H79.7542"));
+                break;
+            case 5:
+                // Wait for the bed to reach temperature (usually already done).
+                enquecommandf_P(PSTR("M190S%d"), PETG_PREHEAT_HPB_TEMP);
+                break;
+            case 4:
                 custom_lay1cal_before_print();
                 break;
-            case 2:
+            case 3:
                 // Enqueue the custom pattern in batches. Stay here while more remain.
                 if (custom_lay1cal_print_step(layer_height, extrusion_width))
-                    lcd_commands_step = 3;
+                    lcd_commands_step = 4;
                 break;
-            case 1:
+            case 2:
                 lay1cal_finish();
                 break;
-            case 0:
+            case 1:
                 lcd_setstatuspgm(MSG_WELCOME);
                 lcd_commands_step = 0;
                 lcd_commands_type = LcdCommands::Idle;
@@ -2014,7 +2033,6 @@ static void mFilamentPrompt() {
         case FilamentAction::Preheat:
         case FilamentAction::PreheatNozzle:
         case FilamentAction::Lay1Cal:
-        case FilamentAction::Lay1CalCustom:
             break;
     }
 
@@ -2045,7 +2063,6 @@ static void mFilamentPrompt() {
             case FilamentAction::Preheat:
             case FilamentAction::PreheatNozzle:
             case FilamentAction::Lay1Cal:
-            case FilamentAction::Lay1CalCustom:
                 break;
         }
     }
@@ -2073,17 +2090,12 @@ void mFilamentItem(uint16_t nTemp, uint16_t nTempBed)
 
     {
         const FilamentAction action = eFilamentAction;
-        if (action == FilamentAction::Preheat || action == FilamentAction::PreheatNozzle || action == FilamentAction::Lay1Cal || action == FilamentAction::Lay1CalCustom)
+        if (action == FilamentAction::Preheat || action == FilamentAction::PreheatNozzle || action == FilamentAction::Lay1Cal)
         {
             lcd_return_to_status();
             if (action == FilamentAction::Lay1Cal)
             {
                 lcd_commands_type = LcdCommands::Layer1Cal;
-            }
-            else if (action == FilamentAction::Lay1CalCustom)
-            {
-                lcd_commands_step = 0;
-                lcd_commands_type = LcdCommands::CustomLayer1Cal;
             }
             else
             {
@@ -2149,7 +2161,6 @@ void mFilamentItem(uint16_t nTemp, uint16_t nTempBed)
         case FilamentAction::Preheat:
         case FilamentAction::PreheatNozzle:
         case FilamentAction::Lay1Cal:
-        case FilamentAction::Lay1CalCustom:
             // handled earlier
             break;
         }
@@ -2209,7 +2220,6 @@ void mFilamentItem(uint16_t nTemp, uint16_t nTempBed)
             case FilamentAction::Preheat:
             case FilamentAction::PreheatNozzle:
             case FilamentAction::Lay1Cal:
-            case FilamentAction::Lay1CalCustom:
                 // handled earlier
                 break;
             }
@@ -2300,7 +2310,7 @@ void lcd_generic_preheat_menu()
         ON_MENU_LEAVE(
             clearFilamentAction();
         );
-        MENU_ITEM_BACK_P(_T((eFilamentAction == FilamentAction::Lay1Cal || eFilamentAction == FilamentAction::Lay1CalCustom) ? MSG_BACK : MSG_MAIN));
+        MENU_ITEM_BACK_P(_T(eFilamentAction == FilamentAction::Lay1Cal ? MSG_BACK : MSG_MAIN));
     }
     if (farm_mode)
     {
@@ -3905,10 +3915,9 @@ void lcd_first_layer_calibration_reset()
             eeprom_update_word_notify(reinterpret_cast<uint16_t*>(&EEPROM_Sheets_base->s[(eeprom_read_byte(&(EEPROM_Sheets_base->active_sheet)))].z_offset), 0xffff);
         }
 
-        // If the knob was clicked, don't produce feedback
-        // It should only be done when the firmware changes the menu
-        // on its own (silently)
-        menu_goto(lcd_v2_calibration, 0, true, !lcd_clicked());
+        // The menu selection click already produced feedback, so do not beep
+        // again when the menu is changed on its own.
+        menu_goto(lcd_v2_calibration, 0, true, false);
     }
 
     if (lcd_encoder) {
@@ -3991,10 +4000,9 @@ static void lcd_live_z_small_reset()
             eeprom_update_word_notify(reinterpret_cast<uint16_t*>(&EEPROM_Sheets_base->s[(eeprom_read_byte(&(EEPROM_Sheets_base->active_sheet)))].z_offset), 0xffff);
         }
 
-        // If the knob was clicked, don't produce feedback
-        // It should only be done when the firmware changes the menu
-        // on its own (silently)
-        menu_goto(lcd_live_z_small, 0, true, !lcd_clicked());
+        // The menu selection click already produced feedback, so do not beep
+        // again when the menu is changed on its own.
+        menu_goto(lcd_live_z_small, 0, true, false);
     }
 
     if (lcd_encoder) {
@@ -4011,10 +4019,11 @@ static void lcd_live_z_small_reset()
 
 }
 
-//! @brief Entry point for the custom Live-Z_Small first layer print.
+//! @brief Entry point for the custom Live-Z first layer print.
 //!
-//! Mirrors lcd_v2_calibration() without MMU support: checks filament presence
-//! (when the wizard is not active), then continues to the preheat menu.
+//! Checks filament presence (when the wizard is not active), then starts the
+//! custom print. Heating to PETG temperatures and mesh bed leveling are handled
+//! by the CustomLayer1Cal command handler.
 static void lcd_live_z_small()
 {
 #ifdef FILAMENT_SENSOR
@@ -4044,8 +4053,9 @@ static void lcd_live_z_small()
     }
 #endif //FILAMENT_SENSOR
 
-    eFilamentAction = FilamentAction::Lay1CalCustom;
-    menu_goto(lcd_generic_preheat_menu, 0, true);
+    lcd_return_to_status();
+    lcd_commands_step = 0;
+    lcd_commands_type = LcdCommands::CustomLayer1Cal;
 }
 
 //! @brief Submenu listing the available custom first layer calibration prints.
@@ -4053,7 +4063,7 @@ static void lcd_first_layer_prints_menu()
 {
     MENU_BEGIN();
     MENU_ITEM_BACK_P(_T(MSG_BACK));
-    MENU_ITEM_SUBMENU_P(_N("Live-Z_Small"), lcd_live_z_small_reset);
+    MENU_ITEM_SUBMENU_P(_N("Live-Z"), lcd_live_z_small_reset);
     MENU_END();
 }
 

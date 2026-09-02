@@ -196,7 +196,6 @@ enum class FilamentAction : uint_least8_t
     Preheat, // triggered by preheat (cancellable)
     PreheatNozzle, // triggered by nozzle-only preheat (cancellable)
     Lay1Cal, // triggered by 1st layer calibration (cancellable)
-    Lay1CalCustom, // triggered by custom first layer calibration print (cancellable)
 };
 
 extern FilamentAction eFilamentAction;

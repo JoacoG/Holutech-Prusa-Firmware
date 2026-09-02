@@ -44,9 +44,25 @@ static constexpr float spacing(float layer_height, float extrusion_width, float 
 static const char extrude_fmt_X[] PROGMEM = "G1X%.4fE%.4f";
 static const char extrude_fmt_Y[] PROGMEM = "G1Y%.4fE%.4f";
 
+void custom_lay1cal_intro_line()
+{
+    static const char cmd_m83[] PROGMEM = "M83";             // use relative distances for extrusion
+    static const char cmd_z[] PROGMEM = "G1Z0.2F720";        // drop to layer height
+    static const char cmd_y[] PROGMEM = "G1Y-3F1000";        // go outside print area
+    static const char cmd_e0[] PROGMEM = "G92E0";            // reset E
+    static const char cmd_seg1[] PROGMEM = "G1X60E9F1000";   // intro line segment 1
+    static const char cmd_seg2[] PROGMEM = "G1X100E12.5F1000"; // intro line segment 2
+
+    enquecommand_P(cmd_m83);
+    enquecommand_P(cmd_z);
+    enquecommand_P(cmd_y);
+    enquecommand_P(cmd_e0);
+    enquecommand_P(cmd_seg1);
+    enquecommand_P(cmd_seg2);
+}
+
 void custom_lay1cal_before_print()
 {
-    static const char cmd_mbl[] PROGMEM = "G80"; // mesh bed leveling before the print
     static const char cmd_zero[] PROGMEM = "G92E0";
     static const char cmd_abs[] PROGMEM = "G90";
     static const char cmd_retract[] PROGMEM = "G1E-1.5F2100";
@@ -58,10 +74,6 @@ void custom_lay1cal_before_print()
     s_infill_line_count = 0;
     s_infill_started = false;
 
-    // Re-measure the bed mesh. G80 finishes with the Z axis lifted to a safe
-    // height, so the subsequent G1Z5 lift and the pattern header's drop to
-    // layer_height keep the nozzle clear until the print begins.
-    enquecommand_P(cmd_mbl);
     enquecommand_P(cmd_zero);
     enquecommand_P(cmd_abs);
     enquecommand_P(MSG_M83); // use relative distances for extrusion
