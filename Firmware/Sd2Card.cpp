@@ -39,10 +39,22 @@ static void spiInit(uint8_t spiRate) {
   SPSR = spiRate & 1 || spiRate == 6 ? 0 : 1 << SPI2X;
 }
 //------------------------------------------------------------------------------
+/** Give up waiting for SPIF after this many loop iterations. A byte at the
+ * slowest SPI rate takes ~32 us, so this is only a safety net: without it a
+ * card that stops responding (e.g. bad contact) would hang the AVR forever.
+ */
+static const uint16_t SPI_TIMEOUT_ITER = 0x1000;
+//------------------------------------------------------------------------------
+/** Wait for an SPI transfer to finish, giving up after SPI_TIMEOUT_ITER. */
+static inline void spiWait() {
+  uint16_t t = SPI_TIMEOUT_ITER;
+  while (t && !(SPSR & (1 << SPIF))) t--;
+}
+//------------------------------------------------------------------------------
 /** SPI receive a byte */
 static uint8_t spiRec() {
   SPDR = 0XFF;
-  while (!(SPSR & (1 << SPIF))) { /* Intentionally left empty */ }
+  spiWait();
   return SPDR;
 }
 //------------------------------------------------------------------------------
@@ -52,18 +64,18 @@ void spiRead(uint8_t* buf, uint16_t nbyte) {
   if (nbyte-- == 0) return;
   SPDR = 0XFF;
   for (uint16_t i = 0; i < nbyte; i++) {
-    while (!(SPSR & (1 << SPIF))) { /* Intentionally left empty */ }
+    spiWait();
     buf[i] = SPDR;
     SPDR = 0XFF;
   }
-  while (!(SPSR & (1 << SPIF))) { /* Intentionally left empty */ }
+  spiWait();
   buf[nbyte] = SPDR;
 }
 //------------------------------------------------------------------------------
 /** SPI send a byte */
 static void spiSend(uint8_t b) {
   SPDR = b;
-  while (!(SPSR & (1 << SPIF))) { /* Intentionally left empty */ }
+  spiWait();
 }
 //------------------------------------------------------------------------------
 /** SPI send block - only one call so force inline */
@@ -71,12 +83,12 @@ static inline __attribute__((always_inline))
   void spiSendBlock(uint8_t token, const uint8_t* buf) {
   SPDR = token;
   for (uint16_t i = 0; i < 512; i += 2) {
-    while (!(SPSR & (1 << SPIF))) { /* Intentionally left empty */ }
+    spiWait();
     SPDR = buf[i];
-    while (!(SPSR & (1 << SPIF))) { /* Intentionally left empty */ }
+    spiWait();
     SPDR = buf[i + 1];
   }
-  while (!(SPSR & (1 << SPIF))) { /* Intentionally left empty */ }
+  spiWait();
 }
 //------------------------------------------------------------------------------
 #else  // SOFTWARE_SPI

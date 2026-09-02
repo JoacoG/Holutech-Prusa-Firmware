@@ -260,6 +260,9 @@ static void menu_action_sddirectory(const char* filename);
 
 #if (SDCARDDETECT > 0)
 bool lcd_oldcardstatus;
+static bool sd_detect_debounce_state;
+static uint16_t sd_detect_debounce_time;
+#define SD_DETECT_DEBOUNCE_MS 100
 #endif
 
 uint8_t selected_sheet = 0;
@@ -7618,6 +7621,7 @@ void ultralcd_init()
   WRITE(SDCARDDETECT, HIGH);
   _delay_ms(1); //wait for the pullups to raise the line
   lcd_oldcardstatus = IS_SD_INSERTED;
+  sd_detect_debounce_state = IS_SD_INSERTED;
 #endif//(SDCARDDETECT > 0)
 
   // Initialise status line
@@ -7804,7 +7808,16 @@ static inline bool other_menu_expired()
 void menu_lcd_lcdupdate_func(void)
 {
 #if (SDCARDDETECT > 0)
-	if ((IS_SD_INSERTED != lcd_oldcardstatus))
+	// Debounce the card detect pin: the mechanical contact bounces on
+	// insert/remove, which would otherwise trigger a mount and an LCD
+	// refresh while the card is still moving.
+	if (IS_SD_INSERTED != sd_detect_debounce_state)
+	{
+		sd_detect_debounce_state = IS_SD_INSERTED;
+		sd_detect_debounce_time = (uint16_t)_millis();
+	}
+	if ((uint16_t)_millis() - sd_detect_debounce_time >= SD_DETECT_DEBOUNCE_MS
+		&& sd_detect_debounce_state != lcd_oldcardstatus)
 	{
 		if(menu_menu == lcd_sdcard_menu) {
 			// If the user is either inside the submenus
@@ -7823,7 +7836,7 @@ void menu_lcd_lcdupdate_func(void)
 			menu_back();
 		}
 		lcd_draw_update = 2;
-		lcd_oldcardstatus = IS_SD_INSERTED;
+		lcd_oldcardstatus = sd_detect_debounce_state;
 		lcd_refresh(); // to maybe revive the LCD if static electricity killed it.
 		backlight_wake();
 		if (lcd_oldcardstatus)
