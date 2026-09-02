@@ -455,6 +455,15 @@ void recover_print(uint8_t automatic) {
             enquecommand_P(PSTR("M997"));
         }
     }
+    else if (eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE) == PowerPanic::PRINT_TYPE_HOST && automatic == 0)
+    {
+        // Host prints park and wait for the host after the restore moves.
+        // Reuse the SD knob-wait so the user can confirm the recovery and
+        // approve any safety-timer nozzle reheat before the printer signals
+        // the host via M79.
+        uvlo_wait_for_knob = true;
+        enquecommand_P(PSTR("M997"));
+    }
 
     // Restart the print.
     restore_print_from_eeprom(mbl_was_active);
@@ -602,6 +611,10 @@ void restore_print_from_eeprom(bool mbl_was_active) {
     {
         // Set line number
         enquecommandf_P(PSTR("M110 N%lu"), position);
+        // Authoritative resume line for the pause/resume path. The pause
+        // issued by PRUSA uvlo must not recompute this value from the
+        // recovery moves' planner/queue depths.
+        saved_sdpos = position;
     }
 
     enquecommand_P(PSTR("G4 S0"));

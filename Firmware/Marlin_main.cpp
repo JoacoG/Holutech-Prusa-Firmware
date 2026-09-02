@@ -74,6 +74,7 @@
 #include "util.h"
 #include "Timer.h"
 #include "power_panic.h"
+#include "power_panic_math.h"
 #include "Prusa_farm.h"
 
 #include <avr/wdt.h>
@@ -10102,7 +10103,6 @@ void serialecho_temperatures() {
 }
 
 void save_print_file_state() {
-    uint8_t nlines;
     uint16_t sdlen_cmdqueue;
     uint16_t sdlen_planner;
 
@@ -10115,11 +10115,15 @@ void save_print_file_state() {
         saved_printing_type = PowerPanic::PRINT_TYPE_SD;
     }
     else if (usb_timer.running()) { //reuse saved_sdpos for storing line number
-        saved_sdpos = gcode_LastN; //start with line number of command added recently to cmd queue
-        //reuse planner_calc_sd_length function for getting number of lines of commands in planner:
-        nlines = planner_calc_sd_length(); //number of lines of commands in planner
-        saved_sdpos -= nlines;
-        saved_sdpos -= buflen; //number of blocks in cmd buffer
+        if (!printer_recovering()) {
+            // During a power panic recovery saved_sdpos is already restored
+            // from EEPROM into the exact resume line. The planner/queue
+            // depths seen here belong to the recovery moves, not to the
+            // original print, so recomputing would shift the resume point.
+            saved_sdpos = power_panic_host_resume_line(gcode_LastN,
+                                                       planner_calc_sd_length(),
+                                                       buflen);
+        }
         saved_printing_type = PowerPanic::PRINT_TYPE_HOST;
     }
     else {

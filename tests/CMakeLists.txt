@@ -8,12 +8,13 @@ include(${Catch2_SOURCE_DIR}/extras/Catch.cmake)
 set(TEST_SOURCES
 	Example_test.cpp
 	PrusaStatistics_test.cpp
+	PowerPanic_test.cpp
     #Tests/Timer_test.cpp
     #Firmware/Timer.cpp
 	)
 
 add_executable(tests ${TEST_SOURCES})
-target_include_directories(tests PRIVATE tests)
+target_include_directories(tests PRIVATE tests ${CMAKE_CURRENT_SOURCE_DIR}/../Firmware)
 target_link_libraries(tests Catch2::Catch2WithMain)
 catch_discover_tests(tests)
 
