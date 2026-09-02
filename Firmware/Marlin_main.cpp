@@ -1617,17 +1617,13 @@ void setup()
 #ifdef DEBUG_UVLO_AUTOMATIC_RECOVER
         puts_P(_N("Normal recovery!"));
 #endif //DEBUG_UVLO_AUTOMATIC_RECOVER
-        if (saved_printing_type == PowerPanic::PRINT_TYPE_HOST) {
+        uint8_t trigger_source = eeprom_read_byte((uint8_t*)EEPROM_UVLO_TRIGGER_SOURCE);
+        const char *msg = (trigger_source == 1) ? _T(MSG_RECOVER_PRINT_ADC) : _T(MSG_RECOVER_PRINT);
+        const uint8_t btn = lcd_show_multiscreen_message_yes_no_and_wait_P(msg, false);
+        if ( btn == LCD_LEFT_BUTTON_CHOICE) {
           recover_print(0);
-        } else {
-          uint8_t trigger_source = eeprom_read_byte((uint8_t*)EEPROM_UVLO_TRIGGER_SOURCE);
-          const char *msg = (trigger_source == 1) ? _T(MSG_RECOVER_PRINT_ADC) : _T(MSG_RECOVER_PRINT);
-          const uint8_t btn = lcd_show_multiscreen_message_yes_no_and_wait_P(msg, false);
-          if ( btn == LCD_LEFT_BUTTON_CHOICE) {
-            recover_print(0);
-          } else { // LCD_MIDDLE_BUTTON_CHOICE
-            cancel_saved_printing();
-          }
+        } else { // LCD_MIDDLE_BUTTON_CHOICE
+          cancel_saved_printing();
         }
       }
   }
