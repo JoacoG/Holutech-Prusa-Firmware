@@ -418,7 +418,9 @@ void recover_print(uint8_t automatic) {
         // The SD card wait loop disabled LCD updates, re-enable them so the
         // confirmation screen below and subsequent recovery steps are shown.
         lcd_update_enable(true);
-        lcd_show_fullscreen_message_and_wait_P(_T(MSG_SD_CARD_DETECTED_PRESS_KNOB));
+        if (automatic == 0) {
+            lcd_show_fullscreen_message_and_wait_P(_T(MSG_SD_CARD_DETECTED_PRESS_KNOB));
+        }
 
         // Verify the saved file actually exists on the SD card
         {
@@ -448,8 +450,10 @@ void recover_print(uint8_t automatic) {
             card.cdroot(false);
         }
 
-        uvlo_wait_for_knob = true;
-        enquecommand_P(PSTR("M997"));
+        if (automatic == 0) {
+            uvlo_wait_for_knob = true;
+            enquecommand_P(PSTR("M997"));
+        }
     }
 
     // Restart the print.
