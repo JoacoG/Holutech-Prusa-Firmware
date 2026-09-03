@@ -1126,6 +1126,7 @@ void lcd_commands()
             switch(lcd_commands_step)
             {
             case 5:
+                setTargetBed(0);
                 enquecommand_P(PSTR("M109 S280"));
 #ifdef THERMAL_MODEL
                 thermal_model_set_enabled(false);
@@ -1133,14 +1134,41 @@ void lcd_commands()
                 lcd_commands_step = 4;
                 break;
             case 4:
-                lcd_show_fullscreen_message_and_wait_P(_T(MSG_COLD_PULL_INSERT));
+            {
+#ifdef FILAMENT_SENSOR
+                FSensorBlockRunout fsBlockRunout; // suppress autoload/runout while waiting for filament insertion
+#endif //FILAMENT_SENSOR
+                LcdUpdateDisabler lcdUpdateDisabler;
+                lcd_display_message_fullscreen_P(_T(MSG_COLD_PULL_INSERT));
+                lcd_consume_click();
+                KEEPALIVE_STATE(PAUSED_FOR_USER);
+                bool auto_detected = false;
+#ifdef FILAMENT_SENSOR
+                bool filament_absent = !(fsensor.isReady() && fsensor.getFilamentPresent());
+#endif //FILAMENT_SENSOR
+                for (;;) {
+                    delay_keep_alive(50);
+#ifdef FILAMENT_SENSOR
+                    if (filament_absent && fsensor.isReady() && fsensor.getFilamentPresent()) {
+                        auto_detected = true;
+                        break;
+                    }
+#endif //FILAMENT_SENSOR
+                    if (lcd_clicked())
+                        break;
+                }
+                KEEPALIVE_STATE(IN_HANDLER);
                 lcd_setstatuspgm(_T(MSG_LOADING_FILAMENT));
-                current_position[E_AXIS] += FILAMENTCHANGE_FIRSTFEED;
-                plan_buffer_line_curposXYZE(FILAMENTCHANGE_EFEED_FIRST);
-                current_position[E_AXIS] += 150;
-                plan_buffer_line_curposXYZE(FILAMENTCHANGE_EFEED_FINAL);
+                if (auto_detected) {
+                    current_position[E_AXIS] += FILAMENTCHANGE_FIRSTFEED;
+                    plan_buffer_line_curposXYZE(FILAMENTCHANGE_EFEED_FIRST);
+                }
+                load_filament_final_feed();
+                st_synchronize();
+                Sound_MakeCustom(50, 500, false);
                 lcd_commands_step = 3;
                 break;
+            }
             case 3:
                 fanSpeed = 85;
                 setTargetHotend(0);
@@ -1202,8 +1230,11 @@ void lcd_commands()
                         _T(MSG_COLD_PULL_REPEAT), false, LCD_MIDDLE_BUTTON_CHOICE);
                     if (choice == LCD_LEFT_BUTTON_CHOICE)
                         lcd_commands_step = 5;
-                    else
+                    else {
+                        setTargetHotend(0);
+                        setTargetBed(0);
                         lcd_commands_step = 0;
+                    }
                 }
                 break;
             default:
