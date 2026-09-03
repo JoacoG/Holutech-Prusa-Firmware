@@ -1274,6 +1274,13 @@ static void lcd_cooldown()
   lcd_return_to_status();
 }
 
+static void lcd_cooldown_nozzle()
+{
+  disable_hotend();
+  fanSpeed = 0;
+  lcd_return_to_status();
+}
+
 //! @brief append text label with a colon and format it into a fixed size output buffer
 //! It would have been much easier if there was a ':' in the labels.
 //! But since the texts like Bed, Nozzle and PINDA are used in other places
@@ -2329,7 +2336,13 @@ void lcd_generic_preheat_menu()
         MENU_ITEM_SUBMENU_P(bPreheatOnlyNozzle ? PSTR("PLA  -  " STRINGIFY(PLA_PREHEAT_HOTEND_TEMP))  : PSTR("PLA  -  " STRINGIFY(PLA_PREHEAT_HOTEND_TEMP)   "/" STRINGIFY(PLA_PREHEAT_HPB_TEMP)),  mFilamentItem_PLA);
         MENU_ITEM_SUBMENU_P(bPreheatOnlyNozzle ? PSTR("ASA  -  " STRINGIFY(ASA_PREHEAT_HOTEND_TEMP))  : PSTR("ASA  -  " STRINGIFY(ASA_PREHEAT_HOTEND_TEMP)   "/" STRINGIFY(ASA_PREHEAT_HPB_TEMP)),  mFilamentItem_ASA);
     }
-    if (!eeprom_read_byte((uint8_t*)EEPROM_WIZARD_ACTIVE) && (eFilamentAction == FilamentAction::Preheat || eFilamentAction == FilamentAction::PreheatNozzle)) MENU_ITEM_FUNCTION_P(_T(MSG_COOLDOWN), lcd_cooldown);
+    if (!eeprom_read_byte((uint8_t*)EEPROM_WIZARD_ACTIVE) && (eFilamentAction == FilamentAction::Preheat || eFilamentAction == FilamentAction::PreheatNozzle))
+    {
+        if (eFilamentAction == FilamentAction::PreheatNozzle)
+            MENU_ITEM_FUNCTION_P(_T(MSG_COOLDOWN_NOZZLE), lcd_cooldown_nozzle);
+        else
+            MENU_ITEM_FUNCTION_P(_T(MSG_COOLDOWN), lcd_cooldown);
+    }
     MENU_END();
 }
 
