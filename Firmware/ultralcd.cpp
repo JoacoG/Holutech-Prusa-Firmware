@@ -912,50 +912,39 @@ void lcd_commands()
         if (!blocks_queued() && cmd_buffer_empty() && !saved_printing)
         {
             if (lcd_commands_step == 0)
-                lcd_commands_step = 10;
+                lcd_commands_step = 7;
             else
                 lcd_commands_step--;
 
             switch(lcd_commands_step)
             {
-            case 10:
-                // Start heating, do not wait for the target temperatures.
+            case 7:
+                // Start heating to the PETG temperatures, then wait for both
+                // heaters (blocking, like the builtin first layer calibration).
+                // With the printer preheated these commands return immediately.
                 enquecommandf_P(PSTR("M140S%d"), PETG_PREHEAT_HPB_TEMP);
                 enquecommandf_P(PSTR("M104S%d"), PETG_PREHEAT_HOTEND_TEMP);
+                lay1cal_wait_preheat();
                 break;
-            case 9:
-                // Home all axes while the heaters are warming up.
-                enquecommand_P(PSTR("G28"));
+            case 6:
+                // Mesh bed leveling over the print region only.
+                enquecommand_P(PSTR("G80 X85.1229 Y65.1229 W79.7542 H79.7542"));
                 break;
-            case 8:
-                // Wait for the nozzle to reach temperature. The bed keeps
-                // heating up in the background while the intro line and the
-                // mesh bed leveling run.
-                enquecommandf_P(PSTR("M109S%d"), PETG_PREHEAT_HOTEND_TEMP);
-                break;
-            case 7:
+            case 5:
                 lcd_clear();
                 menu_depth = 0;
                 menu_submenu(lcd_babystep_z, true);
                 lcd_setstatuspgm(_N("Live-Z"));
                 custom_lay1cal_intro_line();
                 break;
-            case 6:
-                // Mesh bed leveling over the print region only. Runs while the
-                // bed is still heating up.
-                enquecommand_P(PSTR("G80 X85.1229 Y65.1229 W79.7542 H79.7542"));
-                break;
-            case 5:
-                // Wait for the bed to reach temperature (usually already done).
-                enquecommandf_P(PSTR("M190S%d"), PETG_PREHEAT_HPB_TEMP);
-                break;
             case 4:
                 custom_lay1cal_before_print();
                 break;
             case 3:
-                // Enqueue the custom pattern in batches. Stay here while more remain.
-                if (custom_lay1cal_print_step(layer_height, extrusion_width))
-                    lcd_commands_step = 4;
+                // Enqueue the custom pattern in batches. Stay here while more
+                // commands remain, move on only once the pattern is complete.
+                if (!custom_lay1cal_print_step(layer_height, extrusion_width))
+                    lcd_commands_step = 2;
                 break;
             case 2:
                 lay1cal_finish();
