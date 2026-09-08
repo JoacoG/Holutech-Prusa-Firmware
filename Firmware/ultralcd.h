@@ -126,7 +126,7 @@ enum class LcdCommands : uint_least8_t
 	LongPause,
 	PidExtruder,
 	Layer1Cal,
-	CustomLayer1Cal,
+	LiveZCal,
 #ifdef THERMAL_MODEL
     ThermalModel,
 #endif //THERMAL_MODEL

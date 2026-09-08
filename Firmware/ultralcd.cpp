@@ -39,7 +39,7 @@
 
 #include "static_assert.h"
 #include "first_lay_cal.h"
-#include "custom_first_layer_cal.h"
+#include "live_z_cal.h"
 
 #include "adc.h"
 #include "config.h"
@@ -58,6 +58,7 @@ FilamentAction eFilamentAction=FilamentAction::None; // must be initialized as '
 static bool bFilamentPreheatState; // True if target temperature is above min_temp
 static bool bFilamentWaitingFlag; // True if the preheat menu is waiting for the user
 static bool bFilamentSkipPreheat; // True if waiting for preheat is not required (e.g. MMU Cut and Eject)
+static bool bLiveZCal = false; // True if the pending Lay1Cal is the Live-Z print
 
 int8_t ReInitLCD = 0;
 uint8_t scrollstuff = 0;
@@ -903,7 +904,7 @@ void lcd_commands()
         }
     }
 
-	if (lcd_commands_type == LcdCommands::CustomLayer1Cal)
+	if (lcd_commands_type == LcdCommands::LiveZCal)
 	{
 		const uint16_t nozzle_dia = eeprom_read_word((uint16_t*)EEPROM_NOZZLE_DIAMETER_uM);
 		const float extrusion_width = (nozzle_dia + 20)/1000.0f;
@@ -912,42 +913,41 @@ void lcd_commands()
         if (!blocks_queued() && cmd_buffer_empty() && !saved_printing)
         {
             if (lcd_commands_step == 0)
-                lcd_commands_step = 7;
-            else
-                lcd_commands_step--;
+                lcd_commands_step = 12;
 
             switch(lcd_commands_step)
             {
-            case 7:
-                // Start heating to the PETG temperatures, then wait for both
-                // heaters (blocking, like the builtin first layer calibration).
-                // With the printer preheated these commands return immediately.
-                enquecommandf_P(PSTR("M140S%d"), PETG_PREHEAT_HPB_TEMP);
-                enquecommandf_P(PSTR("M104S%d"), PETG_PREHEAT_HOTEND_TEMP);
+            case 12:
+                // Stock preheat, then home (including Z probe) and reset E.
                 lay1cal_wait_preheat();
+                lcd_commands_step = 11;
                 break;
-            case 6:
-                // Mesh bed leveling over the print region only.
-                enquecommand_P(PSTR("G80 X85.1229 Y65.1229 W79.7542 H79.7542"));
+            case 11:
+                extraPurgeNeeded = lay1cal_load_filament(lay1cal_filament);
+                lcd_commands_step = 10;
                 break;
-            case 5:
+            case 10:
                 lcd_clear();
                 menu_depth = 0;
                 menu_submenu(lcd_babystep_z, true);
                 lcd_setstatuspgm(_N("Live-Z"));
-                custom_lay1cal_intro_line();
+                lay1cal_intro_line(extraPurgeNeeded, layer_height, extrusion_width);
+                lcd_commands_step = 9;
                 break;
-            case 4:
-                custom_lay1cal_before_print();
+            case 9:
+                live_z_setup();
+                lcd_commands_step = 8;
                 break;
-            case 3:
-                // Enqueue the custom pattern in batches. Stay here while more
-                // commands remain, move on only once the pattern is complete.
-                if (!custom_lay1cal_print_step(layer_height, extrusion_width))
+            case 8:
+                // Enqueue the pattern in batches. Stay here until complete.
+                if (!live_z_print_step(layer_height, extrusion_width))
                     lcd_commands_step = 2;
                 break;
             case 2:
+                // Restore the default flow (M221 S95 was set in live_z_setup()).
+                enquecommand_P(PSTR("M221 S100"));
                 lay1cal_finish();
+                lcd_commands_step = 1;
                 break;
             case 1:
                 lcd_setstatuspgm(MSG_WELCOME);
@@ -2103,6 +2103,7 @@ static void __attribute__((noinline)) clearFilamentAction()
 {
     // filament action has been cancelled or completed
     setFilamentAction(FilamentAction::None);
+    bLiveZCal = false;
 }
 
 /// Reset the menu stack and clear the planned filament action flag
@@ -2122,7 +2123,8 @@ void mFilamentItem(uint16_t nTemp, uint16_t nTempBed)
             lcd_return_to_status();
             if (action == FilamentAction::Lay1Cal)
             {
-                lcd_commands_type = LcdCommands::Layer1Cal;
+                lcd_commands_step = 0;
+                lcd_commands_type = bLiveZCal ? LcdCommands::LiveZCal : LcdCommands::Layer1Cal;
             }
             else
             {
@@ -4007,13 +4009,14 @@ void lcd_v2_calibration() {
 #endif //FILAMENT_SENSOR
 
 	eFilamentAction = FilamentAction::Lay1Cal;
+	bLiveZCal = false;
 	menu_goto(lcd_generic_preheat_menu, 0, true);
 }
 
-//! @brief Continue custom first layer print with previous value or start from zero?
+//! @brief Continue Live-Z first layer print with previous value or start from zero?
 //!
-//! Mirrors lcd_first_layer_calibration_reset() but continues to the custom
-//! Live-Z_Small print instead of the stock first layer calibration.
+//! Mirrors lcd_first_layer_calibration_reset() but continues to the Live-Z
+//! print instead of the stock first layer calibration.
 static void lcd_live_z_small_reset()
 {
     typedef struct
@@ -4052,11 +4055,12 @@ static void lcd_live_z_small_reset()
 
 }
 
-//! @brief Entry point for the custom Live-Z first layer print.
+//! @brief Entry point for the Live-Z first layer print.
 //!
-//! Checks filament presence (when the wizard is not active), then starts the
-//! custom print. Heating to PETG temperatures and mesh bed leveling are handled
-//! by the CustomLayer1Cal command handler.
+//! Checks filament presence (when the wizard is not active), then lets the
+//! user select the filament through the stock preheat menu, exactly like the
+//! stock first layer calibration. The preheat menu completion routes to the
+//! LiveZCal command handler via the bLiveZCal flag.
 static void lcd_live_z_small()
 {
 #ifdef FILAMENT_SENSOR
@@ -4086,12 +4090,12 @@ static void lcd_live_z_small()
     }
 #endif //FILAMENT_SENSOR
 
-    lcd_return_to_status();
-    lcd_commands_step = 0;
-    lcd_commands_type = LcdCommands::CustomLayer1Cal;
+    bLiveZCal = true;
+    eFilamentAction = FilamentAction::Lay1Cal;
+    menu_goto(lcd_generic_preheat_menu, 0, true);
 }
 
-//! @brief Submenu listing the available custom first layer calibration prints.
+//! @brief Submenu listing the available first layer calibration prints.
 static void lcd_first_layer_prints_menu()
 {
     MENU_BEGIN();
@@ -5705,7 +5709,7 @@ static void lcd_main_menu()
     }
 
     // Menu is never shown when idle
-    if (babystep_allowed_strict() && (printJobOngoing() || lcd_commands_type == LcdCommands::Layer1Cal || lcd_commands_type == LcdCommands::CustomLayer1Cal))
+    if (babystep_allowed_strict() && (printJobOngoing() || lcd_commands_type == LcdCommands::Layer1Cal || lcd_commands_type == LcdCommands::LiveZCal))
         MENU_ITEM_SUBMENU_P(_T(MSG_BABYSTEP_Z), lcd_babystep_z);//8
 
     if (farm_mode)
@@ -7930,7 +7934,7 @@ void menu_lcd_lcdupdate_func(void)
 		lcd_next_update_millis = _millis() + LCD_UPDATE_INTERVAL;
 	}
 	prusa_statistics_update_from_lcd_update();
-	if (lcd_commands_type == LcdCommands::Layer1Cal || lcd_commands_type == LcdCommands::CustomLayer1Cal) lcd_commands();
+	if (lcd_commands_type == LcdCommands::Layer1Cal || lcd_commands_type == LcdCommands::LiveZCal) lcd_commands();
 }
 
 #ifdef TMC2130

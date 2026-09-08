@@ -213,7 +213,6 @@ set(FW_SOURCES
     cmdqueue.cpp
     Configuration.cpp
     ConfigurationStore.cpp
-    custom_first_layer_cal.cpp
     Dcodes.cpp
     eeprom.cpp
     fancheck.cpp
@@ -224,6 +223,7 @@ set(FW_SOURCES
     la10compat.cpp
     language.c
     lcd.cpp
+    live_z_cal.cpp
     Marlin_main.cpp
     MarlinSerial.cpp
     meatpack.cpp
