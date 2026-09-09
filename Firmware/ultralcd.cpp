@@ -2993,6 +2993,14 @@ static void lcd_babystep_z()
 	    lcd_print(buffer.c);
 	    lcd_set_cursor(0, 1);
 		menu_draw_float13(_T(MSG_BABYSTEPPING_Z), _md->babystepMemMMZ);
+		lcd_set_cursor(0, 2);
+		lcd_printf_P(PSTR("Le:%4d\xe4m  Ri:%4d\xe4m"),
+			(int)(int8_t)eeprom_read_byte((uint8_t*)EEPROM_BED_CORRECTION_LEFT),
+			(int)(int8_t)eeprom_read_byte((uint8_t*)EEPROM_BED_CORRECTION_RIGHT));
+		lcd_set_cursor(0, 3);
+		lcd_printf_P(PSTR("Re:%4d\xe4m  Fr:%4d\xe4m"),
+			(int)(int8_t)eeprom_read_byte((uint8_t*)EEPROM_BED_CORRECTION_REAR),
+			(int)(int8_t)eeprom_read_byte((uint8_t*)EEPROM_BED_CORRECTION_FRONT));
 	}
 	if (LCD_CLICKED || menu_leaving)
 	{
