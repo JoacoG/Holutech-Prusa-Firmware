@@ -4100,6 +4100,7 @@ static void lcd_live_z_small()
 
     bLiveZCal = true;
     eFilamentAction = FilamentAction::Lay1Cal;
+    lcd_consume_click();
     menu_goto(lcd_generic_preheat_menu, 0, true);
 }
 
