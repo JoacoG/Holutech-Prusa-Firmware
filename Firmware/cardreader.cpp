@@ -996,6 +996,9 @@ void CardReader::flush_presort() {
 
 void CardReader::printingHasFinished()
 {
+#ifdef DEBUG_UVLO_SD_RECOVERY
+    printf_P(PSTR("DBG_UVLO: printingHasFinished tmr_run=%d\n"), (int)print_job_timer.isRunning());
+#endif //DEBUG_UVLO_SD_RECOVERY
     st_synchronize();
     file.close();
 

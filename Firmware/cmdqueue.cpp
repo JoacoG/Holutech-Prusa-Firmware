@@ -563,6 +563,11 @@ void get_command()
 
   #ifdef SDSUPPORT
   if(!card.sdprinting || !card.isFileOpen() || serial_count!=0){
+#ifdef DEBUG_UVLO_SD_RECOVERY
+    // Only of interest while a recovery-issued SD print is supposed to be feeding.
+    if (card.sdprinting)
+        printf_P(PSTR("DBG_UVLO: SD feed skip open=%d sern=%d\n"), (int)card.isFileOpen(), serial_count);
+#endif //DEBUG_UVLO_SD_RECOVERY
     // If there is a half filled buffer from serial line, wait until return before
     // continuing with the serial line.
      return;
@@ -653,6 +658,9 @@ void get_command()
   }
   if(card.eof())
   {
+#ifdef DEBUG_UVLO_SD_RECOVERY
+      printf_P(PSTR("DBG_UVLO: SD EOF sdpos=%lu size=%lu\n"), card.get_sdpos(), card.getFileSize());
+#endif //DEBUG_UVLO_SD_RECOVERY
       // file was fully buffered, but commands might still need to be planned!
       // do *not* clear sdprinting until all SD commands are consumed to ensure
       // SD state can be resumed from a saved printing state. sdprinting is only

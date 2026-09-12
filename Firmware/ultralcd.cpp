@@ -675,7 +675,11 @@ void lcdui_print_status_screen(void)
     //Print the hotend temperature (9 chars total)
 	lcdui_print_temp(LCD_STR_THERMOMETER[0], (int)(degHotend(0) + 0.5), (int)(degTargetHotend(0) + 0.5));
 
+#ifdef DEBUG_UVLO_SD_RECOVERY
+	lcd_puts_P(PSTR("DBG")); // debug build marker
+#else
 	lcd_space(3); //3 spaces
+#endif
 
     //Print Z-coordinate (8 chars total)
 	lcdui_print_Z_coord();

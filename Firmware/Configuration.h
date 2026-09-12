@@ -31,12 +31,12 @@ extern const char _sPrinterMmuName[] PROGMEM;
 #ifndef FW_FLAVOR
     #define FW_TWEAK (FIRMWARE_REVISION_RELEASED)
     #define FW_VERSION STR(FW_MAJOR) "." STR(FW_MINOR) "." STR(FW_REVISION)
-    #define FW_VERSION_FULL STR(FW_MAJOR) "." STR(FW_MINOR) "." STR(FW_REVISION) "-" STR(FW_COMMITNR)
+    #define FW_VERSION_FULL_BASE STR(FW_MAJOR) "." STR(FW_MINOR) "." STR(FW_REVISION) "-" STR(FW_COMMITNR)
 #else
     // Construct the TWEAK value as it is expected from the enum.
     #define FW_TWEAK (CONCAT(FIRMWARE_REVISION_,FW_FLAVOR) + FW_FLAVERSION)
     #define FW_VERSION STR(FW_MAJOR) "." STR(FW_MINOR) "." STR(FW_REVISION) "-" STR(FW_FLAVOR) "" STR(FW_FLAVERSION)
-    #define FW_VERSION_FULL STR(FW_MAJOR) "." STR(FW_MINOR) "." STR(FW_REVISION) "-" STR(FW_FLAVOR) "" STR(FW_FLAVERSION) "+" STR(FW_COMMITNR)
+    #define FW_VERSION_FULL_BASE STR(FW_MAJOR) "." STR(FW_MINOR) "." STR(FW_REVISION) "-" STR(FW_FLAVOR) "" STR(FW_FLAVERSION) "+" STR(FW_COMMITNR)
 #endif
 
 // The full version string and repository source are set via cmake
@@ -57,6 +57,12 @@ extern const char _sPrinterMmuName[] PROGMEM;
 #endif
 
 #include "Configuration_var.h"
+
+#ifdef DEBUG_UVLO_SD_RECOVERY
+#define FW_VERSION_FULL "DBG " FW_VERSION_FULL_BASE
+#else
+#define FW_VERSION_FULL FW_VERSION_FULL_BASE
+#endif
 
 #define FW_PRUSA3D_MAGIC "PRUSA3DFW"
 #define FW_PRUSA3D_MAGIC_LEN 10
