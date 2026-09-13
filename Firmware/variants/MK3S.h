@@ -22,7 +22,7 @@
 // Electronics
 #define MOTHERBOARD BOARD_EINSY_1_0a
 #define STEEL_SHEET
-//#define NEW_FIRST_LAYER_CAL //from front to back
+#define NEW_FIRST_LAYER_CAL //from front to back
 #define HAS_SECOND_SERIAL_PORT
 
 // PSU
@@ -388,7 +388,7 @@
 //Retract and then extrude some filament to prevent oozing.
 //After the loading sequence and after a print is canceled, the filament is retracted to get it out of the heat zone of the nozzle.
 //Then a small extrusion is performed to make sure the filament is close enough for the next print without oozing.
-//#define COMMUNITY_PREVENT_OOZE
+#define COMMUNITY_PREVENT_OOZE
 #ifdef COMMUNITY_PREVENT_OOZE
 #define FILAMENTCHANGE_COMMUNITY_ROOZEFEED -10 //E retract distance in mm for ooze prevention
 #define FILAMENTCHANGE_COMMUNITY_EOOZEFEED 4 //E extrude distance in mm for ooze prevention
@@ -707,6 +707,6 @@
 //#define SHOW_FILENAME_AFTER_FINISH
 
 //Remove the "AutoLoad filament" LCD menu entry if autoload is enabled.
-//#define REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
+#define REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
 
 #endif //__CONFIGURATION_PRUSA_H
