@@ -317,8 +317,14 @@ const unsigned int dropsegments=5; //everything with less than this number of st
 
 
 //The ASCII buffer for receiving from the serial:
+// BUFSIZE 4 is not enough for the power panic recovery sequence: recover_print()
+// enqueues ~20 commands (home, heat, MBL, accel, seek, resume) in one batch during
+// setup(), and with serial + SD traffic competing for the same buffer the critical
+// tail commands (M26 / G4 / PRUSA uvlo) get dropped with "Buffer full!", leaving
+// the print selected but never resumed. 8 slots (~388 extra bytes of SRAM) give
+// comfortable headroom for the full recovery burst.
 #define MAX_CMD_SIZE 96
-#define BUFSIZE 4
+#define BUFSIZE 8
 // The command header contains the following values:
 // 1st byte: the command source (CMDBUFFER_CURRENT_TYPE_USB, CMDBUFFER_CURRENT_TYPE_SDCARD, CMDBUFFER_CURRENT_TYPE_UI or CMDBUFFER_CURRENT_TYPE_CHAINED)
 // 2nd and 3rd byte (LSB first) contains a 16bit length of a command including its preceding comments.
