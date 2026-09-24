@@ -365,7 +365,7 @@ your extruder heater takes 2 minutes to hit the target on heating.
 // unknown when doing the following operations
 #define MIN_Z_FOR_LOAD    35 // lcd filament loading or autoload (values for load and unload have been unified to prevent movement between unload & load operations!)
 #define MIN_Z_FOR_UNLOAD  35 // lcd filament unloading
-#define MIN_Z_FOR_SWAP    50 // filament change (including M600)
+#define MIN_Z_FOR_SWAP    100 // filament change (including M600)
 #define MIN_Z_FOR_PREHEAT 10 // lcd preheat
 
 #include "Configuration_adv.h"
