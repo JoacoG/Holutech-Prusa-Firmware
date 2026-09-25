@@ -675,7 +675,11 @@ void lcdui_print_status_screen(void)
     //Print the hotend temperature (9 chars total)
 	lcdui_print_temp(LCD_STR_THERMOMETER[0], (int)(degHotend(0) + 0.5), (int)(degTargetHotend(0) + 0.5));
 
-	lcd_space(3); //3 spaces
+	// Object-boundary pause indicator in the fixed 3-column gap between the
+	// hotend temperature and the Z coordinate: 'P' when armed, '>' otherwise.
+	lcd_space(1);
+	lcd_putc(pause_at_next_object ? 'P' : '>');
+	lcd_space(1);
 
     //Print Z-coordinate (8 chars total)
 	lcdui_print_Z_coord();
@@ -4874,6 +4878,8 @@ static void lcd_menu_quick_access()
 #ifdef FILAMENT_SENSOR
     MENU_ITEM_TOGGLE_P(_T(MSG_FSENSOR), fsensor.isEnabled() ? _T(MSG_ON) : _T(MSG_OFF), lcd_fsensor_enabled_set);
 #endif //FILAMENT_SENSOR
+    // Pause at the next object boundary of a sequential print (slicer emits M867).
+    MENU_ITEM_TOGGLE_P(_T(MSG_PAUSE_AFTER_OBJECT), pause_at_next_object ? _T(MSG_ON) : _T(MSG_OFF), lcd_pause_after_object_toggle);
     MENU_ITEM_SUBMENU_P(_T(MSG_BABYSTEP_Z), lcd_babystep_z);
     MENU_END();
 }
