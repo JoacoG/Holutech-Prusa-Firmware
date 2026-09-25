@@ -4657,6 +4657,11 @@ void SETTINGS_FANS_CHECK() {
     MENU_ITEM_TOGGLE_P(_T(MSG_FANS_CHECK), fans_check_enabled ? _T(MSG_ON) : _T(MSG_OFF), lcd_set_fan_check);
 }
 
+//! Toggle pausing at the next slicer object boundary (M867).
+static void lcd_pause_after_object_toggle() {
+    pause_at_next_object = !pause_at_next_object;
+}
+
 #define SETTINGS_SOUND \
 do\
 {\
@@ -6014,7 +6019,11 @@ static void lcd_tune_menu()
     if (!farm_mode)
         MENU_ITEM_FUNCTION_P(_T(MSG_FILAMENTCHANGE), lcd_colorprint_change);
 #endif
-    if (printingIsPaused()) {// Don't allow rehome if actively printing. Maaaaybe it could work to insert on the fly, seems too risky.
+    // Pause at the next object boundary of a sequential print (slicer emits M867).
+    if (printJobOngoing() && !printingIsPaused()) {
+        MENU_ITEM_TOGGLE_P(_T(MSG_PAUSE_AFTER_OBJECT), pause_at_next_object ? _T(MSG_ON) : _T(MSG_OFF), lcd_pause_after_object_toggle);
+    }
+    if (printingIsPaused()) {// Don't allow rehome if actively printing. Maaaaaybe it could work to insert on the fly, seems too risky.
         MENU_ITEM_GCODE_P(_T(MSG_AUTO_HOME),PSTR("G28 XY"));
     }
 #ifdef FILAMENT_SENSOR
@@ -6242,6 +6251,8 @@ void print_stop(bool interactive, bool unconditional_stop)
         card.sdprinting = false;
         card.closefile();
     }
+    // A stopped print must not keep a pending object-boundary pause request.
+    pause_at_next_object = false;
     SERIAL_ECHOLNRPGM(MSG_HOST_ACTION_CANCEL);
 
 #ifdef MESH_BED_LEVELING

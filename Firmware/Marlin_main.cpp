@@ -162,6 +162,11 @@ bool did_pause_print;
 
 bool lcd_longpause_keep_warm = false;
 
+//! When true, the next M867 (object boundary marker emitted by the slicer
+//! between sequentially printed objects) pauses the print. Toggled from the
+//! Tune menu, so it is intentionally kept in RAM only (no EEPROM).
+bool pause_at_next_object = false;
+
 LongTimer safetyTimer;
 static LongTimer crashDetTimer;
 
@@ -177,6 +182,10 @@ static LongTimer post_print_keep_warm_timer;
 void post_print_keep_warm_start()
 {
     if (post_print_keep_warm_active) return;
+
+    // The print has finished, drop any pending object-boundary pause request
+    // so it cannot leak into the next print.
+    pause_at_next_object = false;
 
     // The slicer end-gcode (M104 S0 / M140 S0) is processed before the
     // firmware notices the print has finished. Restore the last non-zero
@@ -3790,6 +3799,7 @@ extern uint8_t st_backlash_y;
 //!@n M860 - Wait for extruder temperature (PINDA)
 //!@n M861 - Set/Get PINDA temperature compensation offsets
 //!@n M862 - Print checking
+//!@n M867 - Pause at the next object boundary
 //!@n M900 - Set Linear advance options
 //!@n M907 - Set digital trimpot motor current in mA using axis codes
 //!@n M908 - Control digital trimpot directly
@@ -7643,6 +7653,29 @@ void process_commands()
                }
         break;
     }
+
+    /*!
+    ### M867 - Pause at the next object boundary
+    Intended to be emitted by the slicer between sequentially printed objects
+    (PrusaSlicer: Print Settings -> Output options -> Between objects G-code).
+    If the "Object pause" option is enabled in the Tune menu, the print gets
+    paused at the boundary, otherwise the command is silently ignored.
+    #### Usage
+
+        M867
+    */
+    case 867:
+    {
+        if (pause_at_next_object && !printingIsPaused()) {
+            st_synchronize();
+            ClearToSend(); //send OK even before the command finishes executing because we want to make sure it is not skipped because of cmdqueue_pop_front();
+            cmdqueue_pop_front(); //trick because we want skip this command (M867) after restore
+            lcd_longpause_keep_warm = true;
+            lcd_pause_print();
+            pause_at_next_object = false;
+        }
+    }
+    break;
 
 #ifdef LIN_ADVANCE
     /*!
