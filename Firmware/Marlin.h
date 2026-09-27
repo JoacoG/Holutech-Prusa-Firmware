@@ -264,6 +264,7 @@ extern int fan_speed[2];
 
 extern bool mesh_bed_leveling_flag;
 extern bool did_pause_print;
+extern bool pause_at_next_object; //!< Pause when the next M867 object boundary is seen
 
 // save/restore printing
 extern bool saved_printing;

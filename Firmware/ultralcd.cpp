@@ -675,11 +675,11 @@ void lcdui_print_status_screen(void)
     //Print the hotend temperature (9 chars total)
 	lcdui_print_temp(LCD_STR_THERMOMETER[0], (int)(degHotend(0) + 0.5), (int)(degTargetHotend(0) + 0.5));
 
-#ifdef DEBUG_UVLO_SD_RECOVERY
-	lcd_puts_P(PSTR("DBG")); // debug build marker
-#else
-	lcd_space(3); //3 spaces
-#endif
+	// Object-boundary pause indicator in the fixed 3-column gap between the
+	// hotend temperature and the Z coordinate: 'P' when armed, '>' otherwise.
+	lcd_space(1);
+	lcd_putc(pause_at_next_object ? 'P' : '>');
+	lcd_space(1);
 
     //Print Z-coordinate (8 chars total)
 	lcdui_print_Z_coord();
@@ -2353,7 +2353,7 @@ void lcd_generic_preheat_menu()
     else
     {
         bool bPreheatOnlyNozzle = shouldPreheatOnlyNozzle();
-        
+
         MENU_ITEM_SUBMENU_P(bPreheatOnlyNozzle ? PSTR("ABS  -  " STRINGIFY(ABS_PREHEAT_HOTEND_TEMP))  : PSTR("ABS  -  " STRINGIFY(ABS_PREHEAT_HOTEND_TEMP)   "/" STRINGIFY(ABS_PREHEAT_HPB_TEMP)) , mFilamentItem_ABS);
         MENU_ITEM_SUBMENU_P(bPreheatOnlyNozzle ? PSTR("NPA6 -  " STRINGIFY(NPA6_PREHEAT_HOTEND_TEMP)) : PSTR("NPA6 -  " STRINGIFY(NPA6_PREHEAT_HOTEND_TEMP)  "/" STRINGIFY(NPA6_PREHEAT_HPB_TEMP)), mFilamentItem_NPA6);
         MENU_ITEM_SUBMENU_P(bPreheatOnlyNozzle ? PSTR("TPU  -  " STRINGIFY(TPU_PREHEAT_HOTEND_TEMP))  : PSTR("TPU  -  " STRINGIFY(TPU_PREHEAT_HOTEND_TEMP)   "/" STRINGIFY(TPU_PREHEAT_HPB_TEMP)),  mFilamentItem_TPU);
@@ -4104,6 +4104,7 @@ static void lcd_live_z_small()
 
     bLiveZCal = true;
     eFilamentAction = FilamentAction::Lay1Cal;
+    lcd_consume_click();
     menu_goto(lcd_generic_preheat_menu, 0, true);
 }
 
@@ -4660,6 +4661,11 @@ void SETTINGS_FANS_CHECK() {
     MENU_ITEM_TOGGLE_P(_T(MSG_FANS_CHECK), fans_check_enabled ? _T(MSG_ON) : _T(MSG_OFF), lcd_set_fan_check);
 }
 
+//! Toggle pausing at the next slicer object boundary (M867).
+static void lcd_pause_after_object_toggle() {
+    pause_at_next_object = !pause_at_next_object;
+}
+
 #define SETTINGS_SOUND \
 do\
 {\
@@ -4872,6 +4878,8 @@ static void lcd_menu_quick_access()
 #ifdef FILAMENT_SENSOR
     MENU_ITEM_TOGGLE_P(_T(MSG_FSENSOR), fsensor.isEnabled() ? _T(MSG_ON) : _T(MSG_OFF), lcd_fsensor_enabled_set);
 #endif //FILAMENT_SENSOR
+    // Pause at the next object boundary of a sequential print (slicer emits M867).
+    MENU_ITEM_TOGGLE_P(_T(MSG_PAUSE_AFTER_OBJECT), pause_at_next_object ? _T(MSG_ON) : _T(MSG_OFF), lcd_pause_after_object_toggle);
     MENU_ITEM_SUBMENU_P(_T(MSG_BABYSTEP_Z), lcd_babystep_z);
     MENU_END();
 }
@@ -5846,9 +5854,9 @@ static void lcd_main_menu()
                     else {
                         if (fsensor.getAutoLoadEnabled()) {
                             MENU_ITEM_SUBMENU_P(_T(MSG_AUTOLOAD_FILAMENT), lcd_menu_AutoLoadFilament);
-                        }                        
+                        }
                     }
-#endif //REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY 
+#endif //REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
                 } else {
 #endif //FILAMENT_SENSOR
                     MENU_ITEM_SUBMENU_P(_T(MSG_LOAD_FILAMENT), lcd_LoadFilament);
@@ -6017,7 +6025,11 @@ static void lcd_tune_menu()
     if (!farm_mode)
         MENU_ITEM_FUNCTION_P(_T(MSG_FILAMENTCHANGE), lcd_colorprint_change);
 #endif
-    if (printingIsPaused()) {// Don't allow rehome if actively printing. Maaaaybe it could work to insert on the fly, seems too risky.
+    // Pause at the next object boundary of a sequential print (slicer emits M867).
+    if (printJobOngoing() && !printingIsPaused()) {
+        MENU_ITEM_TOGGLE_P(_T(MSG_PAUSE_AFTER_OBJECT), pause_at_next_object ? _T(MSG_ON) : _T(MSG_OFF), lcd_pause_after_object_toggle);
+    }
+    if (printingIsPaused()) {// Don't allow rehome if actively printing. Maaaaaybe it could work to insert on the fly, seems too risky.
         MENU_ITEM_GCODE_P(_T(MSG_AUTO_HOME),PSTR("G28 XY"));
     }
 #ifdef FILAMENT_SENSOR
@@ -6245,6 +6257,8 @@ void print_stop(bool interactive, bool unconditional_stop)
         card.sdprinting = false;
         card.closefile();
     }
+    // A stopped print must not keep a pending object-boundary pause request.
+    pause_at_next_object = false;
     SERIAL_ECHOLNRPGM(MSG_HOST_ACTION_CANCEL);
 
 #ifdef MESH_BED_LEVELING

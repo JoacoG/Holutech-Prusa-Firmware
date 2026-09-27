@@ -22,7 +22,7 @@
 // Electronics
 #define MOTHERBOARD BOARD_EINSY_1_0a
 #define STEEL_SHEET
-//#define NEW_FIRST_LAYER_CAL //from front to back
+#define NEW_FIRST_LAYER_CAL //from front to back
 #define HAS_SECOND_SERIAL_PORT
 
 // PSU
@@ -78,7 +78,7 @@
 //Pause print position
 #define X_PAUSE_POS 50
 #define Y_PAUSE_POS 190
-#define Z_PAUSE_LIFT 20
+#define Z_PAUSE_LIFT 100
 
 #define NUM_AXIS 4 // The axis order in all axis related arrays is X, Y, Z, E
 #define HOMING_FEEDRATE {3000, 3000, 800, 0}  // set the homing speeds (mm/min) // 3000 is also valid for stallGuard homing. Valid range: 2200 - 3000
@@ -389,7 +389,7 @@
 //Retract and then extrude some filament to prevent oozing.
 //After the loading sequence and after a print is canceled, the filament is retracted to get it out of the heat zone of the nozzle.
 //Then a small extrusion is performed to make sure the filament is close enough for the next print without oozing.
-//#define COMMUNITY_PREVENT_OOZE
+#define COMMUNITY_PREVENT_OOZE
 #ifdef COMMUNITY_PREVENT_OOZE
 #define FILAMENTCHANGE_COMMUNITY_ROOZEFEED -10 //E retract distance in mm for ooze prevention
 #define FILAMENTCHANGE_COMMUNITY_EOOZEFEED 4 //E extrude distance in mm for ooze prevention
@@ -708,6 +708,6 @@
 //#define SHOW_FILENAME_AFTER_FINISH
 
 //Remove the "AutoLoad filament" LCD menu entry if autoload is enabled.
-//#define REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
+#define REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
 
 #endif //__CONFIGURATION_PRUSA_H
