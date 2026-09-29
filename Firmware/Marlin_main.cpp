@@ -5620,15 +5620,16 @@ void process_commands()
 
     #### Parameters (not mandatory)
 
-      - `S` - Set extruder temperature and wait for heating
-      - `R` - Set extruder temperature and wait for heating or cooling
+      - `S` - Set bed temperature
+      - `R` - Set bed temperature
 
+    Parameters S and R are treated identically.
+    Command always waits for both cool down and heat up.
     If no parameter is supplied, waits for heating or cooling to previously set temperature.
     */
     case 190:
     #if defined(TEMP_BED_PIN) && TEMP_BED_PIN > -1
     {
-        bool CooldownNoWait = false;
         LCD_MESSAGERPGM(_T(MSG_BED_HEATING));
 		heating_status = HeatingStatus::BED_HEATING;
         prusa_statistics(1);
@@ -5637,7 +5638,6 @@ void process_commands()
           float temp = code_value();
           if (temp > 0) post_print_saved_bed_target = temp;
           setTargetBed(temp);
-          CooldownNoWait = true;
         }
 		else if (code_seen('R'))
 		{
@@ -5648,9 +5648,12 @@ void process_commands()
         codenum = _millis();
 
         cancel_heatup = false;
-        target_direction = isHeatingBed(); // true if heating, false if cooling
 
-        while ( (!cancel_heatup) && (target_direction ? (isHeatingBed()) : (isCoolingBed()&&(CooldownNoWait==false))) )
+        // Wait until the bed reaches the target temperature in either direction.
+        // TEMP_HYSTERESIS is used as a tolerance so that waiting for an exact match
+        // does not exit prematurely while the bed oscillates around the target and
+        // still blocks a print start when cooling down from a higher cleaning temp.
+        while ( (!cancel_heatup) && (fabs(degBed() - degTargetBed()) > TEMP_HYSTERESIS) )
         {
           if (lcd_commands_type == LcdCommands::LongPause) {
             // Print was suddenly paused, break out of the loop
