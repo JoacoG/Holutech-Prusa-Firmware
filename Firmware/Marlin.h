@@ -294,6 +294,7 @@ extern LongTimer safetyTimer;
 // heated for a limited time unless the user interacts with the knob.
 void post_print_keep_warm_start();
 void post_print_keep_warm_cancel();
+bool is_post_print_keep_warm_active();
 
 #define PRINT_PERCENT_DONE_INIT 0xff
 

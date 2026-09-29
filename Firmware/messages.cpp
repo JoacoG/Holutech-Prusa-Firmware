@@ -77,7 +77,7 @@ const char MSG_NO[] PROGMEM_I1 = ISTR("No"); ////MSG_NO c=4
 const char MSG_NOZZLE[] PROGMEM_I1 = ISTR("Nozzle"); ////MSG_NOZZLE c=10
 const char MSG_PAPER[] PROGMEM_I1 = ISTR("Place a sheet of paper under the nozzle during the calibration of first 4 points. If the nozzle catches the paper, power off the printer immediately."); ////MSG_PAPER c=20 r=8
 const char MSG_PAUSE_PRINT[] PROGMEM_I1 = ISTR("Pause print");////MSG_PAUSE_PRINT c=18
-const char MSG_PAUSE_AFTER_OBJECT[] PROGMEM_I1 = ISTR("Object pause");////MSG_PAUSE_AFTER_OBJECT c=12
+const char MSG_STOP_AFTER_OBJECT[] PROGMEM_I1 = ISTR("Object stop");////MSG_STOP_AFTER_OBJECT c=12
 const char MSG_PRINT_PAUSED[] PROGMEM_I1 = ISTR("Print paused");////MSG_PRINT_PAUSED c=20
 const char MSG_PLACE_STEEL_SHEET[] PROGMEM_I1 = ISTR("Please place steel sheet on heatbed."); ////MSG_PLACE_STEEL_SHEET c=20 r=4
 const char MSG_PLEASE_WAIT[] PROGMEM_I1 = ISTR("Please wait"); ////MSG_PLEASE_WAIT c=20

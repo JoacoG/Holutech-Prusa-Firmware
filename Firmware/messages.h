@@ -79,7 +79,7 @@ extern const char MSG_NO[];
 extern const char MSG_NOZZLE[];
 extern const char MSG_PAPER[];
 extern const char MSG_PAUSE_PRINT[];
-extern const char MSG_PAUSE_AFTER_OBJECT[];
+extern const char MSG_STOP_AFTER_OBJECT[];
 extern const char MSG_PRINT_PAUSED[];
 extern const char MSG_PLACE_STEEL_SHEET[];
 extern const char MSG_PLEASE_WAIT[];

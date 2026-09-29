@@ -163,8 +163,9 @@ bool did_pause_print;
 bool lcd_longpause_keep_warm = false;
 
 //! When true, the next M867 (object boundary marker emitted by the slicer
-//! between sequentially printed objects) pauses the print. Toggled from the
-//! Tune menu, so it is intentionally kept in RAM only (no EEPROM).
+//! between sequentially printed objects) stops the print. Toggled from the
+//! Tune menu, so it is intentionally kept in RAM only (no EEPROM), and cleared
+//! as soon as it fires (one-shot).
 bool pause_at_next_object = false;
 
 LongTimer safetyTimer;
@@ -204,6 +205,11 @@ void post_print_keep_warm_cancel()
 {
     post_print_keep_warm_active = false;
     post_print_keep_warm_timer.stop();
+}
+
+bool is_post_print_keep_warm_active()
+{
+    return post_print_keep_warm_active;
 }
 
 bool mesh_bed_leveling_flag = false;
@@ -7658,11 +7664,13 @@ void process_commands()
     }
 
     /*!
-    ### M867 - Pause at the next object boundary
+    ### M867 - Stop at the next object boundary
     Intended to be emitted by the slicer between sequentially printed objects
     (PrusaSlicer: Print Settings -> Output options -> Between objects G-code).
-    If the "Object pause" option is enabled in the Tune menu, the print gets
-    paused at the boundary, otherwise the command is silently ignored.
+    If the "Object stop" option is enabled in the Tune menu, the print gets
+    stopped at the boundary and behaves like a finished print (keep-warm plus
+    the print-finished sound), otherwise the command is silently ignored. The
+    option is one-shot: it is cleared as soon as it fires.
     #### Usage
 
         M867
@@ -7673,9 +7681,8 @@ void process_commands()
             st_synchronize();
             ClearToSend(); //send OK even before the command finishes executing because we want to make sure it is not skipped because of cmdqueue_pop_front();
             cmdqueue_pop_front(); //trick because we want skip this command (M867) after restore
-            lcd_longpause_keep_warm = true;
-            lcd_pause_print();
-            pause_at_next_object = false;
+            print_stop(false); // non-interactive stop, cleared pause_at_next_object
+            post_print_keep_warm_start(); // keep heaters on + play the print-finished sound
         }
     }
     break;

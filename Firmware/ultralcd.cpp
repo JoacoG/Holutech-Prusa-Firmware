@@ -4661,8 +4661,8 @@ void SETTINGS_FANS_CHECK() {
     MENU_ITEM_TOGGLE_P(_T(MSG_FANS_CHECK), fans_check_enabled ? _T(MSG_ON) : _T(MSG_OFF), lcd_set_fan_check);
 }
 
-//! Toggle pausing at the next slicer object boundary (M867).
-static void lcd_pause_after_object_toggle() {
+//! Toggle stopping at the next slicer object boundary (M867).
+static void lcd_stop_after_object_toggle() {
     pause_at_next_object = !pause_at_next_object;
 }
 
@@ -4878,8 +4878,8 @@ static void lcd_menu_quick_access()
 #ifdef FILAMENT_SENSOR
     MENU_ITEM_TOGGLE_P(_T(MSG_FSENSOR), fsensor.isEnabled() ? _T(MSG_ON) : _T(MSG_OFF), lcd_fsensor_enabled_set);
 #endif //FILAMENT_SENSOR
-    // Pause at the next object boundary of a sequential print (slicer emits M867).
-    MENU_ITEM_TOGGLE_P(_T(MSG_PAUSE_AFTER_OBJECT), pause_at_next_object ? _T(MSG_ON) : _T(MSG_OFF), lcd_pause_after_object_toggle);
+    // Stop at the next object boundary of a sequential print (slicer emits M867).
+    MENU_ITEM_TOGGLE_P(_T(MSG_STOP_AFTER_OBJECT), pause_at_next_object ? _T(MSG_ON) : _T(MSG_OFF), lcd_stop_after_object_toggle);
     MENU_ITEM_SUBMENU_P(_T(MSG_BABYSTEP_Z), lcd_babystep_z);
     MENU_END();
 }
@@ -6025,9 +6025,9 @@ static void lcd_tune_menu()
     if (!farm_mode)
         MENU_ITEM_FUNCTION_P(_T(MSG_FILAMENTCHANGE), lcd_colorprint_change);
 #endif
-    // Pause at the next object boundary of a sequential print (slicer emits M867).
+    // Stop at the next object boundary of a sequential print (slicer emits M867).
     if (printJobOngoing() && !printingIsPaused()) {
-        MENU_ITEM_TOGGLE_P(_T(MSG_PAUSE_AFTER_OBJECT), pause_at_next_object ? _T(MSG_ON) : _T(MSG_OFF), lcd_pause_after_object_toggle);
+        MENU_ITEM_TOGGLE_P(_T(MSG_STOP_AFTER_OBJECT), pause_at_next_object ? _T(MSG_ON) : _T(MSG_OFF), lcd_stop_after_object_toggle);
     }
     if (printingIsPaused()) {// Don't allow rehome if actively printing. Maaaaaybe it could work to insert on the fly, seems too risky.
         MENU_ITEM_GCODE_P(_T(MSG_AUTO_HOME),PSTR("G28 XY"));
@@ -6233,7 +6233,14 @@ void lcd_print_stop_finish()
         }
     }
 
-    lcd_cooldown(); //turns off heaters and fan; goes to status screen.
+    if (is_post_print_keep_warm_active()) {
+        // Automatic object-boundary stop (M867): behave like a finished print,
+        // keep the heaters on (post-print keep-warm) and just stop the fan.
+        fanSpeed = 0;
+        lcd_return_to_status();
+    } else {
+        lcd_cooldown(); //turns off heaters and fan; goes to status screen.
+    }
 
     finishAndDisableSteppers(); //M84
     axis_relative_modes = E_AXIS_MASK; //XYZ absolute, E relative
