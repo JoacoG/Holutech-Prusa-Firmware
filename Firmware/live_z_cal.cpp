@@ -5,7 +5,7 @@
 //! programmatically to keep the flash footprint minimal:
 //! - chamfered rectangular skirt loop,
 //! - inner + external perimeter,
-//! - 45 degree zigzag solid infill over the whole square.
+//! - horizontal raster solid infill (front to rear).
 //!
 //! Commands are enqueued in small batches so the command buffer is never
 //! overflowed. The machine state is reset implicitly by live_z_setup() and by
@@ -18,9 +18,13 @@
 #include <math.h>
 
 //! @brief Count extrude length (same formula as first_lay_cal.cpp).
-static constexpr float __attribute__((noinline)) count_e(float layer_height, float extrusion_width, float extrusion_length, float filament_diameter = 1.75f)
+//! pow() is avoided deliberately: this file must not pull the stack hungry
+//! math routines into the print path (see live_z_infill_emit()).
+static float __attribute__((noinline)) count_e(float layer_height, float extrusion_width, float extrusion_length, float filament_diameter = 1.75f)
 {
-    return (extrusion_length * ((M_PI * pow(layer_height, 2)) / 4 + layer_height * (extrusion_width - layer_height))) / ((M_PI * pow(filament_diameter, 2)) / 4);
+    const float area = (float)(M_PI * layer_height * layer_height) * 0.25f + layer_height * (extrusion_width - layer_height);
+    const float filament = (float)(M_PI * filament_diameter * filament_diameter) * 0.25f;
+    return (extrusion_length * area) / filament;
 }
 
 // Number of commands enqueued per batch.
@@ -54,14 +58,10 @@ static constexpr float INFILL_X_MIN = 88.608f;
 static constexpr float INFILL_X_MAX = 161.392f;
 static constexpr float INFILL_Y_MIN = 68.608f;
 static constexpr float INFILL_Y_MAX = 141.392f;
-// X_MAX + Y_MIN == X_MIN + Y_MAX == 230.0
-static constexpr float INFILL_SUM = 230.0f;
-// Axis-aligned spacing between consecutive 45 degree zigzag lines.
+// Spacing between consecutive horizontal raster lines.
 static constexpr float INFILL_STEP = 0.534f;
 
 static const char fmt_abs[] PROGMEM = "G1X%.4fY%.4fE%.4f";
-static const char fmt_rel_x[] PROGMEM = "G1X%.4fY0E%.4f";
-static const char fmt_rel_y[] PROGMEM = "G1X0Y%.4fE%.4f";
 
 enum Stage : uint8_t
 {
@@ -78,7 +78,7 @@ enum Stage : uint8_t
 // Batch state, reset by live_z_setup().
 static Stage s_stage = STAGE_SKIRT;
 static uint8_t s_idx = 0;      // move index within the current stage
-static uint16_t s_diag = 0;    // infill diagonal counter
+static uint16_t s_line = 0;    // infill raster line counter
 static float s_x = 0.f;        // current position
 static float s_y = 0.f;
 
@@ -119,7 +119,7 @@ static void live_z_enqueue_infill_travel()
 {
     static const char c1[] PROGMEM = "G1 E-1.4 F2100";
     static const char c2[] PROGMEM = "G1 Z0.4 F720";
-    static const char c3[] PROGMEM = "G1 X161.562 Y69.201 F10800";
+    static const char c3[] PROGMEM = "G1 X88.608 Y68.608 F10800";
     static const char c4[] PROGMEM = "G1 Z0.2 F720";
     static const char c5[] PROGMEM = "G1 E1.4 F2100";
     static const char c6[] PROGMEM = "M204 S800";
@@ -134,128 +134,45 @@ static void live_z_enqueue_infill_travel()
     enquecommand_P(c7);
 }
 
-//! @brief Enqueue one zigzag diagonal and its following connector.
-//! Replicates the infill of Live-Z_Small.gcode: the serpentine slides from the
-//! bottom/right anchored corner triangle (phase 0) to full left/top anchored
-//! diagonals (phase 1), shrinking towards the top-left corner.
+//! @brief Enqueue one horizontal raster line and its Y step connector.
+//! The raster runs front to rear: each line spans the full infill width along
+//! X (serpentine left/right), and Y advances towards the rear between lines.
+//! A single command is emitted per call entry, so the batch stays small and no
+//! square root is needed (the line length is constant).
 static uint8_t live_z_infill_emit(float layer_height, float extrusion_width)
 {
     uint8_t emitted = 0;
+    // Extrusion per mm is constant for the whole raster; compute it once.
+    const float e_per_mm = count_e(layer_height, extrusion_width, 1.0f);
+    const float line_len = INFILL_X_MAX - INFILL_X_MIN;
 
     while (emitted < LIVE_Z_BATCH)
     {
-        if (s_diag > 271)
+        if (s_idx == 0)
         {
-            s_stage = STAGE_DONE;
-            return emitted;
-        }
-
-        const uint16_t k = s_diag;
-        float tx, ty;
-
-        if (k == 0)
-        {
-            // First (partial) diagonal from the offset travel position.
-            tx = 160.968f;
-            ty = INFILL_Y_MIN;
-        }
-        else if (k == 271)
-        {
-            // Last (partial) diagonal, mirror of the first one.
-            tx = 89.201f;
-            ty = 141.562f;
-        }
-        else if (k <= 135)
-        {
-            // Phase 0: anchored on the bottom and right edges.
-            if ((k & 1) == 0)
-            {
-                tx = INFILL_SUM - s_y; // down-left to the bottom edge
-                ty = INFILL_Y_MIN;
-            }
-            else
-            {
-                tx = INFILL_X_MAX;     // up-right to the right edge
-                ty = INFILL_SUM - s_x;
-            }
+            // Full line along X, alternating direction each line.
+            const float tx = ((s_line & 1) == 0) ? INFILL_X_MAX : INFILL_X_MIN;
+            enquecommandf_P(fmt_abs, tx, s_y, line_len * e_per_mm);
+            s_x = tx;
+            ++emitted;
+            s_idx = 1;
         }
         else
         {
-            // Phase 1: anchored on the left and top edges.
-            if ((k & 1) == 0)
+            // Step one line towards the rear. The move along Y is extruded so
+            // the raster stays connected, matching solid infill behaviour.
+            const float ny = s_y + INFILL_STEP;
+            if (ny > INFILL_Y_MAX + 0.0005f)
             {
-                tx = INFILL_X_MIN;     // down-left to the left edge
-                ty = INFILL_SUM - s_x;
+                s_stage = STAGE_DONE;
+                return emitted;
             }
-            else
-            {
-                tx = INFILL_SUM - s_y; // up-right to the top edge
-                ty = INFILL_Y_MAX;
-            }
+            enquecommandf_P(fmt_abs, s_x, ny, INFILL_STEP * e_per_mm);
+            s_y = ny;
+            ++emitted;
+            ++s_line;
+            s_idx = 0;
         }
-
-        const float dx = tx - s_x;
-        const float dy = ty - s_y;
-        enquecommandf_P(fmt_abs, tx, ty, count_e(layer_height, extrusion_width, sqrtf(dx * dx + dy * dy)));
-        s_x = tx;
-        s_y = ty;
-        ++emitted;
-        ++s_diag;
-
-        if (s_diag > 271)
-        {
-            // The last diagonal has no connector.
-            s_stage = STAGE_DONE;
-            return emitted;
-        }
-
-        const uint16_t kc = s_diag - 1;
-        if (kc <= 135)
-        {
-            // Phase 0 connector.
-            if ((kc & 1) == 0)
-            {
-                // Bottom edge: step left.
-                enquecommandf_P(fmt_rel_x, -INFILL_STEP, count_e(layer_height, extrusion_width, INFILL_STEP));
-                s_x -= INFILL_STEP;
-            }
-            else
-            {
-                // Right edge: step up. A short double connector turns the
-                // corner into the left/top anchored phase.
-                if (s_y + INFILL_STEP > INFILL_Y_MAX + 0.0005f)
-                {
-                    const float corner = INFILL_Y_MAX - s_y;
-                    enquecommandf_P(fmt_rel_y, corner, count_e(layer_height, extrusion_width, corner));
-                    enquecommandf_P(fmt_rel_x, -corner, count_e(layer_height, extrusion_width, corner));
-                    s_y = INFILL_Y_MAX;
-                    s_x -= corner;
-                    emitted += 2;
-                }
-                else
-                {
-                    enquecommandf_P(fmt_rel_y, INFILL_STEP, count_e(layer_height, extrusion_width, INFILL_STEP));
-                    s_y += INFILL_STEP;
-                }
-            }
-        }
-        else
-        {
-            // Phase 1 connector.
-            if ((kc & 1) == 0)
-            {
-                // Left edge: step up.
-                enquecommandf_P(fmt_rel_y, INFILL_STEP, count_e(layer_height, extrusion_width, INFILL_STEP));
-                s_y += INFILL_STEP;
-            }
-            else
-            {
-                // Top edge: step left.
-                enquecommandf_P(fmt_rel_x, -INFILL_STEP, count_e(layer_height, extrusion_width, INFILL_STEP));
-                s_x -= INFILL_STEP;
-            }
-        }
-        ++emitted;
     }
 
     return emitted;
@@ -290,7 +207,7 @@ void live_z_setup()
     // Reset the batch state for a fresh print.
     s_stage = STAGE_SKIRT;
     s_idx = 0;
-    s_diag = 0;
+    s_line = 0;
     s_x = 85.702f;
     s_y = 66.252f;
 }
@@ -401,9 +318,10 @@ bool live_z_print_step(float layer_height, float extrusion_width)
                 break; // defer to the next call to keep the batch small
             live_z_enqueue_infill_travel();
             s_stage = STAGE_INFILL;
-            s_x = 161.562f;
-            s_y = 69.201f;
-            s_diag = 0;
+            s_x = INFILL_X_MIN;
+            s_y = INFILL_Y_MIN;
+            s_idx = 0;
+            s_line = 0;
             emitted += 7;
             break;
 
