@@ -6185,7 +6185,7 @@ void lcd_print_stop_finish()
     save_statistics();
 
     // lift Z
-    raise_z(10);
+    raise_z(100);
 
     // if axis are homed, move to parking position.
     if (axis_known_position[X_AXIS] && axis_known_position[Y_AXIS]) {
