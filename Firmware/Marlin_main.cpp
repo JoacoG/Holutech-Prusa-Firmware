@@ -10550,6 +10550,7 @@ bool M600_check_state_and_repeat(const char* filament_name)
             // Extrude half of the short purge amount before resuming
             current_position[E_AXIS] += FILAMENTCHANGE_FINALFEED * 0.5f;
             plan_buffer_line_curposXYZE(FILAMENTCHANGE_EFEED_FINAL);
+            lcd_loading_color(FILAMENTCHANGE_FINALFEED * 0.5f);
             st_synchronize();
             lcd_change_success();
             break;
