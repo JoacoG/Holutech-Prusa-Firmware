@@ -1067,8 +1067,8 @@ void lcd_commands()
             case 3:
 #ifndef QUICK_NOZZLE_CHANGE
                 lcd_show_fullscreen_message_and_wait_P(_T(MSG_NOZZLE_CNG_READ_HELP));
-                enquecommand_P(G28W);
-                enquecommand_P(PSTR("G1 X125 Z200 F1000"));
+                // No homing / Z-raise: assume the user already parked the extruder
+                // high enough to change the nozzle.
                 enquecommand_P(PSTR("M109 S280"));
 #ifdef THERMAL_MODEL
                 was_enabled = thermal_model_enabled();
@@ -1083,8 +1083,8 @@ void lcd_commands()
                         break;
                     }
                 }
-                enquecommand_P(G28W); //home
-                enquecommand_P(PSTR("G1 X125 Z200 F1000")); //move to top center
+                // No homing / Z-raise: assume the user already parked the extruder
+                // high enough to change the nozzle.
 #endif //QUICK_NOZZLE_CHANGE
                 lcd_commands_step = 2;
                 break;
