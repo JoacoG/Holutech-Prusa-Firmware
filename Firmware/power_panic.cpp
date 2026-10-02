@@ -223,9 +223,12 @@ void uvlo_() {
     printf_P(_N("UVLO - end %d\n"), _millis() - time_start);
     WRITE(BEEPER,HIGH);
 
-    // All is set: with all the juice left, try to move extruder away to detach the nozzle completely from the print
+    // All is set: with all the juice left, try to move extruder away to detach the nozzle completely from the print.
+    // Always park to the right (X_MAX_POS): the suggested print order is left to right, so the right side is the
+    // least likely to hold already-printed parts that the head could crash into. Z was lifted before this move,
+    // so the traverse clears the print.
     poweron_z();
-    current_position[X_AXIS] = (current_position[X_AXIS] < 0.5f * (X_MIN_POS + X_MAX_POS)) ? X_MIN_POS : X_MAX_POS;
+    current_position[X_AXIS] = X_MAX_POS;
     plan_buffer_line_curposXYZE(500);
     st_synchronize();
 
