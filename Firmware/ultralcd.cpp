@@ -2353,7 +2353,7 @@ void lcd_generic_preheat_menu()
     else
     {
         bool bPreheatOnlyNozzle = shouldPreheatOnlyNozzle();
-        
+
         MENU_ITEM_SUBMENU_P(bPreheatOnlyNozzle ? PSTR("ABS  -  " STRINGIFY(ABS_PREHEAT_HOTEND_TEMP))  : PSTR("ABS  -  " STRINGIFY(ABS_PREHEAT_HOTEND_TEMP)   "/" STRINGIFY(ABS_PREHEAT_HPB_TEMP)) , mFilamentItem_ABS);
         MENU_ITEM_SUBMENU_P(bPreheatOnlyNozzle ? PSTR("NPA6 -  " STRINGIFY(NPA6_PREHEAT_HOTEND_TEMP)) : PSTR("NPA6 -  " STRINGIFY(NPA6_PREHEAT_HOTEND_TEMP)  "/" STRINGIFY(NPA6_PREHEAT_HPB_TEMP)), mFilamentItem_NPA6);
         MENU_ITEM_SUBMENU_P(bPreheatOnlyNozzle ? PSTR("TPU  -  " STRINGIFY(TPU_PREHEAT_HOTEND_TEMP))  : PSTR("TPU  -  " STRINGIFY(TPU_PREHEAT_HOTEND_TEMP)   "/" STRINGIFY(TPU_PREHEAT_HPB_TEMP)),  mFilamentItem_TPU);
@@ -5854,9 +5854,9 @@ static void lcd_main_menu()
                     else {
                         if (fsensor.getAutoLoadEnabled()) {
                             MENU_ITEM_SUBMENU_P(_T(MSG_AUTOLOAD_FILAMENT), lcd_menu_AutoLoadFilament);
-                        }                        
+                        }
                     }
-#endif //REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY 
+#endif //REMOVE_AUTOLOAD_FILAMENT_MENU_ENTRY
                 } else {
 #endif //FILAMENT_SENSOR
                     MENU_ITEM_SUBMENU_P(_T(MSG_LOAD_FILAMENT), lcd_LoadFilament);

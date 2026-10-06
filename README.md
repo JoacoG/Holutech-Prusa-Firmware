@@ -14,6 +14,22 @@ Warning: this firmware only builds in english language for Original Prusa i3 MK3
 - **LCD Interface**: Added a cold pull sequence option directly in the printer menu. Faster scrolling behavior for long G-code filenames.
 - **Build Output**: CMake build filenames now include the git commit count and hash (e.g. `MK3S_MK3S+_FW_3.13.2-RC1+7651_deadbeef_ENGLISH.hex`).
 
+# Debug Build (Power Panic SD Recovery)
+
+For diagnosing SD-card power-panic recovery issues on a single test machine. Do **not** enable on production printers.
+
+To activate, uncomment the toggle in `Firmware/variants/MK3S.h`:
+
+    #define DEBUG_UVLO_SD_RECOVERY
+
+Enabling it adds, on the test build only:
+
+- **Serial traces**: `DBG_UVLO:` lines at the power-panic recovery decision points (recover_print, M997 knob wait, `PRUSA uvlo`, M24 resume, SD card feed, EOF). These go over the UART and are captured by PrusaLink into journald — no USB cable needed. Grep the journal for `DBG_UVLO`.
+- **LCD marker**: `DBG` shown on the status screen (row 0, between the nozzle temp and Z coordinate) whenever the debug build is running.
+- **Version marker**: `FW_VERSION_FULL` gets a `DBG ` prefix — visible in Support → Firmware, the boot splash, the serial greeting, and the PrusaLink web UI.
+
+Production builds (macro commented out) are unaffected; the debug code compiles to nothing.
+
 # Prusa Firmware MK3
 
 This repository contains the source code and the development versions of the firmware running on the [Original Prusa i3](https://prusa3d.com/) MK3S/MK3/MK2.5S/MK2.5 line of printers.

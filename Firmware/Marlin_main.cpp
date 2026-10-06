@@ -1624,6 +1624,9 @@ void setup()
       printf_P(_N("Power panic detected!\nCurrent bed temp:%d\nSaved bed temp:%d\n"), (int)degBed(), eeprom_read_byte((uint8_t*)EEPROM_UVLO_TARGET_BED));
 #endif //DEBUG_UVLO_AUTOMATIC_RECOVER
       uvlo_auto_recovery_ready = (degBed() > ( (float)eeprom_read_byte((uint8_t*)EEPROM_UVLO_TARGET_BED) - AUTOMATIC_UVLO_BED_TEMP_OFFSET));
+#ifdef DEBUG_UVLO_SD_RECOVERY
+      printf_P(PSTR("DBG_UVLO: setup type=%d auto_ready=%d\n"), (int)saved_printing_type, (int)uvlo_auto_recovery_ready);
+#endif //DEBUG_UVLO_SD_RECOVERY
       if (uvlo_auto_recovery_ready){
 #ifdef DEBUG_UVLO_AUTOMATIC_RECOVER
         puts_P(_N("Automatic recovery!"));
@@ -4004,6 +4007,9 @@ void process_commands()
         } else if (code_seen_P(PSTR("FAN"))) { // PRUSA FAN
             printf_P(_N("E0:%d RPM\nPRN0:%d RPM\n"), 60*fan_speed[0], 60*fan_speed[1]);
         } else if (code_seen_P(PSTR("uvlo"))) { // PRUSA uvlo
+#ifdef DEBUG_UVLO_SD_RECOVERY
+            printf_P(PSTR("DBG_UVLO: PRUSA uvlo type=%d\n"), eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE));
+#endif //DEBUG_UVLO_SD_RECOVERY
             if (eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE) == PowerPanic::PRINT_TYPE_SD) {
                 // M24 - Start SD print
                 enquecommand_P(MSG_M24);
@@ -4889,6 +4895,10 @@ void process_commands()
     ### M24 - Start SD print <a href="https://reprap.org/wiki/G-code#M24:_Start.2Fresume_SD_print">M24: Start/resume SD print</a>
     */
     case 24:
+#ifdef DEBUG_UVLO_SD_RECOVERY
+    printf_P(PSTR("DBG_UVLO: M24 entry paused=%d open=%d sdpos=%lu tmr_run=%d\n"),
+             (int)printingIsPaused(), (int)card.isFileOpen(), card.get_sdpos(), (int)print_job_timer.isRunning());
+#endif //DEBUG_UVLO_SD_RECOVERY
     if (printingIsPaused())
       lcd_resume_print();
     else
@@ -4910,6 +4920,10 @@ void process_commands()
 
       card.startFileprint();
       print_job_timer.start();
+#ifdef DEBUG_UVLO_SD_RECOVERY
+      printf_P(PSTR("DBG_UVLO: M24 started sdprint=%d eof=%d sdpos=%lu size=%lu\n"),
+               (int)card.sdprinting, (int)card.eof(), card.get_sdpos(), card.getFileSize());
+#endif //DEBUG_UVLO_SD_RECOVERY
       if (MMU2::mmu2.Enabled())
       {
         if (MMU2::mmu2.FindaDetectsFilament() && !fsensor.getFilamentPresent())
@@ -5057,6 +5071,9 @@ void process_commands()
     case 997: // Power panic recovery: wait for user to press knob before restoring print
         if (uvlo_wait_for_knob) {
             uvlo_wait_for_knob = false;
+#ifdef DEBUG_UVLO_SD_RECOVERY
+            printf_P(PSTR("DBG_UVLO: M997 entry\n"));
+#endif //DEBUG_UVLO_SD_RECOVERY
             for (;;) {
                 lcd_consume_click();
                 lcd_display_message_fullscreen_P(_T(MSG_PRESS_KNOB_RESUME));
@@ -5068,6 +5085,9 @@ void process_commands()
                 }
 
                 if (target_temperature[active_extruder] != 0) {
+#ifdef DEBUG_UVLO_SD_RECOVERY
+                    printf_P(PSTR("DBG_UVLO: M997 knob pressed\n"));
+#endif //DEBUG_UVLO_SD_RECOVERY
                     break; // Normal path: user pressed knob before safety timer fired
                 }
 
@@ -5120,6 +5140,9 @@ void process_commands()
 
             KEEPALIVE_STATE(IN_HANDLER);
             lcd_update_enabled = true;
+#ifdef DEBUG_UVLO_SD_RECOVERY
+            printf_P(PSTR("DBG_UVLO: M997 exit\n"));
+#endif //DEBUG_UVLO_SD_RECOVERY
         }
         break;
 #endif //UVLO_SUPPORT

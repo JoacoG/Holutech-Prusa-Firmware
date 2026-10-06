@@ -361,6 +361,9 @@ ISR(INT4_vect) {
 }
 
 void recover_print(uint8_t automatic) {
+#ifdef DEBUG_UVLO_SD_RECOVERY
+    printf_P(PSTR("DBG_UVLO: recover_print auto=%d type=%d\n"), (int)automatic, eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE));
+#endif //DEBUG_UVLO_SD_RECOVERY
     lcd_setstatuspgm(_T(MSG_RECOVERING_PRINT));
 
     // Recover position, temperatures and extrude_multipliers
@@ -422,6 +425,9 @@ void recover_print(uint8_t automatic) {
         // confirmation screen below and subsequent recovery steps are shown.
         lcd_update_enable(true);
         if (automatic == 0) {
+#ifdef DEBUG_UVLO_SD_RECOVERY
+            printf_P(PSTR("DBG_UVLO: SD prompt shown\n"));
+#endif //DEBUG_UVLO_SD_RECOVERY
             lcd_show_fullscreen_message_and_wait_P(_T(MSG_SD_CARD_DETECTED_PRESS_KNOB));
         }
 
@@ -454,6 +460,9 @@ void recover_print(uint8_t automatic) {
         }
 
         if (automatic == 0) {
+#ifdef DEBUG_UVLO_SD_RECOVERY
+            printf_P(PSTR("DBG_UVLO: M997 enqueued\n"));
+#endif //DEBUG_UVLO_SD_RECOVERY
             uvlo_wait_for_knob = true;
             enquecommand_P(PSTR("M997"));
         }
