@@ -3360,6 +3360,11 @@ static void gcode_M600(const bool automatic, const float x_position, const float
             current_position[E_AXIS] += FILAMENTCHANGE_RECFEED;
             plan_buffer_line_curposXYZE(FILAMENTCHANGE_EXFEED);
         }
+
+        // Short purge ("changed correctly"): extruded in parallel with the XY
+        // return so a clean string hangs from the nozzle; it is pulled as the
+        // nozzle descends and lands on the print.
+        current_position[E_AXIS] += FILAMENTCHANGE_FINALFEED * 0.5f;
     }
 
     // Move XY back
@@ -10570,11 +10575,9 @@ bool M600_check_state_and_repeat(const char* filament_name)
 
         // Everything good
         default:
-            // Extrude half of the short purge amount before resuming
-            current_position[E_AXIS] += FILAMENTCHANGE_FINALFEED * 0.5f;
-            plan_buffer_line_curposXYZE(FILAMENTCHANGE_EFEED_FINAL);
-            lcd_loading_color(FILAMENTCHANGE_FINALFEED * 0.5f);
-            st_synchronize();
+            // Short purge is extruded in parallel with the return move back to
+            // the print (see gcode_M600), keeping the nozzle tip clean when it
+            // lands.
             lcd_change_success();
             break;
         }
