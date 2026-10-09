@@ -10,6 +10,7 @@
 //internationalized messages
 const char MSG_ALWAYS[] PROGMEM_I1 = ISTR("Always"); ////MSG_ALWAYS c=6
 const char MSG_AUTO_HOME[] PROGMEM_I1 = ISTR("Auto home"); ////MSG_AUTO_HOME c=18
+const char MSG_AUTO_RECOVER_PRESS_KNOB[] PROGMEM_I1 = ISTR("Auto recovery.\nPress the knob\nto clean the nozzle."); ////MSG_AUTO_RECOVER_PRESS_KNOB c=20 r=3
 const char MSG_BABYSTEP_Z[] PROGMEM_I1 = ISTR("Live adjust Z"); ////MSG_BABYSTEP_Z c=18
 const char MSG_BABYSTEP_Z_NOT_SET[] PROGMEM_I1 = ISTR("Distance between tip of the nozzle and the bed surface has not been set yet. Please follow the manual, chapter First steps, section First layer calibration."); ////MSG_BABYSTEP_Z_NOT_SET c=20 r=12
 const char MSG_BED[] PROGMEM_I1 = ISTR("Bed"); ////MSG_BED c=13

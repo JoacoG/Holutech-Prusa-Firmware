@@ -659,6 +659,9 @@
 #define UVLO_TINY_Z_AXIS_SHIFT 0.16
 // If power panic occured, and the current temperature is higher then target temperature before interrupt minus this offset, print will be recovered automatically.
 #define AUTOMATIC_UVLO_BED_TEMP_OFFSET 5
+// Time [s] an automatic power panic recovery is held so a present user can switch it
+// to a manual recovery and clean the nozzle. Times out to automatic recovery. 0 disables.
+#define UVLO_AUTO_RECOVERY_OVERRIDE_WINDOW 120
 
 #define HEATBED_V2
 

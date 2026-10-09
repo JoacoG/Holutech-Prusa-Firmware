@@ -360,9 +360,9 @@ ISR(INT4_vect) {
     }
 }
 
-void recover_print(uint8_t automatic) {
+void recover_print(PowerPanic::RecoveryMode mode) {
 #ifdef DEBUG_UVLO_SD_RECOVERY
-    printf_P(PSTR("DBG_UVLO: recover_print auto=%d type=%d\n"), (int)automatic, eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE));
+    printf_P(PSTR("DBG_UVLO: recover_print mode=%d type=%d\n"), (int)mode, eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE));
 #endif //DEBUG_UVLO_SD_RECOVERY
     lcd_setstatuspgm(_T(MSG_RECOVERING_PRINT));
 
@@ -395,8 +395,10 @@ void recover_print(uint8_t automatic) {
     }
     enquecommand_P(MSG_M83); //E axis relative mode
 
-    // If not automatically recoreverd (long power loss)
-    if(automatic == 0){
+    // If not automatically recovered (long power loss), re-prime the cold nozzle.
+    // The manual "clean nozzle" path after a short power panic skips this purge:
+    // the nozzle is still hot, so purging would only add more ooze.
+    if (mode == PowerPanic::RECOVERY_MANUAL_PURGE) {
         //Extrude some filament to stabilize the pressure
         enquecommand_P(PSTR("G1 E5 F120"));
         // Retract to be consistent with a short pause
@@ -424,7 +426,7 @@ void recover_print(uint8_t automatic) {
         // The SD card wait loop disabled LCD updates, re-enable them so the
         // confirmation screen below and subsequent recovery steps are shown.
         lcd_update_enable(true);
-        if (automatic == 0) {
+        if (mode != PowerPanic::RECOVERY_AUTO) {
 #ifdef DEBUG_UVLO_SD_RECOVERY
             printf_P(PSTR("DBG_UVLO: SD prompt shown\n"));
 #endif //DEBUG_UVLO_SD_RECOVERY
@@ -459,7 +461,7 @@ void recover_print(uint8_t automatic) {
             card.cdroot(false);
         }
 
-        if (automatic == 0) {
+        if (mode != PowerPanic::RECOVERY_AUTO) {
 #ifdef DEBUG_UVLO_SD_RECOVERY
             printf_P(PSTR("DBG_UVLO: M997 enqueued\n"));
 #endif //DEBUG_UVLO_SD_RECOVERY
@@ -467,7 +469,7 @@ void recover_print(uint8_t automatic) {
             enquecommand_P(PSTR("M997"));
         }
     }
-    else if (eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE) == PowerPanic::PRINT_TYPE_HOST && automatic == 0)
+    else if (eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE) == PowerPanic::PRINT_TYPE_HOST && mode != PowerPanic::RECOVERY_AUTO)
     {
         // Host prints park and wait for the host after the restore moves.
         // Reuse the SD knob-wait so the user can confirm the recovery and
