@@ -147,8 +147,11 @@
 // Feedrates for manual moves along X, Y, Z, E from panel
 
 
-//Comment to disable setting feedrate multiplier via encoder
-#define ULTIPANEL_FEEDMULTIPLY
+//Feedrate multiplier can no longer be adjusted via the encoder knob
+//(disabled to prevent accidentally changing print speed on the printer).
+//The Tune > Speed menu item and the F100% status screen field have been
+//removed as well - speed is locked at 100% from the panel side.
+//#define ULTIPANEL_FEEDMULTIPLY
 
 // minimum time in microseconds that a movement needs to take if the buffer is emptied.
 #define DEFAULT_MINSEGMENTTIME        20000

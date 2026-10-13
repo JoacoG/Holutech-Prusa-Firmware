@@ -253,6 +253,9 @@ static void lcd_sheet_menu();
 static void menu_action_sdfile(const char* filename);
 static void menu_action_sddirectory(const char* filename);
 
+// NOTE: ENCODER_FEEDRATE_DEADZONE is no longer used - the feedrate multiplier
+// cannot be adjusted via the encoder knob (see ULTIPANEL_FEEDMULTIPLY in
+// Configuration_adv.h, which is commented out above that file).
 #define ENCODER_FEEDRATE_DEADZONE 10
 
 #define STATE_NA 255
@@ -362,13 +365,6 @@ void lcdui_print_planner_diag(void)
 	}
 }
 #endif // PLANNER_DIAGNOSTICS
-
-// Print feedrate (8 chars total)
-void lcdui_print_feedrate(void)
-{
-	int chars = lcd_printf_P(_N(LCD_STR_FEEDRATE "%3d%%"), feedmultiply);
-	lcd_space(8 - chars);
-}
 
 // Print percent done in form "USB---%", " SD---%", "   ---%" (7 chars total)
 void lcdui_print_percent_done(void)
@@ -702,8 +698,8 @@ void lcdui_print_status_screen(void)
 	//Print planner diagnostics (8 chars)
 	lcdui_print_planner_diag();
 #else // PLANNER_DIAGNOSTICS
-    //Print Feedrate (8 chars)
-	lcdui_print_feedrate();
+    //Feedrate display removed - speed is locked at 100% from the panel side
+	lcd_space(8); //8 spaces
 #endif // PLANNER_DIAGNOSTICS
 
 	lcd_set_cursor(0, 2); //line 2
@@ -6013,8 +6009,7 @@ static void lcd_tune_menu()
 		refresh_saved_feedrate_multiplier_in_ram();
 	);
 	MENU_ITEM_BACK_P(_T(MSG_MAIN));
-	MENU_ITEM_EDIT_int3_P(_T(MSG_SPEED), &feedmultiply, 10, 999);
-
+	// Speed (feedmultiply) edit item removed - speed is locked at 100% from the panel side
 	menuitems_temperature_common();
 
 	MENU_ITEM_EDIT_int3_P(_T(MSG_FLOW), &extrudemultiply, 10, 999);
