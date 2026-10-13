@@ -366,6 +366,7 @@ void lcdui_print_planner_diag(void)
 }
 #endif // PLANNER_DIAGNOSTICS
 
+// NOTE: No longer used - the percent/sheet slot on the main status screen is now blank.
 // Print percent done in form "USB---%", " SD---%", "   ---%" (7 chars total)
 void lcdui_print_percent_done(void)
 {
@@ -643,17 +644,13 @@ void lcdui_print_status_line(void) {
 //! |01234567890123456789|
 //! |N000/000D   Z000.00 |
 //! |B000/000D   F100%   |
-//! |   ---%     t--:--  | // Idle
+//! |           t--:--  | // Idle (percent/sheet slot blank)
 //!
-//! |   ---% F?  t--:--  | // Idle + MMU3
+//! |        F?  t--:--  | // Idle + MMU3
 //!
-//! |Smooth1     t--:--  | // Idle + Muliple sheets
+//! |           Nd 0.40 | // Idle + QUICK_NOZZLE_CHANGE
 //!
-//! |Smooth1 F?  t--:--  | // Idle + Muliple sheets + MMU3
-//!
-//! |Smooth1     Nd 0.40 | // Idle + Muliple sheets + QUICK_NOZZLE_CHANGE
-//!
-//! | SD 99% F1  t00:17R | // SD print + MMU3
+//! |        F1  t00:17R | // SD print + MMU3
 //!
 //! |Status line.........|
 //! ----------------------
@@ -704,8 +701,8 @@ void lcdui_print_status_screen(void)
 
 	lcd_set_cursor(0, 2); //line 2
 
-	//Print SD status (7 chars)
-	lcdui_print_percent_done();
+	//Print SD status (7 chars) - disabled: percent/sheet removed from main screen
+	lcd_space(7);
 
     if (MMU2::mmu2.Enabled()) {
         // Print extruder status (5 chars)
