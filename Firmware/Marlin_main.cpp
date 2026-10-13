@@ -5178,6 +5178,24 @@ void process_commands()
 #endif //DEBUG_UVLO_SD_RECOVERY
         }
         break;
+
+    case 998: // Power panic recovery: optional filament change before resuming the print
+        if (saved_printing_type == PowerPanic::PRINT_TYPE_SD
+            && lcd_show_multiscreen_message_yes_no_and_wait_P(_T(MSG_CHANGE_FILAMENT_RESUME), false) == LCD_LEFT_BUTTON_CHOICE) {
+#ifdef DEBUG_UVLO_SD_RECOVERY
+            printf_P(PSTR("DBG_UVLO: M998 filament change\n"));
+#endif //DEBUG_UVLO_SD_RECOVERY
+            // gcode_M600() restores position, feedrate and temperature from RAM-saved
+            // values which are stale after a reboot. Seed them so the filament change
+            // returns to the recovery position with the correct resume feedrate and
+            // the preheat target taken from the power panic state.
+            memcpy(saved_pos, current_position, sizeof(saved_pos));
+            saved_feedmultiply2 = eeprom_read_word((uint16_t*)EEPROM_UVLO_FEEDMULTIPLY);
+            saved_extruder_temperature = (uint16_t)target_temperature[active_extruder];
+            gcode_M600(false, FILAMENTCHANGE_XPOS, FILAMENTCHANGE_YPOS, MIN_Z_FOR_SWAP,
+                       FILAMENTCHANGE_FIRSTRETRACT, FILAMENTCHANGE_FINALRETRACT, "");
+        }
+        break;
 #endif //UVLO_SUPPORT
 // --- End custom M-codes ---
 

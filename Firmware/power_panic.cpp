@@ -466,6 +466,11 @@ void recover_print(PowerPanic::RecoveryMode mode) {
             printf_P(PSTR("DBG_UVLO: M997 enqueued\n"));
 #endif //DEBUG_UVLO_SD_RECOVERY
             uvlo_wait_for_knob = true;
+            // Long outage (manual purge path): let the operator swap to dry filament
+            // before resuming. The old filament may be humid after an overnight standstill.
+            if (mode == PowerPanic::RECOVERY_MANUAL_PURGE) {
+                enquecommand_P(PSTR("M998"));
+            }
             enquecommand_P(PSTR("M997"));
         }
     }

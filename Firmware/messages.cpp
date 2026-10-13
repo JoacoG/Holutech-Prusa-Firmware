@@ -467,3 +467,5 @@ extern const char MSG_PRESS_KNOB_RESUME [] PROGMEM_I1 = ISTR("Press the knob\nto
 extern const char MSG_REHEAT_AND_RESUME [] PROGMEM_I1 = ISTR("Heaters cooled.\nReheat and resume?"); ////MSG_REHEAT_AND_RESUME c=20 r=2
 
 extern const char MSG_NOZZLE_SAFETY_COOLING [] PROGMEM_I1 = ISTR("Nozzle cooled for\nsafety. Press knob\nto reheat"); ////MSG_NOZZLE_SAFETY_COOLING c=20 r=3
+
+extern const char MSG_CHANGE_FILAMENT_RESUME [] PROGMEM_I1 = ISTR("Change filament\nbefore resume?"); ////MSG_CHANGE_FILAMENT_RESUME c=20 r=2

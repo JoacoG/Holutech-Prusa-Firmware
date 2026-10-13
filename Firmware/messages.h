@@ -467,6 +467,7 @@ extern const char MSG_M702[];
 extern const char MSG_PRESS_KNOB_RESUME [];
 extern const char MSG_REHEAT_AND_RESUME [];
 extern const char MSG_NOZZLE_SAFETY_COOLING [];
+extern const char MSG_CHANGE_FILAMENT_RESUME [];
 
 #if defined(__cplusplus)
 }
