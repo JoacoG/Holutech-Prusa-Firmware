@@ -157,7 +157,6 @@ private:
 #define LCD_STR_CLOCK        "\x87"
 #define LCD_STR_ARROW_2_DOWN "\x88"
 #define LCD_STR_CONFIRM      "\x89"
-#define LCD_STR_FSENSOR_OFF  "\xCA"
 #define LCD_STR_SOLID_BLOCK  "\xFF"  //from the default character set
 
 extern void lcd_frame_start();
