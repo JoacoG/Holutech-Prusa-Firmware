@@ -4572,23 +4572,6 @@ static void menuitems_MMU_settings_common()
 #endif // MMU_FORCE_STEALTH_MODE
 }
 
-static void mmu_enable_switch()
-{
-    uint8_t current_state = eeprom_read_byte((uint8_t *)EEPROM_MMU_ENABLED);
-
-    if (current_state)
-    {
-        MMU2::mmu2.Stop();
-    }
-    else
-    {
-        MMU2::mmu2.Start();
-    }
-
-    eeprom_toggle((uint8_t *)EEPROM_MMU_ENABLED);
-    MMU2::mmu2.Status();
-}
-
 static void SETTINGS_SILENT_MODE()
 {
     if (!farm_mode)
@@ -4942,12 +4925,6 @@ static void lcd_settings_menu()
 #ifdef FILAMENT_SENSOR
     MENU_ITEM_SUBMENU_P(_T(MSG_FSENSOR), lcd_fsensor_settings_menu);
 #endif //FILAMENT_SENSOR
-
-    MENU_ITEM_TOGGLE_P(PSTR("MMU"), eeprom_read_byte((uint8_t *)EEPROM_MMU_ENABLED) ? _T(MSG_ON) : _T(MSG_OFF), mmu_enable_switch);
-    if (eeprom_read_byte((uint8_t *)EEPROM_MMU_ENABLED))
-    { // Communication with MMU not required to reset MMU
-        MENU_ITEM_FUNCTION_P(PSTR("Reset MMU"), []() { MMU2::mmu2.Reset(MMU2::MMU2::ResetForm::Software); });
-    }
 
     if (MMU2::mmu2.Enabled())
     { // Only show menus when communicating with MMU

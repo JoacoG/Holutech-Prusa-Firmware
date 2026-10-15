@@ -8347,17 +8347,13 @@ void process_commands()
     } break;
 
     /*!
-    ### M709 - MMU power & reset <a href="https://reprap.org/wiki/G-code#M709:_MMU_power_&_reset">M709: MMU power & reset</a>
-    The MK3S cannot not power off the MMU, but we can en- and disable the MMU.
-
-    The new state of the MMU is stored in printer's EEPROM - i.e. if you disable the MMU via M709, it will not be activated after the printer resets.
+    ### M709 - MMU reset <a href="https://reprap.org/wiki/G-code#M709:_MMU_power_&_reset">M709: MMU power & reset</a>
     #### Usage
 
-        M709 [ S | X ]
+        M709 [ X ]
 
     #### Parameters
     - `X` - Reset MMU (0:soft reset | 1:hardware reset | 42: erase MMU eeprom)
-    - `S` - En-/disable the MMU (0:off | 1:on)
 
     #### Example
 
@@ -8366,31 +8362,9 @@ void process_commands()
     M709 X1 - toggle the MMU's reset pin (hardware reset)
 
     M709 X42 - erase MMU EEPROM
-
-    M709 S1 - enable MMU
-
-    M709 S0 - disable MMU
-
-    M709    - Serial message if en- or disabled
     */
     case 709:
     {
-        if (code_seen('S'))
-        {
-            switch (code_value_uint8())
-            {
-            case 0:
-                eeprom_update_byte_notify((uint8_t *)EEPROM_MMU_ENABLED, false);
-                MMU2::mmu2.Stop();
-                break;
-            case 1:
-                eeprom_update_byte_notify((uint8_t *)EEPROM_MMU_ENABLED, true);
-                MMU2::mmu2.Start();
-                break;
-            default:
-                break;
-            }
-        }
         if (MMU2::mmu2.Enabled() && code_seen('X'))
         {
             switch (code_value_uint8())

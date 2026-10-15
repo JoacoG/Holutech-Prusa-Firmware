@@ -117,11 +117,5 @@
 #define EMERGENCY_HANDLERS
 #endif
 
-//FARM_MODE
-#if ( LANG_MODE == 0 ) && defined(XFLASH) //Save resources on EINSY and disable FARM_MODE on multi-language version
-#define PRUSA_FARM
-#endif //PRUSA_FARM only in english on EINSYs
-#ifndef XFLASH //enable FARM_MODE on miniRAMBo boards
-#define PRUSA_FARM
-#endif
+//FARM_MODE removed: this fork targets the bare Original Prusa i3 MK3S only.
 #endif //_CONFIG_H
