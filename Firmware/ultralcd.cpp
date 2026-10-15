@@ -433,12 +433,6 @@ uint8_t lcdui_print_extruder(void) {
     return chars;
 }
 
-// Print farm number (5 chars total)
-static void lcdui_print_farm(void)
-{
-	lcd_printf_P(_N(" FRM "));
-}
-
 #ifdef CMD_DIAGNOSTICS
 // Print CMD queue diagnostic (8 chars total)
 void lcdui_print_cmd_diag(void)
@@ -668,11 +662,7 @@ void lcdui_print_status_screen(void)
     //Print the hotend temperature (9 chars total)
 	lcdui_print_temp(LCD_STR_THERMOMETER[0], (int)(degHotend(0) + 0.5), (int)(degTargetHotend(0) + 0.5));
 
-	// Object-boundary pause indicator in the fixed 3-column gap between the
-	// hotend temperature and the Z coordinate: 'P' when armed, '>' otherwise.
-	lcd_space(1);
-	lcd_putc(pause_at_next_object ? 'P' : '>');
-	lcd_space(1);
+	lcd_space(3); //gap between hotend temperature and Z coordinate
 
     //Print Z-coordinate (8 chars total)
 	lcdui_print_Z_coord();
@@ -682,14 +672,7 @@ void lcdui_print_status_screen(void)
 	//Print the Bed temperature (9 chars total)
 	lcdui_print_temp(LCD_STR_BEDTEMP[0], (int)(degBed() + 0.5), (int)(degTargetBed() + 0.5));
 
-#ifdef FILAMENT_SENSOR
-	// Filament sensor status indicator: check mark when enabled, X when disabled
-	lcd_space(1);
-	lcd_putc(fsensor.isEnabled() ? LCD_STR_CONFIRM[0] : 'X');
-	lcd_space(1);
-#else
-	lcd_space(3); //3 spaces
-#endif
+	lcd_space(3); //gap between bed temperature and diagnostics
 
 #ifdef PLANNER_DIAGNOSTICS
 	//Print planner diagnostics (8 chars)
@@ -701,18 +684,21 @@ void lcdui_print_status_screen(void)
 
 	lcd_set_cursor(0, 2); //line 2
 
-	//Print SD status (7 chars) - disabled: percent/sheet removed from main screen
-	lcd_space(7);
-
-    if (MMU2::mmu2.Enabled()) {
-        // Print extruder status (5 chars)
-        lcd_space(5 - lcdui_print_extruder());
-    } else if (farm_mode) {
-        // Print farm number (5 chars)
-        lcdui_print_farm();
-    } else {
-        lcd_space(5); // 5 spaces
-    }
+	// Filament sensor + object pause indicators ("FS->X OP->X", 9 chars).
+	// The arrow is the LCD's built-in right-arrow glyph; X is a check mark
+	// when enabled/armed and 'X' otherwise.
+#ifdef FILAMENT_SENSOR
+	lcd_puts_P(PSTR("FS"));
+	lcd_putc(LCD_STR_ARROW_RIGHT[0]);
+	lcd_putc(fsensor.isEnabled() ? LCD_STR_CONFIRM[0] : 'X');
+#else
+	lcd_space(4);
+#endif
+	lcd_putc(' ');
+	lcd_puts_P(PSTR("OP"));
+	lcd_putc(LCD_STR_ARROW_RIGHT[0]);
+	lcd_putc(pause_at_next_object ? LCD_STR_CONFIRM[0] : 'X');
+	lcd_space(3); //pad to the time/diagnostics column
 
 #ifdef CMD_DIAGNOSTICS
     //Print cmd queue diagnostics (8chars)
