@@ -505,11 +505,8 @@ void lcdui_print_time(void)
         else //time>=100h
             chars = lcd_printf_P(_N(LCD_STR_CLOCK "%3uh %c%c"), print_t / 60, suff, suff_doubt);
     } else {
-#ifdef QUICK_NOZZLE_CHANGE
+        // When idle, show the nozzle diameter instead of the clock
         chars = lcd_printf_P(PSTR("Nd %4.2f "),(float)eeprom_read_word((uint16_t*)EEPROM_NOZZLE_DIAMETER_uM)/1000.0);
-#else
-        chars = lcd_printf_P(_N(LCD_STR_CLOCK "--:--  "));
-#endif //QUICK_NOZZLE_CHANGE
     }
     lcd_space(8 - chars);
 }
@@ -638,11 +635,9 @@ void lcdui_print_status_line(void) {
 //! |01234567890123456789|
 //! |N000/000D   Z000.00 |
 //! |B000/000D   F100%   |
-//! |           t--:--  | // Idle (percent/sheet slot blank)
+//! |           Nd 0.40 | // Idle (nozzle diameter)
 //!
-//! |        F?  t--:--  | // Idle + MMU3
-//!
-//! |           Nd 0.40 | // Idle + QUICK_NOZZLE_CHANGE
+//! |        F?  Nd 0.40 | // Idle + MMU3
 //!
 //! |        F1  t00:17R | // SD print + MMU3
 //!
