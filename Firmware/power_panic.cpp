@@ -18,6 +18,7 @@
 #include "planner.h"
 #include "power_panic.h"
 #include "stepper.h"
+#include "stopwatch.h"
 #include "system_timer.h"
 #include "tmc2130.h"
 #include "temperature.h"
@@ -220,6 +221,11 @@ void uvlo_() {
     eeprom_increment_byte((uint8_t*)EEPROM_POWER_COUNT);
     eeprom_increment_word((uint16_t*)EEPROM_POWER_COUNT_TOT);
 
+    // Count partial print time toward the maintenance counter before powering off.
+    eeprom_update_dword_notify((uint32_t *)EEPROM_SERVICE_TIME,
+                               eeprom_init_default_dword((uint32_t *)EEPROM_SERVICE_TIME, 0)
+                                   + print_job_timer.duration() / 60);
+
     printf_P(_N("UVLO - end %d\n"), _millis() - time_start);
     WRITE(BEEPER,HIGH);
 
@@ -294,6 +300,11 @@ static void uvlo_tiny() {
     // Increment power failure counter
     eeprom_increment_byte((uint8_t*)EEPROM_POWER_COUNT);
     eeprom_increment_word((uint16_t*)EEPROM_POWER_COUNT_TOT);
+
+    // Count partial print time toward the maintenance counter before powering off.
+    eeprom_update_dword_notify((uint32_t *)EEPROM_SERVICE_TIME,
+                               eeprom_init_default_dword((uint32_t *)EEPROM_SERVICE_TIME, 0)
+                                   + print_job_timer.duration() / 60);
 
     printf_P(_N("UVLO_TINY - end %d\n"), _millis() - time_start);
     uvlo_drain_reset();

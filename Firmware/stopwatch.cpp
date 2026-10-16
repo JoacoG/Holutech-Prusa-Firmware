@@ -36,12 +36,16 @@ uint32_t Stopwatch::startTimestamp;
 uint32_t Stopwatch::stopTimestamp;
 
 bool Stopwatch::stop() {
-  if (isRunning() || isPaused()) {
+  if (isRunning()) {
     state = STOPPED;
     stopTimestamp = _millis();
     return true;
   }
-  else return false;
+  if (isPaused()) {
+    state = STOPPED; // keep the pause timestamp; do not add paused time
+    return true;
+  }
+  return false;
 }
 
 bool Stopwatch::pause() {
