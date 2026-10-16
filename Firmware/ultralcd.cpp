@@ -942,8 +942,6 @@ void lcd_commands()
                     lcd_commands_step = 2;
                 break;
             case 2:
-                // Restore the default flow (M221 S95 was set in live_z_setup()).
-                enquecommand_P(PSTR("M221 S100"));
                 lay1cal_finish();
                 lcd_commands_step = 1;
                 break;
