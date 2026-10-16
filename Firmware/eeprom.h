@@ -96,8 +96,7 @@ static_assert(sizeof(Sheets) == EEPROM_SHEETS_SIZEOF, "Sizeof(Sheets) is not EEP
 | ^           | ^       | ^                                     | 02h 2        | ^                     | miniRambo Auto mode                               | ^            | ^
 | 0x0FFE 4094 | uchar   | EEPROM_LANG                           | 00h 0        | ffh 255         __L__ | English / LANG_ID_PRI                             | LCD menu     | D3 Ax0ffe C1
 | ^           | ^       | ^                                     | 01h 1        | ^                     | Other language LANG_ID_SEC                        | ^            | ^
-| 0x0FFC 4092 | uint16  | _EEPROM_FREE_NR10_                    | ???          | ff ffh 65535          | _Free EEPROM space_                               | _free space_ | D3 Ax0ffc C2
-| 0x0FFA 4090 | uint16  | _EEPROM_FREE_NR11_                    | ???          | ff ffh 65535          | _Free EEPROM space_                               | _free space_ | D3 Ax0ffa C2
+| 0x0FFA 4090 | uint32  | EEPROM_SERVICE_TIME                   | ???          | 00 00 00 00h 0        | Print time since last service, minutes            | LCD menu     | D3 Ax0ffa C4
 | 0x0FF8 4088 | uint16  | EEPROM_BABYSTEP_Z                     | ???          | ff ffh 65535          | Babystep for Z axis _legacy_                      | ???          | D3 Ax0ff8 C2
 | ^           | ^       | ^                                     | ^            | ^                     | multiple values stored now in EEPROM_Sheets_base  | ^            | ^
 | 0x0FF7 4087 | uint8   | EEPROM_CALIBRATION_STATUS_V1          | ffh 255      | ffh 255               | Calibration status (<v3.12)                       | ???          | D3 Ax0ff7 C1
@@ -437,8 +436,9 @@ static_assert(sizeof(Sheets) == EEPROM_SHEETS_SIZEOF, "Sizeof(Sheets) is not EEP
 #define EEPROM_TOP 4096
 #define EEPROM_SILENT 4095
 #define EEPROM_LANG 4094
-#define _EEPROM_FREE_NR10_ 4092 // uint16_t
-#define _EEPROM_FREE_NR11_ 4090 // uint16_t
+#define EEPROM_SERVICE_TIME 4090 // uint32_t, print time since the last service, in minutes (resettable maintenance counter)
+// Prompt for maintenance once the counter reaches this many minutes of printing (200 h).
+#define SERVICE_INTERVAL_MIN (200UL * 60UL)
 #define EEPROM_BABYSTEP_Z 4088 //legacy, multiple values stored now in EEPROM_Sheets_base
 #define EEPROM_CALIBRATION_STATUS_V1 4087 // legacy, used up to v3.11
 #define _EEPROM_FREE_NR12_ (EEPROM_CALIBRATION_STATUS_V1 - 2) // uint16_t

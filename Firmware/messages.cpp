@@ -94,6 +94,8 @@ const char MSG_RECOVER_PRINT_ADC[] PROGMEM_I1 = ISTR("Voltage drop.\nRecover pri
 const char MSG_REFRESH[] PROGMEM_I1 = ISTR(LCD_STR_REFRESH "Refresh"); ////MSG_REFRESH c=18
 const char MSG_REMOVE_STEEL_SHEET[] PROGMEM_I1 = ISTR("Please remove steel sheet from heatbed."); ////MSG_REMOVE_STEEL_SHEET c=20 r=4
 const char MSG_RESET[] PROGMEM_I1 = ISTR("Reset"); ////MSG_RESET c=14
+const char MSG_RESET_SERVICE[] PROGMEM_I1 = ISTR("Reset maintenance"); ////MSG_RESET_SERVICE c=18
+const char MSG_RESET_SERVICE_CNT[] PROGMEM_I1 = ISTR("Reset maintenance counter?"); ////MSG_RESET_SERVICE_CNT c=20 r=2
 const char MSG_RESUME_PRINT[] PROGMEM_I1 = ISTR("Resume print"); ////MSG_RESUME_PRINT c=18
 const char MSG_RESUMING_PRINT[] PROGMEM_I1 = ISTR("Resuming print"); ////MSG_RESUMING_PRINT c=20
 const char MSG_SELFTEST_PART_FAN[] PROGMEM_I1 = ISTR("Front print fan?"); ////MSG_SELFTEST_PART_FAN c=20

@@ -511,6 +511,22 @@ void lcdui_print_time(void)
     lcd_space(8 - chars);
 }
 
+//! @brief Print the maintenance counter (hours until next service) into the 8-char diagnostics slot.
+//! Only shown while idle, blank during printing.
+static void lcdui_print_service_time(void)
+{
+    if (printer_active()) {
+        lcd_space(8);
+        return;
+    }
+    const uint32_t service_min = eeprom_read_dword((uint32_t *)EEPROM_SERVICE_TIME);
+    if (service_min < SERVICE_INTERVAL_MIN) {
+        lcd_printf_P(_N("Svc %3uh"), (unsigned)((SERVICE_INTERVAL_MIN - service_min) / 60));
+    } else {
+        lcd_printf_P(_N("Svc! DUE"));
+    }
+}
+
 //! @Brief Print status line on status screen
 void lcdui_print_status_line(void) {
     static uint8_t heating_status_counter;
@@ -635,6 +651,7 @@ void lcdui_print_status_line(void) {
 //! |01234567890123456789|
 //! |N000/000D   Z000.00 |
 //! |B000/000D   F100%   |
+//! |B000/000D  Svc 123h | // Idle (hours until next service due)
 //! |           Nd 0.40 | // Idle (nozzle diameter)
 //!
 //! |        F?  Nd 0.40 | // Idle + MMU3
@@ -670,11 +687,14 @@ void lcdui_print_status_screen(void)
 	lcd_space(3); //gap between bed temperature and diagnostics
 
 #ifdef PLANNER_DIAGNOSTICS
-	//Print planner diagnostics (8 chars)
-	lcdui_print_planner_diag();
+	//Planner diagnostics (8 chars) while printing, maintenance counter while idle
+	if (printer_active())
+		lcdui_print_planner_diag();
+	else
+		lcdui_print_service_time();
 #else // PLANNER_DIAGNOSTICS
-    //Feedrate display removed - speed is locked at 100% from the panel side
-	lcd_space(8); //8 spaces
+    //Show the maintenance counter while idle (blank during printing)
+	lcdui_print_service_time();
 #endif // PLANNER_DIAGNOSTICS
 
 	lcd_set_cursor(0, 2); //line 2
@@ -4810,6 +4830,13 @@ static void lcd_move_z_maintenance()
     lcd_move_z();
 }
 
+static void lcd_reset_service()
+{
+    // 'No' is preselected to prevent accidental resets.
+    if (lcd_show_multiscreen_message_yes_no_and_wait_P(_T(MSG_RESET_SERVICE_CNT), false, LCD_MIDDLE_BUTTON_CHOICE) == LCD_LEFT_BUTTON_CHOICE)
+        eeprom_update_dword_notify((uint32_t *)EEPROM_SERVICE_TIME, 0);
+}
+
 static void lcd_menu_maintenance()
 {
     MENU_BEGIN();
@@ -4823,6 +4850,7 @@ static void lcd_menu_maintenance()
 #endif //TMC2130
     MENU_ITEM_SUBMENU_P(_T(MSG_PID_EXTRUDER), pid_extruder);
     MENU_ITEM_SUBMENU_P(_N("First layer prints"), lcd_first_layer_prints_menu);
+    MENU_ITEM_FUNCTION_P(_T(MSG_RESET_SERVICE), lcd_reset_service);
     MENU_END();
 }
 

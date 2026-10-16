@@ -96,6 +96,8 @@ extern const char MSG_RECOVER_PRINT_ADC[];
 extern const char MSG_REFRESH[];
 extern const char MSG_REMOVE_STEEL_SHEET[];
 extern const char MSG_RESET[];
+extern const char MSG_RESET_SERVICE[];
+extern const char MSG_RESET_SERVICE_CNT[];
 extern const char MSG_RESUME_PRINT[];
 extern const char MSG_RESUMING_PRINT[];
 extern const char MSG_SELFTEST_PART_FAN[];

@@ -774,6 +774,7 @@ void softReset(void) {
 static void factory_reset_stats(){
     eeprom_update_dword_notify((uint32_t *)EEPROM_TOTALTIME, 0);
     eeprom_update_dword_notify((uint32_t *)EEPROM_FILAMENTUSED, 0);
+    eeprom_update_dword_notify((uint32_t *)EEPROM_SERVICE_TIME, 0);
 
     failstats_reset_print();
 
@@ -9461,9 +9462,11 @@ void setPwmFrequency(uint8_t pin, int val)
 void save_statistics() {
     uint32_t _previous_filament = eeprom_init_default_dword((uint32_t *)EEPROM_FILAMENTUSED, 0); //_previous_filament unit: centimeter
     uint32_t _previous_time = eeprom_init_default_dword((uint32_t *)EEPROM_TOTALTIME, 0);        //_previous_time unit: min
+    uint32_t _previous_service = eeprom_init_default_dword((uint32_t *)EEPROM_SERVICE_TIME, 0);  //_previous_service unit: min
 
     uint32_t time_minutes = print_job_timer.duration() / 60;
     eeprom_update_dword_notify((uint32_t *)EEPROM_TOTALTIME, _previous_time + time_minutes); // EEPROM_TOTALTIME unit: min
+    eeprom_update_dword_notify((uint32_t *)EEPROM_SERVICE_TIME, _previous_service + time_minutes); // EEPROM_SERVICE_TIME unit: min
     eeprom_update_dword_notify((uint32_t *)EEPROM_FILAMENTUSED, _previous_filament + (total_filament_used / 1000));
 
     print_job_timer.reset();

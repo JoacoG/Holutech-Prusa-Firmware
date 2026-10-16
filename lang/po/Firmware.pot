@@ -8,79 +8,79 @@ msgstr ""
 
 #. MSG_IR_03_OR_OLDER c=18
 #: ../../Firmware/Filament_sensor.cpp:284
-#: ../../Firmware/Filament_sensor.cpp:346 ../../Firmware/messages.cpp:195
+#: ../../Firmware/Filament_sensor.cpp:346 ../../Firmware/messages.cpp:197
 msgid " 0.3 or older"
 msgstr ""
 
 #. MSG_IR_04_OR_NEWER c=18
 #: ../../Firmware/Filament_sensor.cpp:286
-#: ../../Firmware/Filament_sensor.cpp:349 ../../Firmware/messages.cpp:194
+#: ../../Firmware/Filament_sensor.cpp:349 ../../Firmware/messages.cpp:196
 msgid " 0.4 or newer"
 msgstr ""
 
 #. MSG_SELFTEST_FS_LEVEL c=20
-#: ../../Firmware/messages.cpp:384 ../../Firmware/ultralcd.cpp:7294
+#: ../../Firmware/messages.cpp:386 ../../Firmware/ultralcd.cpp:7272
 msgid "%s level expected"
 msgstr ""
 
 #. MSG_BABYSTEPPING_Z c=13
-#: ../../Firmware/messages.cpp:284 ../../Firmware/ultralcd.cpp:2999
+#: ../../Firmware/messages.cpp:286 ../../Firmware/ultralcd.cpp:2993
 msgid "Adjusting Z"
 msgstr ""
 
 #. MSG_SELFTEST_CHECK_ALLCORRECT c=20
-#: ../../Firmware/messages.cpp:388 ../../Firmware/ultralcd.cpp:7505
+#: ../../Firmware/messages.cpp:390 ../../Firmware/ultralcd.cpp:7483
 msgid "All correct"
 msgstr ""
 
 #. MSG_WIZARD_DONE c=20 r=3
-#: ../../Firmware/messages.cpp:143 ../../Firmware/ultralcd.cpp:4437
+#: ../../Firmware/messages.cpp:145 ../../Firmware/ultralcd.cpp:4431
 msgid "All is done. Happy printing!"
 msgstr ""
 
 #. MSG_SORT_ALPHA c=8
-#: ../../Firmware/messages.cpp:172 ../../Firmware/ultralcd.cpp:5001
+#: ../../Firmware/messages.cpp:174 ../../Firmware/ultralcd.cpp:4980
 msgid "Alphabet"
 msgstr ""
 
 #. MSG_ALWAYS c=6
-#: ../../Firmware/messages.cpp:11 ../../Firmware/ultralcd.cpp:4568
+#: ../../Firmware/messages.cpp:11 ../../Firmware/ultralcd.cpp:4562
 msgid "Always"
 msgstr ""
 
 #. MSG_AMBIENT c=14
-#: ../../Firmware/messages.cpp:243 ../../Firmware/ultralcd.cpp:1632
+#: ../../Firmware/messages.cpp:245 ../../Firmware/ultralcd.cpp:1626
 msgid "Ambient"
 msgstr ""
 
 #. MSG_CONFIRM_CARRIAGE_AT_THE_TOP c=20 r=3
-#: ../../Firmware/messages.cpp:294 ../../Firmware/ultralcd.cpp:3220
+#: ../../Firmware/messages.cpp:296 ../../Firmware/ultralcd.cpp:3214
 msgid "Are left and right Z-carriages all up?"
 msgstr ""
 
 #. MSG_SOUND_BLIND c=7
-#: ../../Firmware/messages.cpp:177 ../../Firmware/ultralcd.cpp:4684
+#: ../../Firmware/messages.cpp:179 ../../Firmware/ultralcd.cpp:4661
 msgid "Assist"
 msgstr ""
 
 #. MSG_AUTO c=6
-#: ../../Firmware/messages.cpp:191 ../../Firmware/ultralcd.cpp:6131
+#: ../../Firmware/messages.cpp:193 ../../Firmware/ultralcd.cpp:6109
 msgid "Auto"
 msgstr ""
 
 #. MSG_AUTO_HOME c=18
-#: ../../Firmware/Marlin_main.cpp:3031 ../../Firmware/messages.cpp:12
-#: ../../Firmware/ultralcd.cpp:5052 ../../Firmware/ultralcd.cpp:6033
+#: ../../Firmware/Marlin_main.cpp:3032 ../../Firmware/messages.cpp:12
+#: ../../Firmware/ultralcd.cpp:5031 ../../Firmware/ultralcd.cpp:6011
 msgid "Auto home"
 msgstr ""
 
 #. MSG_AUTO_POWER c=10
-#: ../../Firmware/messages.cpp:129 ../../Firmware/ultralcd.cpp:4640
+#: ../../Firmware/messages.cpp:131 ../../Firmware/ultralcd.cpp:4617
 msgid "Auto power"
 msgstr ""
 
 #. MSG_AUTO_RECOVER_PRESS_KNOB c=20 r=3
-#: ../../Firmware/Marlin_main.cpp:1643 ../../Firmware/messages.cpp:13
+#: ../../Firmware/Marlin_main.cpp:1644 ../../Firmware/messages.cpp:13
 msgid ""
 "Auto recovery.\n"
 "Press the knob\n"
@@ -88,12 +88,12 @@ msgid ""
 msgstr ""
 
 #. MSG_AUTOLOAD_FILAMENT c=18
-#: ../../Firmware/messages.cpp:356 ../../Firmware/ultralcd.cpp:5856
+#: ../../Firmware/messages.cpp:358 ../../Firmware/ultralcd.cpp:5835
 msgid "AutoLoad filament"
 msgstr ""
 
 #. MSG_AUTOLOADING_ENABLED c=20 r=4
-#: ../../Firmware/messages.cpp:271 ../../Firmware/ultralcd.cpp:2636
+#: ../../Firmware/messages.cpp:273 ../../Firmware/ultralcd.cpp:2630
 msgid ""
 "Autoloading filament is active, just press the knob and insert filament..."
 msgstr ""
@@ -105,49 +105,49 @@ msgid "Avoiding grind"
 msgstr ""
 
 #. MSG_SELFTEST_AXIS c=16
-#: ../../Firmware/messages.cpp:380 ../../Firmware/ultralcd.cpp:7273
+#: ../../Firmware/messages.cpp:382 ../../Firmware/ultralcd.cpp:7251
 msgid "Axis"
 msgstr ""
 
 #. MSG_SELFTEST_AXIS_LENGTH c=20
-#: ../../Firmware/messages.cpp:379 ../../Firmware/ultralcd.cpp:7272
+#: ../../Firmware/messages.cpp:381 ../../Firmware/ultralcd.cpp:7250
 msgid "Axis length"
 msgstr ""
 
 #. MSG_BACK c=18
-#: ../../Firmware/messages.cpp:69 ../../Firmware/ultralcd.cpp:3080
-#: ../../Firmware/ultralcd.cpp:4115 ../../Firmware/ultralcd.cpp:4519
-#: ../../Firmware/ultralcd.cpp:4859 ../../Firmware/ultralcd.cpp:4875
-#: ../../Firmware/ultralcd.cpp:6128 ../../Firmware/ultralcd.cpp:8016
+#: ../../Firmware/messages.cpp:69 ../../Firmware/ultralcd.cpp:3074
+#: ../../Firmware/ultralcd.cpp:4109 ../../Firmware/ultralcd.cpp:4513
+#: ../../Firmware/ultralcd.cpp:4843 ../../Firmware/ultralcd.cpp:4860
+#: ../../Firmware/ultralcd.cpp:6106 ../../Firmware/ultralcd.cpp:7994
 msgid "Back"
 msgstr ""
 
 #. MSG_BED c=13
-#: ../../Firmware/Marlin_main.cpp:4346 ../../Firmware/messages.cpp:16
-#: ../../Firmware/ultralcd.cpp:1630 ../../Firmware/ultralcd.cpp:4655
+#: ../../Firmware/Marlin_main.cpp:4347 ../../Firmware/messages.cpp:16
+#: ../../Firmware/ultralcd.cpp:1624 ../../Firmware/ultralcd.cpp:4632
 msgid "Bed"
 msgstr ""
 
 #. MSG_BED_HEATING c=20
-#: ../../Firmware/Marlin_main.cpp:5713 ../../Firmware/messages.cpp:18
-#: ../../Firmware/ultralcd.cpp:550
+#: ../../Firmware/Marlin_main.cpp:5714 ../../Firmware/messages.cpp:18
+#: ../../Firmware/ultralcd.cpp:554
 msgid "Bed Heating"
 msgstr ""
 
 #. MSG_BED_DONE c=20
-#: ../../Firmware/Marlin_main.cpp:5756 ../../Firmware/messages.cpp:17
-#: ../../Firmware/ultralcd.cpp:553
+#: ../../Firmware/Marlin_main.cpp:5757 ../../Firmware/messages.cpp:17
+#: ../../Firmware/ultralcd.cpp:557
 msgid "Bed done"
 msgstr ""
 
 #. MSG_BED_CORRECTION_MENU c=18
-#: ../../Firmware/messages.cpp:344 ../../Firmware/ultralcd.cpp:5064
+#: ../../Firmware/messages.cpp:346 ../../Firmware/ultralcd.cpp:5043
 msgid "Bed level correct"
 msgstr ""
 
 #. MSG_BED_LEVELING_FAILED_POINT_LOW c=20 r=6
-#: ../../Firmware/Marlin_main.cpp:2137 ../../Firmware/Marlin_main.cpp:2825
-#: ../../Firmware/Marlin_main.cpp:2834
+#: ../../Firmware/Marlin_main.cpp:2138 ../../Firmware/Marlin_main.cpp:2826
+#: ../../Firmware/Marlin_main.cpp:2835
 #: ../../Firmware/mesh_bed_calibration.cpp:2863
 #: ../../Firmware/mesh_bed_calibration.cpp:2888 ../../Firmware/messages.cpp:19
 msgid ""
@@ -156,35 +156,35 @@ msgid ""
 msgstr ""
 
 #. MSG_SELFTEST_BEDHEATER c=20
-#: ../../Firmware/messages.cpp:374 ../../Firmware/ultralcd.cpp:7230
+#: ../../Firmware/messages.cpp:376 ../../Firmware/ultralcd.cpp:7208
 msgid "Bed/Heater"
 msgstr ""
 
 #. MSG_BELT_STATUS c=18
-#: ../../Firmware/messages.cpp:21 ../../Firmware/ultralcd.cpp:1683
-#: ../../Firmware/ultralcd.cpp:1950
+#: ../../Firmware/messages.cpp:21 ../../Firmware/ultralcd.cpp:1677
+#: ../../Firmware/ultralcd.cpp:1944
 msgid "Belt status"
 msgstr ""
 
 #. MSG_BELTTEST c=18
-#: ../../Firmware/messages.cpp:341 ../../Firmware/ultralcd.cpp:4865
-#: ../../Firmware/ultralcd.cpp:5054
+#: ../../Firmware/messages.cpp:343 ../../Firmware/ultralcd.cpp:4849
+#: ../../Firmware/ultralcd.cpp:5033
 msgid "Belt test"
 msgstr ""
 
 #. MSG_RECOVER_PRINT c=20 r=3
-#: ../../Firmware/Marlin_main.cpp:1668 ../../Firmware/messages.cpp:92
+#: ../../Firmware/Marlin_main.cpp:1669 ../../Firmware/messages.cpp:92
 msgid "Blackout occurred. Recover print?"
 msgstr ""
 
 #. MSG_BRIGHT c=6
-#: ../../Firmware/messages.cpp:189 ../../Firmware/ultralcd.cpp:6131
+#: ../../Firmware/messages.cpp:191 ../../Firmware/ultralcd.cpp:6109
 msgid "Bright"
 msgstr ""
 
 #. MSG_BRIGHTNESS c=18
-#: ../../Firmware/messages.cpp:185 ../../Firmware/ultralcd.cpp:5012
-#: ../../Firmware/ultralcd.cpp:6050
+#: ../../Firmware/messages.cpp:187 ../../Firmware/ultralcd.cpp:4991
+#: ../../Firmware/ultralcd.cpp:6028
 msgid "Brightness"
 msgstr ""
 
@@ -194,47 +194,47 @@ msgid "COMMUNICATION ERROR"
 msgstr ""
 
 #. MSG_CALIBRATE_BED c=18
-#: ../../Firmware/messages.cpp:343 ../../Firmware/ultralcd.cpp:5058
+#: ../../Firmware/messages.cpp:345 ../../Firmware/ultralcd.cpp:5037
 msgid "Calibrate XYZ"
 msgstr ""
 
 #. MSG_HOMEYZ c=18
-#: ../../Firmware/messages.cpp:56 ../../Firmware/ultralcd.cpp:5060
+#: ../../Firmware/messages.cpp:56 ../../Firmware/ultralcd.cpp:5039
 msgid "Calibrate Z"
 msgstr ""
 
 #. MSG_MOVE_CARRIAGE_TO_THE_TOP c=20 r=8
-#: ../../Firmware/messages.cpp:293 ../../Firmware/ultralcd.cpp:3185
+#: ../../Firmware/messages.cpp:295 ../../Firmware/ultralcd.cpp:3179
 msgid ""
 "Calibrating XYZ. Rotate the knob to move the Z carriage up to the end "
 "stoppers. Click when done."
 msgstr ""
 
 #. MSG_CALIBRATE_Z_AUTO c=20 r=2
-#: ../../Firmware/Marlin_main.cpp:2098 ../../Firmware/messages.cpp:24
-#: ../../Firmware/ultralcd.cpp:602
+#: ../../Firmware/Marlin_main.cpp:2099 ../../Firmware/messages.cpp:24
+#: ../../Firmware/ultralcd.cpp:606
 msgid "Calibrating Z"
 msgstr ""
 
 #. MSG_MOVE_CARRIAGE_TO_THE_TOP_Z c=20 r=8
-#: ../../Firmware/messages.cpp:292 ../../Firmware/ultralcd.cpp:3184
+#: ../../Firmware/messages.cpp:294 ../../Firmware/ultralcd.cpp:3178
 msgid ""
 "Calibrating Z. Rotate the knob to move the Z carriage up to the end "
 "stoppers. Click when done."
 msgstr ""
 
 #. MSG_CALIBRATING_HOME c=20
-#: ../../Firmware/messages.cpp:389 ../../Firmware/ultralcd.cpp:7507
+#: ../../Firmware/messages.cpp:391 ../../Firmware/ultralcd.cpp:7485
 msgid "Calibrating home"
 msgstr ""
 
 #. MSG_CALIBRATION c=18
-#: ../../Firmware/messages.cpp:73 ../../Firmware/ultralcd.cpp:5869
+#: ../../Firmware/messages.cpp:73 ../../Firmware/ultralcd.cpp:5848
 msgid "Calibration"
 msgstr ""
 
 #. MSG_HOMEYZ_DONE c=20
-#: ../../Firmware/messages.cpp:239 ../../Firmware/ultralcd.cpp:613
+#: ../../Firmware/messages.cpp:241 ../../Firmware/ultralcd.cpp:617
 msgid "Calibration done"
 msgstr ""
 
@@ -245,8 +245,8 @@ msgid "Can't move Selector or Idler."
 msgstr ""
 
 #. MSG_CANCEL c=9
-#: ../../Firmware/messages.cpp:23 ../../Firmware/ultralcd.cpp:2231
-#: ../../Firmware/ultralcd.cpp:3412 ../../Firmware/ultralcd.cpp:3988
+#: ../../Firmware/messages.cpp:23 ../../Firmware/ultralcd.cpp:2225
+#: ../../Firmware/ultralcd.cpp:3406 ../../Firmware/ultralcd.cpp:3982
 msgid "Cancel"
 msgstr ""
 
@@ -257,141 +257,141 @@ msgid ""
 msgstr ""
 
 #. MSG_SD_REMOVED c=20
-#: ../../Firmware/messages.cpp:392 ../../Firmware/ultralcd.cpp:7937
+#: ../../Firmware/messages.cpp:394 ../../Firmware/ultralcd.cpp:7915
 msgid "Card removed"
 msgstr ""
 
 #. MSG_CNG_SDCARD c=18
-#: ../../Firmware/messages.cpp:352 ../../Firmware/ultralcd.cpp:5806
+#: ../../Firmware/messages.cpp:354 ../../Firmware/ultralcd.cpp:5785
 msgid "Change SD card"
 msgstr ""
 
 #. MSG_FILAMENTCHANGE c=18
-#: ../../Firmware/messages.cpp:45 ../../Firmware/ultralcd.cpp:5736
-#: ../../Firmware/ultralcd.cpp:6026
+#: ../../Firmware/messages.cpp:45 ../../Firmware/ultralcd.cpp:5715
+#: ../../Firmware/ultralcd.cpp:6004
 msgid "Change filament"
 msgstr ""
 
 #. MSG_CHANGE_FILAMENT_RESUME c=20 r=2
-#: ../../Firmware/Marlin_main.cpp:5184 ../../Firmware/messages.cpp:471
+#: ../../Firmware/Marlin_main.cpp:5185 ../../Firmware/messages.cpp:473
 msgid ""
 "Change filament\n"
 "before resume?"
 msgstr ""
 
 #. MSG_CHANGE_SUCCESS c=20
-#: ../../Firmware/messages.cpp:262 ../../Firmware/ultralcd.cpp:2407
+#: ../../Firmware/messages.cpp:264 ../../Firmware/ultralcd.cpp:2401
 msgid "Change success!"
 msgstr ""
 
 #. MSG_CORRECTLY c=19
-#: ../../Firmware/messages.cpp:264 ../../Firmware/ultralcd.cpp:2454
+#: ../../Firmware/messages.cpp:266 ../../Firmware/ultralcd.cpp:2448
 msgid "Changed correctly"
 msgstr ""
 
 #. MSG_CHECKING_X c=20
-#: ../../Firmware/messages.cpp:26 ../../Firmware/ultralcd.cpp:6472
-#: ../../Firmware/ultralcd.cpp:7497
+#: ../../Firmware/messages.cpp:26 ../../Firmware/ultralcd.cpp:6450
+#: ../../Firmware/ultralcd.cpp:7475
 msgid "Checking X axis"
 msgstr ""
 
 #. MSG_CHECKING_Y c=20
-#: ../../Firmware/messages.cpp:27 ../../Firmware/ultralcd.cpp:6482
-#: ../../Firmware/ultralcd.cpp:7498
+#: ../../Firmware/messages.cpp:27 ../../Firmware/ultralcd.cpp:6460
+#: ../../Firmware/ultralcd.cpp:7476
 msgid "Checking Y axis"
 msgstr ""
 
 #. MSG_SELFTEST_CHECK_Z c=20
-#: ../../Firmware/messages.cpp:386 ../../Firmware/ultralcd.cpp:7499
+#: ../../Firmware/messages.cpp:388 ../../Firmware/ultralcd.cpp:7477
 msgid "Checking Z axis"
 msgstr ""
 
 #. MSG_SELFTEST_CHECK_BED c=20
-#: ../../Firmware/messages.cpp:105 ../../Firmware/ultralcd.cpp:7500
+#: ../../Firmware/messages.cpp:107 ../../Firmware/ultralcd.cpp:7478
 msgid "Checking bed"
 msgstr ""
 
 #. MSG_SELFTEST_CHECK_ENDSTOPS c=20
-#: ../../Firmware/messages.cpp:385 ../../Firmware/ultralcd.cpp:7496
+#: ../../Firmware/messages.cpp:387 ../../Firmware/ultralcd.cpp:7474
 msgid "Checking endstops"
 msgstr ""
 
 #. MSG_CHECKING_FILE c=17
-#: ../../Firmware/messages.cpp:390 ../../Firmware/ultralcd.cpp:7592
+#: ../../Firmware/messages.cpp:392 ../../Firmware/ultralcd.cpp:7570
 msgid "Checking file"
 msgstr ""
 
 #. MSG_SELFTEST_CHECK_HOTEND c=20
-#: ../../Firmware/messages.cpp:387 ../../Firmware/ultralcd.cpp:7502
+#: ../../Firmware/messages.cpp:389 ../../Firmware/ultralcd.cpp:7480
 msgid "Checking hotend"
 msgstr ""
 
 #. MSG_SELFTEST_CHECK_FSENSOR c=20
-#: ../../Firmware/messages.cpp:106 ../../Firmware/ultralcd.cpp:7503
-#: ../../Firmware/ultralcd.cpp:7504
+#: ../../Firmware/messages.cpp:108 ../../Firmware/ultralcd.cpp:7481
+#: ../../Firmware/ultralcd.cpp:7482
 msgid "Checking sensors"
 msgstr ""
 
 #. MSG_CHECKS c=18
-#: ../../Firmware/messages.cpp:335 ../../Firmware/ultralcd.cpp:4910
+#: ../../Firmware/messages.cpp:337 ../../Firmware/ultralcd.cpp:4895
 msgid "Checks"
 msgstr ""
 
 #. MSG_TM_ACK_ERROR c=18
-#: ../../Firmware/messages.cpp:202 ../../Firmware/ultralcd.cpp:5787
+#: ../../Firmware/messages.cpp:204 ../../Firmware/ultralcd.cpp:5766
 msgid "Clear TM error"
 msgstr ""
 
 #. MSG_COLD_PULL c=18
-#: ../../Firmware/messages.cpp:213 ../../Firmware/ultralcd.cpp:4860
+#: ../../Firmware/messages.cpp:215 ../../Firmware/ultralcd.cpp:4844
 msgid "Cold pull"
 msgstr ""
 
 #. MSG_NOT_COLOR c=19
-#: ../../Firmware/messages.cpp:266
+#: ../../Firmware/messages.cpp:268
 msgid "Color not correct"
 msgstr ""
 
 #. MSG_COMMUNITY_MADE c=18
-#: ../../Firmware/messages.cpp:28 ../../Firmware/ultralcd.cpp:3884
+#: ../../Firmware/messages.cpp:28 ../../Firmware/ultralcd.cpp:3878
 msgid "Community made"
 msgstr ""
 
 #. MSG_CONTINUE_SHORT c=5
-#: ../../Firmware/messages.cpp:183 ../../Firmware/ultralcd.cpp:3412
-#: ../../Firmware/ultralcd.cpp:4541
+#: ../../Firmware/messages.cpp:185 ../../Firmware/ultralcd.cpp:3406
+#: ../../Firmware/ultralcd.cpp:4535
 msgid "Cont."
 msgstr ""
 
 #. MSG_COOLDOWN c=18
-#: ../../Firmware/messages.cpp:30 ../../Firmware/ultralcd.cpp:2370
+#: ../../Firmware/messages.cpp:30 ../../Firmware/ultralcd.cpp:2364
 msgid "Cooldown"
 msgstr ""
 
 #. MSG_COOLDOWN_NOZZLE c=18
-#: ../../Firmware/messages.cpp:31 ../../Firmware/ultralcd.cpp:2368
+#: ../../Firmware/messages.cpp:31 ../../Firmware/ultralcd.cpp:2362
 msgid "Cooldown nozzle"
 msgstr ""
 
 #. MSG_COLD_PULL_COOLING_SHORT c=15
-#: ../../Firmware/messages.cpp:217 ../../Firmware/ultralcd.cpp:1168
+#: ../../Firmware/messages.cpp:219 ../../Firmware/ultralcd.cpp:1162
 msgid "Cooling to 90C"
 msgstr ""
 
 #. MSG_COPY_SEL_LANG c=20 r=3
-#: ../../Firmware/messages.cpp:310 ../../Firmware/ultralcd.cpp:3826
+#: ../../Firmware/messages.cpp:312 ../../Firmware/ultralcd.cpp:3820
 msgid "Copy selected language?"
 msgstr ""
 
 #. MSG_CRASH c=7
-#: ../../Firmware/messages.cpp:32 ../../Firmware/ultralcd.cpp:1473
-#: ../../Firmware/ultralcd.cpp:1502
+#: ../../Firmware/messages.cpp:32 ../../Firmware/ultralcd.cpp:1467
+#: ../../Firmware/ultralcd.cpp:1496
 msgid "Crash"
 msgstr ""
 
 #. MSG_CRASHDETECT c=13
-#: ../../Firmware/messages.cpp:34 ../../Firmware/ultralcd.cpp:4616
-#: ../../Firmware/ultralcd.cpp:4628
+#: ../../Firmware/messages.cpp:34 ../../Firmware/ultralcd.cpp:4593
+#: ../../Firmware/ultralcd.cpp:4605
 msgid "Crash det."
 msgstr ""
 
@@ -401,7 +401,7 @@ msgid "Crash detected."
 msgstr ""
 
 #. MSG_CRASH_DET_ONLY_IN_NORMAL c=20 r=4
-#: ../../Firmware/messages.cpp:307 ../../Firmware/ultralcd.cpp:3750
+#: ../../Firmware/messages.cpp:309 ../../Firmware/ultralcd.cpp:3744
 msgid ""
 "Crash detection can\n"
 "be turned on only in\n"
@@ -410,23 +410,23 @@ msgstr ""
 
 #. MSG_CUT_FILAMENT c=16
 #: ../../Firmware/messages.cpp:67 ../../Firmware/mmu2_reporting.cpp:381
-#: ../../Firmware/ultralcd.cpp:5329 ../../Firmware/ultralcd.cpp:5841
+#: ../../Firmware/ultralcd.cpp:5308 ../../Firmware/ultralcd.cpp:5820
 msgid "Cut filament"
 msgstr ""
 
 #. MSG_CUTTER c=9
-#: ../../Firmware/messages.cpp:153 ../../Firmware/ultralcd.cpp:4563
-#: ../../Firmware/ultralcd.cpp:4568 ../../Firmware/ultralcd.cpp:4573
+#: ../../Firmware/messages.cpp:155 ../../Firmware/ultralcd.cpp:4557
+#: ../../Firmware/ultralcd.cpp:4562 ../../Firmware/ultralcd.cpp:4567
 msgid "Cutter"
 msgstr ""
 
 #. MSG_DATE c=17
-#: ../../Firmware/messages.cpp:244 ../../Firmware/ultralcd.cpp:1891
+#: ../../Firmware/messages.cpp:246 ../../Firmware/ultralcd.cpp:1885
 msgid "Date:"
 msgstr ""
 
 #. MSG_DIM c=6
-#: ../../Firmware/messages.cpp:190 ../../Firmware/ultralcd.cpp:6131
+#: ../../Firmware/messages.cpp:192 ../../Firmware/ultralcd.cpp:6109
 msgid "Dim"
 msgstr ""
 
@@ -436,7 +436,7 @@ msgid "Disable"
 msgstr ""
 
 #. MSG_DISABLE_STEPPERS c=18
-#: ../../Firmware/messages.cpp:338 ../../Firmware/ultralcd.cpp:4946
+#: ../../Firmware/messages.cpp:340 ../../Firmware/ultralcd.cpp:4931
 msgid "Disable steppers"
 msgstr ""
 
@@ -448,7 +448,7 @@ msgid "Disengaging idler"
 msgstr ""
 
 #. MSG_BABYSTEP_Z_NOT_SET c=20 r=12
-#: ../../Firmware/Marlin_main.cpp:1589 ../../Firmware/Marlin_main.cpp:3162
+#: ../../Firmware/Marlin_main.cpp:1590 ../../Firmware/Marlin_main.cpp:3163
 #: ../../Firmware/messages.cpp:15
 msgid ""
 "Distance between tip of the nozzle and the bed surface has not been set yet."
@@ -457,7 +457,7 @@ msgid ""
 msgstr ""
 
 #. MSG_WIZARD_REPEAT_V2_CAL c=20 r=7
-#: ../../Firmware/messages.cpp:328 ../../Firmware/ultralcd.cpp:4405
+#: ../../Firmware/messages.cpp:330 ../../Firmware/ultralcd.cpp:4399
 msgid ""
 "Do you want to repeat last step to readjust distance between nozzle and "
 "heatbed?"
@@ -470,7 +470,7 @@ msgid "Done"
 msgstr ""
 
 #. MSG_EXTRUDER_CORRECTION c=13
-#: ../../Firmware/messages.cpp:334 ../../Firmware/ultralcd.cpp:4472
+#: ../../Firmware/messages.cpp:336 ../../Firmware/ultralcd.cpp:4466
 msgid "E-correct"
 msgstr ""
 
@@ -499,20 +499,20 @@ msgid "ERR Wait for User"
 msgstr ""
 
 #. MSG_ERROR c=10
-#: ../../Firmware/messages.cpp:36 ../../Firmware/ultralcd.cpp:1196
-#: ../../Firmware/ultralcd.cpp:2525
+#: ../../Firmware/messages.cpp:36 ../../Firmware/ultralcd.cpp:1190
+#: ../../Firmware/ultralcd.cpp:2519
 msgid "ERROR:"
 msgstr ""
 
 #. MSG_EJECT c=9
 #: ../../Firmware/messages.cpp:22 ../../Firmware/mmu2/errors_list.h:371
-#: ../../Firmware/ultralcd.cpp:2541
+#: ../../Firmware/ultralcd.cpp:2535
 msgid "Eject"
 msgstr ""
 
 #. MSG_EJECT_FROM_MMU c=16
 #: ../../Firmware/messages.cpp:66 ../../Firmware/mmu2_reporting.cpp:385
-#: ../../Firmware/ultralcd.cpp:5320 ../../Firmware/ultralcd.cpp:5838
+#: ../../Firmware/ultralcd.cpp:5299 ../../Firmware/ultralcd.cpp:5817
 msgid "Eject from MMU"
 msgstr ""
 
@@ -524,17 +524,17 @@ msgid "Ejecting filament"
 msgstr ""
 
 #. MSG_SELFTEST_ENDSTOP c=16
-#: ../../Firmware/messages.cpp:376 ../../Firmware/ultralcd.cpp:7243
+#: ../../Firmware/messages.cpp:378 ../../Firmware/ultralcd.cpp:7221
 msgid "Endstop"
 msgstr ""
 
 #. MSG_SELFTEST_ENDSTOP_NOTHIT c=20
-#: ../../Firmware/messages.cpp:377 ../../Firmware/ultralcd.cpp:7248
+#: ../../Firmware/messages.cpp:379 ../../Firmware/ultralcd.cpp:7226
 msgid "Endstop not hit"
 msgstr ""
 
 #. MSG_SELFTEST_ENDSTOPS c=20
-#: ../../Firmware/messages.cpp:375 ../../Firmware/ultralcd.cpp:7234
+#: ../../Firmware/messages.cpp:377 ../../Firmware/ultralcd.cpp:7212
 msgid "Endstops"
 msgstr ""
 
@@ -546,31 +546,31 @@ msgid "Engaging idler"
 msgstr ""
 
 #. MSG_EXTRUDER c=17
-#: ../../Firmware/messages.cpp:37 ../../Firmware/ultralcd.cpp:3728
-#: ../../Firmware/ultralcd.cpp:4877
+#: ../../Firmware/messages.cpp:37 ../../Firmware/ultralcd.cpp:3722
+#: ../../Firmware/ultralcd.cpp:4862
 msgid "Extruder"
 msgstr ""
 
 #. MSG_INFO_EXTRUDER c=18
-#: ../../Firmware/messages.cpp:249 ../../Firmware/ultralcd.cpp:1946
+#: ../../Firmware/messages.cpp:251 ../../Firmware/ultralcd.cpp:1940
 msgid "Extruder info"
 msgstr ""
 
 #. MSG_FSENSOR_AUTOLOAD c=13
-#: ../../Firmware/messages.cpp:51 ../../Firmware/ultralcd.cpp:4526
-#: ../../Firmware/ultralcd.cpp:4533
+#: ../../Firmware/messages.cpp:51 ../../Firmware/ultralcd.cpp:4520
+#: ../../Firmware/ultralcd.cpp:4527
 msgid "F. autoload"
 msgstr ""
 
 #. MSG_FSENSOR_JAM_DETECTION c=13
-#: ../../Firmware/messages.cpp:52 ../../Firmware/ultralcd.cpp:4528
-#: ../../Firmware/ultralcd.cpp:4535
+#: ../../Firmware/messages.cpp:52 ../../Firmware/ultralcd.cpp:4522
+#: ../../Firmware/ultralcd.cpp:4529
 msgid "F. jam detect"
 msgstr ""
 
 #. MSG_FSENSOR_RUNOUT c=13
-#: ../../Firmware/messages.cpp:50 ../../Firmware/ultralcd.cpp:4525
-#: ../../Firmware/ultralcd.cpp:4532
+#: ../../Firmware/messages.cpp:50 ../../Firmware/ultralcd.cpp:4519
+#: ../../Firmware/ultralcd.cpp:4526
 msgid "F. runout"
 msgstr ""
 
@@ -614,8 +614,8 @@ msgid ""
 msgstr ""
 
 #. MSG_FS_ACTION c=10
-#: ../../Firmware/messages.cpp:182 ../../Firmware/ultralcd.cpp:4541
-#: ../../Firmware/ultralcd.cpp:4544
+#: ../../Firmware/messages.cpp:184 ../../Firmware/ultralcd.cpp:4535
+#: ../../Firmware/ultralcd.cpp:4538
 msgid "FS Action"
 msgstr ""
 
@@ -640,34 +640,34 @@ msgid "FW RUNTIME ERROR"
 msgstr ""
 
 #. MSG_FAIL_STATS c=18
-#: ../../Firmware/messages.cpp:358 ../../Firmware/ultralcd.cpp:5876
+#: ../../Firmware/messages.cpp:360 ../../Firmware/ultralcd.cpp:5855
 msgid "Fail stats"
 msgstr ""
 
 #. MSG_MMU_FAIL_STATS c=18
-#: ../../Firmware/messages.cpp:359 ../../Firmware/ultralcd.cpp:5879
+#: ../../Firmware/messages.cpp:361 ../../Firmware/ultralcd.cpp:5858
 msgid "Fail stats MMU"
 msgstr ""
 
 #. MSG_FALSE_TRIGGERING c=20
-#: ../../Firmware/messages.cpp:383 ../../Firmware/ultralcd.cpp:7289
+#: ../../Firmware/messages.cpp:385 ../../Firmware/ultralcd.cpp:7267
 msgid "False triggering"
 msgstr ""
 
 #. MSG_FAN_SPEED c=14
-#: ../../Firmware/messages.cpp:40 ../../Firmware/ultralcd.cpp:4657
+#: ../../Firmware/messages.cpp:40 ../../Firmware/ultralcd.cpp:4634
 msgid "Fan speed"
 msgstr ""
 
 #. MSG_SELFTEST_FAN c=20
-#: ../../Firmware/messages.cpp:102 ../../Firmware/ultralcd.cpp:7365
-#: ../../Firmware/ultralcd.cpp:7493 ../../Firmware/ultralcd.cpp:7494
-#: ../../Firmware/ultralcd.cpp:7495
+#: ../../Firmware/messages.cpp:104 ../../Firmware/ultralcd.cpp:7343
+#: ../../Firmware/ultralcd.cpp:7471 ../../Firmware/ultralcd.cpp:7472
+#: ../../Firmware/ultralcd.cpp:7473
 msgid "Fan test"
 msgstr ""
 
 #. MSG_FANS_CHECK c=13
-#: ../../Firmware/messages.cpp:38 ../../Firmware/ultralcd.cpp:4661
+#: ../../Firmware/messages.cpp:38 ../../Firmware/ultralcd.cpp:4638
 msgid "Fans check"
 msgstr ""
 
@@ -696,16 +696,16 @@ msgid "Feeding to nozzle"
 msgstr ""
 
 #. MSG_FIL_RUNOUTS c=15
-#: ../../Firmware/messages.cpp:39 ../../Firmware/ultralcd.cpp:1472
-#: ../../Firmware/ultralcd.cpp:1501 ../../Firmware/ultralcd.cpp:1555
-#: ../../Firmware/ultralcd.cpp:1557
+#: ../../Firmware/messages.cpp:39 ../../Firmware/ultralcd.cpp:1466
+#: ../../Firmware/ultralcd.cpp:1495 ../../Firmware/ultralcd.cpp:1549
+#: ../../Firmware/ultralcd.cpp:1551
 msgid "Fil. runouts"
 msgstr ""
 
 #. MSG_FSENSOR c=12
-#: ../../Firmware/messages.cpp:53 ../../Firmware/ultralcd.cpp:3689
-#: ../../Firmware/ultralcd.cpp:4521 ../../Firmware/ultralcd.cpp:4879
-#: ../../Firmware/ultralcd.cpp:4950 ../../Firmware/ultralcd.cpp:6036
+#: ../../Firmware/messages.cpp:53 ../../Firmware/ultralcd.cpp:3683
+#: ../../Firmware/ultralcd.cpp:4515 ../../Firmware/ultralcd.cpp:4864
+#: ../../Firmware/ultralcd.cpp:4935 ../../Firmware/ultralcd.cpp:6014
 msgid "Fil. sensor"
 msgstr ""
 
@@ -717,19 +717,19 @@ msgid ""
 msgstr ""
 
 #. MSG_FILAMENT_CLEAN c=20 r=3
-#: ../../Firmware/messages.cpp:43 ../../Firmware/ultralcd.cpp:2546
+#: ../../Firmware/messages.cpp:43 ../../Firmware/ultralcd.cpp:2540
 msgid "Filament extruding & with correct color?"
 msgstr ""
 
 #. MSG_NOT_LOADED c=19
-#: ../../Firmware/messages.cpp:265 ../../Firmware/ultralcd.cpp:2455
+#: ../../Firmware/messages.cpp:267 ../../Firmware/ultralcd.cpp:2449
 msgid "Filament not loaded"
 msgstr ""
 
 #. MSG_SELFTEST_FILAMENT_SENSOR c=17
-#: ../../Firmware/messages.cpp:108 ../../Firmware/ultralcd.cpp:7284
-#: ../../Firmware/ultralcd.cpp:7288 ../../Firmware/ultralcd.cpp:7292
-#: ../../Firmware/ultralcd.cpp:7522
+#: ../../Firmware/messages.cpp:110 ../../Firmware/ultralcd.cpp:7262
+#: ../../Firmware/ultralcd.cpp:7266 ../../Firmware/ultralcd.cpp:7270
+#: ../../Firmware/ultralcd.cpp:7500
 msgid "Filament sensor"
 msgstr ""
 
@@ -755,137 +755,137 @@ msgid ""
 msgstr ""
 
 #. MSG_FILAMENT_USED c=19
-#: ../../Firmware/Marlin_main.cpp:5469 ../../Firmware/messages.cpp:273
-#: ../../Firmware/ultralcd.cpp:2711
+#: ../../Firmware/Marlin_main.cpp:5470 ../../Firmware/messages.cpp:275
+#: ../../Firmware/ultralcd.cpp:2705
 msgid "Filament used"
 msgstr ""
 
 #. MSG_FILE_INCOMPLETE c=20 r=3
-#: ../../Firmware/messages.cpp:391 ../../Firmware/ultralcd.cpp:7661
+#: ../../Firmware/messages.cpp:393 ../../Firmware/ultralcd.cpp:7639
 msgid "File incomplete."
 msgstr ""
 
 #. MSG_RECOVER_FILE_NOT_FOUND c=20
-#: ../../Firmware/messages.cpp:398 ../../Firmware/power_panic.cpp:456
+#: ../../Firmware/messages.cpp:400 ../../Firmware/power_panic.cpp:456
 msgid "File not found"
 msgstr ""
 
 #. MSG_FINISHING_MOVEMENTS c=20
 #: ../../Firmware/messages.cpp:47
 #: ../../Firmware/mmu2_progress_converter.cpp:43
-#: ../../Firmware/ultralcd.cpp:5496 ../../Firmware/ultralcd.cpp:5925
+#: ../../Firmware/ultralcd.cpp:5475 ../../Firmware/ultralcd.cpp:5904
 msgid "Finishing movements"
 msgstr ""
 
 #. MSG_V2_CALIBRATION c=18
-#: ../../Firmware/messages.cpp:149 ../../Firmware/ultralcd.cpp:5050
-#: ../../Firmware/ultralcd.cpp:5620
+#: ../../Firmware/messages.cpp:151 ../../Firmware/ultralcd.cpp:5029
+#: ../../Firmware/ultralcd.cpp:5599
 msgid "First layer cal."
 msgstr ""
 
 #. MSG_WIZARD_SELFTEST c=20 r=8
-#: ../../Firmware/messages.cpp:320 ../../Firmware/ultralcd.cpp:4330
+#: ../../Firmware/messages.cpp:322 ../../Firmware/ultralcd.cpp:4324
 msgid "First, I will run the selftest to check most common assembly problems."
 msgstr ""
 
 #. MSG_FLOW c=15
-#: ../../Firmware/messages.cpp:362 ../../Firmware/ultralcd.cpp:6020
+#: ../../Firmware/messages.cpp:364 ../../Firmware/ultralcd.cpp:5998
 msgid "Flow"
 msgstr ""
 
 #. MSG_NOZZLE_CNG_READ_HELP c=20 r=4
-#: ../../Firmware/messages.cpp:206 ../../Firmware/ultralcd.cpp:1069
+#: ../../Firmware/messages.cpp:208 ../../Firmware/ultralcd.cpp:1063
 msgid ""
 "For a Nozzle change please read\n"
 "prusa.io/nozzle-mk3s"
 msgstr ""
 
 #. MSG_SELFTEST_PART_FAN c=20
-#: ../../Firmware/messages.cpp:99 ../../Firmware/ultralcd.cpp:7254
-#: ../../Firmware/ultralcd.cpp:7371 ../../Firmware/ultralcd.cpp:7376
+#: ../../Firmware/messages.cpp:101 ../../Firmware/ultralcd.cpp:7232
+#: ../../Firmware/ultralcd.cpp:7349 ../../Firmware/ultralcd.cpp:7354
 msgid "Front print fan?"
 msgstr ""
 
 #. MSG_BED_CORRECTION_FRONT c=14
-#: ../../Firmware/messages.cpp:287 ../../Firmware/ultralcd.cpp:3083
+#: ../../Firmware/messages.cpp:289 ../../Firmware/ultralcd.cpp:3077
 msgid "Front side[µm]"
 msgstr ""
 
 #. MSG_SELFTEST_FANS c=20
-#: ../../Firmware/messages.cpp:381 ../../Firmware/ultralcd.cpp:7278
+#: ../../Firmware/messages.cpp:383 ../../Firmware/ultralcd.cpp:7256
 msgid "Front/left fans"
 msgstr ""
 
 #. MSG_GCODE_DIFF_CONTINUE c=20 r=3
-#: ../../Firmware/messages.cpp:162 ../../Firmware/util.cpp:417
+#: ../../Firmware/messages.cpp:164 ../../Firmware/util.cpp:417
 msgid "G-code sliced for a different level."
 msgstr ""
 
 #. MSG_GCODE_DIFF_CANCELLED c=20 r=8
-#: ../../Firmware/messages.cpp:163 ../../Firmware/util.cpp:418
+#: ../../Firmware/messages.cpp:165 ../../Firmware/util.cpp:418
 msgid "G-code sliced for a different level. Please re-slice the model again."
 msgstr ""
 
 #. MSG_GCODE_DIFF_PRINTER_CONTINUE c=20 r=3
-#: ../../Firmware/messages.cpp:158 ../../Firmware/util.cpp:319
+#: ../../Firmware/messages.cpp:160 ../../Firmware/util.cpp:319
 #: ../../Firmware/util.cpp:436
 msgid "G-code sliced for a different printer type."
 msgstr ""
 
 #. MSG_GCODE_DIFF_PRINTER_CANCELLED c=20 r=8
-#: ../../Firmware/messages.cpp:159 ../../Firmware/util.cpp:320
+#: ../../Firmware/messages.cpp:161 ../../Firmware/util.cpp:320
 #: ../../Firmware/util.cpp:437
 msgid ""
 "G-code sliced for a different printer type. Please re-slice the model again."
 msgstr ""
 
 #. MSG_GCODE_NEWER_FIRMWARE_CONTINUE c=20 r=3
-#: ../../Firmware/messages.cpp:160 ../../Firmware/util.cpp:369
+#: ../../Firmware/messages.cpp:162 ../../Firmware/util.cpp:369
 msgid "G-code sliced for a newer firmware."
 msgstr ""
 
 #. MSG_GCODE_NEWER_FIRMWARE_CANCELLED c=20 r=8
-#: ../../Firmware/messages.cpp:161 ../../Firmware/util.cpp:370
+#: ../../Firmware/messages.cpp:163 ../../Firmware/util.cpp:370
 msgid "G-code sliced for a newer firmware. Please update the firmware."
 msgstr ""
 
 #. MSG_HW_SETUP c=18
-#: ../../Firmware/messages.cpp:125 ../../Firmware/ultralcd.cpp:4788
-#: ../../Firmware/ultralcd.cpp:4806 ../../Firmware/ultralcd.cpp:4971
+#: ../../Firmware/messages.cpp:127 ../../Firmware/ultralcd.cpp:4765
+#: ../../Firmware/ultralcd.cpp:4783 ../../Firmware/ultralcd.cpp:4950
 msgid "HW Setup"
 msgstr ""
 
 #. MSG_SELFTEST_HEATERTHERMISTOR c=20
-#: ../../Firmware/messages.cpp:372 ../../Firmware/ultralcd.cpp:7226
+#: ../../Firmware/messages.cpp:374 ../../Firmware/ultralcd.cpp:7204
 msgid "Heater/Thermistor"
 msgstr ""
 
 #. MSG_REHEAT_AND_RESUME c=20 r=2
-#: ../../Firmware/Marlin_main.cpp:5154 ../../Firmware/messages.cpp:467
+#: ../../Firmware/Marlin_main.cpp:5155 ../../Firmware/messages.cpp:469
 msgid ""
 "Heaters cooled.\n"
 "Reheat and resume?"
 msgstr ""
 
 #. MSG_HEATING c=20
-#: ../../Firmware/Marlin_main.cpp:5143 ../../Firmware/Marlin_main.cpp:5654
-#: ../../Firmware/messages.cpp:54 ../../Firmware/ultralcd.cpp:542
+#: ../../Firmware/Marlin_main.cpp:5144 ../../Firmware/Marlin_main.cpp:5655
+#: ../../Firmware/messages.cpp:54 ../../Firmware/ultralcd.cpp:546
 msgid "Heating"
 msgstr ""
 
 #. MSG_BED_HEATING_SAFETY_DISABLED c=20 r=4
-#: ../../Firmware/Marlin_main.cpp:9126 ../../Firmware/messages.cpp:233
+#: ../../Firmware/Marlin_main.cpp:9101 ../../Firmware/messages.cpp:235
 msgid "Heating disabled by safety timer."
 msgstr ""
 
 #. MSG_HEATING_COMPLETE c=20
-#: ../../Firmware/Marlin_main.cpp:5687 ../../Firmware/messages.cpp:55
-#: ../../Firmware/ultralcd.cpp:545
+#: ../../Firmware/Marlin_main.cpp:5688 ../../Firmware/messages.cpp:55
+#: ../../Firmware/ultralcd.cpp:549
 msgid "Heating done."
 msgstr ""
 
 #. MSG_WIZARD_WELCOME_SHIPPING c=20 r=12
-#: ../../Firmware/messages.cpp:147 ../../Firmware/ultralcd.cpp:4290
+#: ../../Firmware/messages.cpp:149 ../../Firmware/ultralcd.cpp:4284
 msgid ""
 "Hi, I am your Original Prusa i3 printer. I will guide you through a short "
 "setup process, in which the Z-axis will be calibrated. Then, you will be "
@@ -893,15 +893,15 @@ msgid ""
 msgstr ""
 
 #. MSG_WIZARD_WELCOME c=20 r=7
-#: ../../Firmware/messages.cpp:146 ../../Firmware/ultralcd.cpp:4294
+#: ../../Firmware/messages.cpp:148 ../../Firmware/ultralcd.cpp:4288
 msgid ""
 "Hi, I am your Original Prusa i3 printer. Would you like me to guide you "
 "through the setup process?"
 msgstr ""
 
 #. MSG_HIGH_POWER c=10
-#: ../../Firmware/messages.cpp:128 ../../Firmware/ultralcd.cpp:4634
-#: ../../Firmware/ultralcd.cpp:4643
+#: ../../Firmware/messages.cpp:130 ../../Firmware/ultralcd.cpp:4611
+#: ../../Firmware/ultralcd.cpp:4620
 msgid "High power"
 msgstr ""
 
@@ -912,23 +912,23 @@ msgid "Homing"
 msgstr ""
 
 #. MSG_NOZZLE_CNG_CHANGED c=20 r=6
-#: ../../Firmware/messages.cpp:211 ../../Firmware/ultralcd.cpp:1093
+#: ../../Firmware/messages.cpp:213 ../../Firmware/ultralcd.cpp:1087
 msgid "Hotend at 280C! Nozzle changed and tightened to specs?"
 msgstr ""
 
 #. MSG_HOTEND_FAN_SPEED c=15
-#: ../../Firmware/messages.cpp:41 ../../Firmware/ultralcd.cpp:1345
-#: ../../Firmware/ultralcd.cpp:7513
+#: ../../Firmware/messages.cpp:41 ../../Firmware/ultralcd.cpp:1339
+#: ../../Firmware/ultralcd.cpp:7491
 msgid "Hotend fan:"
 msgstr ""
 
 #. MSG_WIZARD_XYZ_CAL c=20 r=8
-#: ../../Firmware/messages.cpp:321 ../../Firmware/ultralcd.cpp:4335
+#: ../../Firmware/messages.cpp:323 ../../Firmware/ultralcd.cpp:4329
 msgid "I will run xyz calibration now. It will take up to 24 mins."
 msgstr ""
 
 #. MSG_WIZARD_Z_CAL c=20 r=8
-#: ../../Firmware/messages.cpp:324 ../../Firmware/ultralcd.cpp:4342
+#: ../../Firmware/messages.cpp:326 ../../Firmware/ultralcd.cpp:4336
 msgid "I will run z calibration now."
 msgstr ""
 
@@ -953,7 +953,7 @@ msgid "INVALID TOOL"
 msgstr ""
 
 #. MSG_ADDITIONAL_SHEETS c=20 r=8
-#: ../../Firmware/messages.cpp:330 ../../Firmware/ultralcd.cpp:4413
+#: ../../Firmware/messages.cpp:332 ../../Firmware/ultralcd.cpp:4407
 msgid ""
 "If you have additional steel sheets, calibrate their presets in Settings - "
 "HW Setup - Steel sheets."
@@ -961,32 +961,32 @@ msgstr ""
 
 #. MSG_IMPROVE_BED_OFFSET_AND_SKEW_LINE1 c=20 r=4
 #: ../../Firmware/mesh_bed_calibration.cpp:2525
-#: ../../Firmware/messages.cpp:235
+#: ../../Firmware/messages.cpp:237
 msgid "Improving bed calibration point"
 msgstr ""
 
 #. MSG_INFO_SCREEN c=18
-#: ../../Firmware/messages.cpp:141 ../../Firmware/ultralcd.cpp:5704
+#: ../../Firmware/messages.cpp:143 ../../Firmware/ultralcd.cpp:5683
 msgid "Info screen"
 msgstr ""
 
 #. MSG_INIT_SDCARD c=18
-#: ../../Firmware/messages.cpp:354 ../../Firmware/ultralcd.cpp:5813
+#: ../../Firmware/messages.cpp:356 ../../Firmware/ultralcd.cpp:5792
 msgid "Init. SD card"
 msgstr ""
 
 #. MSG_INSERT_SD_CARD c=20
-#: ../../Firmware/messages.cpp:396 ../../Firmware/power_panic.cpp:417
+#: ../../Firmware/messages.cpp:398 ../../Firmware/power_panic.cpp:417
 msgid "Insert SD card"
 msgstr ""
 
 #. MSG_INSERT_FILAMENT c=20
-#: ../../Firmware/messages.cpp:260 ../../Firmware/ultralcd.cpp:2388
+#: ../../Firmware/messages.cpp:262 ../../Firmware/ultralcd.cpp:2382
 msgid "Insert filament"
 msgstr ""
 
 #. MSG_INSERT_FIL c=20 r=6
-#: ../../Firmware/messages.cpp:363 ../../Firmware/ultralcd.cpp:6519
+#: ../../Firmware/messages.cpp:365 ../../Firmware/ultralcd.cpp:6497
 msgid ""
 "Insert the filament (do not load it) into the extruder and then press the "
 "knob."
@@ -999,14 +999,14 @@ msgid ""
 msgstr ""
 
 #. MSG_FILAMENT_LOADED c=20 r=3
-#: ../../Firmware/messages.cpp:44 ../../Firmware/ultralcd.cpp:4003
-#: ../../Firmware/ultralcd.cpp:4085 ../../Firmware/ultralcd.cpp:4372
+#: ../../Firmware/messages.cpp:44 ../../Firmware/ultralcd.cpp:3997
+#: ../../Firmware/ultralcd.cpp:4079 ../../Firmware/ultralcd.cpp:4366
 msgid "Is filament loaded?"
 msgstr ""
 
 #. MSG_STEEL_SHEET_CHECK c=20 r=3
-#: ../../Firmware/Marlin_main.cpp:4413 ../../Firmware/messages.cpp:133
-#: ../../Firmware/ultralcd.cpp:4218
+#: ../../Firmware/Marlin_main.cpp:4414 ../../Firmware/messages.cpp:135
+#: ../../Firmware/ultralcd.cpp:4212
 msgid "Is steel sheet on heatbed?"
 msgstr ""
 
@@ -1021,51 +1021,51 @@ msgid "LOAD TO EXTR. FAILED"
 msgstr ""
 
 #. MSG_LAST_PRINT c=18
-#: ../../Firmware/messages.cpp:59 ../../Firmware/ultralcd.cpp:1367
-#: ../../Firmware/ultralcd.cpp:1525
+#: ../../Firmware/messages.cpp:59 ../../Firmware/ultralcd.cpp:1361
+#: ../../Firmware/ultralcd.cpp:1519
 msgid "Last print"
 msgstr ""
 
 #. MSG_LAST_PRINT_FAILURES c=20
-#: ../../Firmware/messages.cpp:60 ../../Firmware/ultralcd.cpp:1391
-#: ../../Firmware/ultralcd.cpp:1499 ../../Firmware/ultralcd.cpp:1554
+#: ../../Firmware/messages.cpp:60 ../../Firmware/ultralcd.cpp:1385
+#: ../../Firmware/ultralcd.cpp:1493 ../../Firmware/ultralcd.cpp:1548
 msgid "Last print failures"
 msgstr ""
 
 #. MSG_LEFT c=10
-#: ../../Firmware/messages.cpp:278 ../../Firmware/ultralcd.cpp:2842
+#: ../../Firmware/messages.cpp:280 ../../Firmware/ultralcd.cpp:2836
 msgid "Left"
 msgstr ""
 
 #. MSG_SELFTEST_HOTEND_FAN c=20
-#: ../../Firmware/messages.cpp:100 ../../Firmware/ultralcd.cpp:7260
-#: ../../Firmware/ultralcd.cpp:7371 ../../Firmware/ultralcd.cpp:7376
+#: ../../Firmware/messages.cpp:102 ../../Firmware/ultralcd.cpp:7238
+#: ../../Firmware/ultralcd.cpp:7349 ../../Firmware/ultralcd.cpp:7354
 msgid "Left hotend fan?"
 msgstr ""
 
 #. MSG_BED_CORRECTION_LEFT c=14
-#: ../../Firmware/messages.cpp:285 ../../Firmware/ultralcd.cpp:3081
+#: ../../Firmware/messages.cpp:287 ../../Firmware/ultralcd.cpp:3075
 msgid "Left side [µm]"
 msgstr ""
 
 #. MSG_BL_HIGH c=12
-#: ../../Firmware/messages.cpp:186 ../../Firmware/ultralcd.cpp:6129
+#: ../../Firmware/messages.cpp:188 ../../Firmware/ultralcd.cpp:6107
 msgid "Level Bright"
 msgstr ""
 
 #. MSG_BL_LOW c=12
-#: ../../Firmware/messages.cpp:187 ../../Firmware/ultralcd.cpp:6130
+#: ../../Firmware/messages.cpp:189 ../../Firmware/ultralcd.cpp:6108
 msgid "Level Dimmed"
 msgstr ""
 
 #. MSG_LIN_CORRECTION c=18
-#: ../../Firmware/messages.cpp:339 ../../Firmware/ultralcd.cpp:4977
+#: ../../Firmware/messages.cpp:341 ../../Firmware/ultralcd.cpp:4956
 msgid "Lin. correction"
 msgstr ""
 
 #. MSG_BABYSTEP_Z c=18
-#: ../../Firmware/messages.cpp:14 ../../Firmware/ultralcd.cpp:4883
-#: ../../Firmware/ultralcd.cpp:4987 ../../Firmware/ultralcd.cpp:5733
+#: ../../Firmware/messages.cpp:14 ../../Firmware/ultralcd.cpp:4868
+#: ../../Firmware/ultralcd.cpp:4966 ../../Firmware/ultralcd.cpp:5712
 msgid "Live adjust Z"
 msgstr ""
 
@@ -1075,38 +1075,38 @@ msgid "Load"
 msgstr ""
 
 #. MSG_LOAD_ALL c=18
-#: ../../Firmware/messages.cpp:204 ../../Firmware/ultralcd.cpp:5269
-#: ../../Firmware/ultralcd.cpp:5355
+#: ../../Firmware/messages.cpp:206 ../../Firmware/ultralcd.cpp:5248
+#: ../../Firmware/ultralcd.cpp:5334
 msgid "Load All"
 msgstr ""
 
 #. MSG_LOAD_FILAMENT c=16
-#: ../../Firmware/messages.cpp:62 ../../Firmware/ultralcd.cpp:5271
-#: ../../Firmware/ultralcd.cpp:5308 ../../Firmware/ultralcd.cpp:5357
-#: ../../Firmware/ultralcd.cpp:5848 ../../Firmware/ultralcd.cpp:5862
+#: ../../Firmware/messages.cpp:62 ../../Firmware/ultralcd.cpp:5250
+#: ../../Firmware/ultralcd.cpp:5287 ../../Firmware/ultralcd.cpp:5336
+#: ../../Firmware/ultralcd.cpp:5827 ../../Firmware/ultralcd.cpp:5841
 msgid "Load filament"
 msgstr ""
 
 #. MSG_LOAD_TO_NOZZLE c=18
-#: ../../Firmware/messages.cpp:355 ../../Firmware/ultralcd.cpp:5836
+#: ../../Firmware/messages.cpp:357 ../../Firmware/ultralcd.cpp:5815
 msgid "Load to nozzle"
 msgstr ""
 
 #. MSG_LOADING_TEST c=18
-#: ../../Firmware/messages.cpp:63 ../../Firmware/ultralcd.cpp:4962
+#: ../../Firmware/messages.cpp:63 ../../Firmware/ultralcd.cpp:4941
 msgid "Loading Test"
 msgstr ""
 
 #. MSG_LOADING_COLOR c=20
-#: ../../Firmware/messages.cpp:263 ../../Firmware/ultralcd.cpp:2426
+#: ../../Firmware/messages.cpp:265 ../../Firmware/ultralcd.cpp:2420
 msgid "Loading color"
 msgstr ""
 
 #. MSG_LOADING_FILAMENT c=20
-#: ../../Firmware/Marlin_main.cpp:3437 ../../Firmware/messages.cpp:64
+#: ../../Firmware/Marlin_main.cpp:3438 ../../Firmware/messages.cpp:64
 #: ../../Firmware/mmu2_progress_converter.cpp:51
-#: ../../Firmware/mmu2_reporting.cpp:393 ../../Firmware/ultralcd.cpp:1154
-#: ../../Firmware/ultralcd.cpp:2436 ../../Firmware/ultralcd.cpp:4183
+#: ../../Firmware/mmu2_reporting.cpp:393 ../../Firmware/ultralcd.cpp:1148
+#: ../../Firmware/ultralcd.cpp:2430 ../../Firmware/ultralcd.cpp:4177
 msgid "Loading filament"
 msgstr ""
 
@@ -1118,18 +1118,18 @@ msgid ""
 msgstr ""
 
 #. MSG_LONG_EXTRUSION c=19
-#: ../../Firmware/messages.cpp:267 ../../Firmware/ultralcd.cpp:2456
+#: ../../Firmware/messages.cpp:269 ../../Firmware/ultralcd.cpp:2450
 msgid "Long extrusion"
 msgstr ""
 
 #. MSG_LOOSE_PULLEY c=20
-#: ../../Firmware/messages.cpp:378 ../../Firmware/ultralcd.cpp:7266
+#: ../../Firmware/messages.cpp:380 ../../Firmware/ultralcd.cpp:7244
 msgid "Loose pulley"
 msgstr ""
 
 #. MSG_SOUND_LOUD c=7
-#: ../../Firmware/messages.cpp:175 ../../Firmware/ultralcd.cpp:4675
-#: ../../Firmware/ultralcd.cpp:4687
+#: ../../Firmware/messages.cpp:177 ../../Firmware/ultralcd.cpp:4652
+#: ../../Firmware/ultralcd.cpp:4664
 msgid "Loud"
 msgstr ""
 
@@ -1160,7 +1160,7 @@ msgid "MMU MCU ERROR"
 msgstr ""
 
 #. MSG_MMU_MODE c=8
-#: ../../Firmware/messages.cpp:168 ../../Firmware/ultralcd.cpp:4578
+#: ../../Firmware/messages.cpp:170 ../../Firmware/ultralcd.cpp:4572
 msgid "MMU Mode"
 msgstr ""
 
@@ -1170,7 +1170,7 @@ msgid "MMU NOT RESPONDING"
 msgstr ""
 
 #. MSG_MMU_RESTORE_TEMP c=20 r=4
-#: ../../Firmware/messages.cpp:236 ../../Firmware/mmu2_reporting.cpp:397
+#: ../../Firmware/messages.cpp:238 ../../Firmware/mmu2_reporting.cpp:397
 msgid "MMU Retry: Restoring temperature..."
 msgstr ""
 
@@ -1181,19 +1181,19 @@ msgid "MMU SELFTEST FAILED"
 msgstr ""
 
 #. MSG_MMU_CONNECTED c=18
-#: ../../Firmware/messages.cpp:245 ../../Firmware/ultralcd.cpp:1903
+#: ../../Firmware/messages.cpp:247 ../../Firmware/ultralcd.cpp:1897
 msgid "MMU connected"
 msgstr ""
 
 #. MSG_MMU_FAILS c=15
-#: ../../Firmware/messages.cpp:74 ../../Firmware/ultralcd.cpp:1392
-#: ../../Firmware/ultralcd.cpp:1417
+#: ../../Firmware/messages.cpp:74 ../../Firmware/ultralcd.cpp:1386
+#: ../../Firmware/ultralcd.cpp:1411
 msgid "MMU fails"
 msgstr ""
 
 #. MSG_MMU_LOAD_FAILS c=15
-#: ../../Firmware/messages.cpp:75 ../../Firmware/ultralcd.cpp:1393
-#: ../../Firmware/ultralcd.cpp:1418
+#: ../../Firmware/messages.cpp:75 ../../Firmware/ultralcd.cpp:1387
+#: ../../Firmware/ultralcd.cpp:1412
 msgid "MMU load fails"
 msgstr ""
 
@@ -1208,80 +1208,80 @@ msgid "MMU not responding. Check the wiring and connectors."
 msgstr ""
 
 #. MSG_MMU_POWER_FAILS c=15
-#: ../../Firmware/messages.cpp:76 ../../Firmware/ultralcd.cpp:1419
+#: ../../Firmware/messages.cpp:76 ../../Firmware/ultralcd.cpp:1413
 msgid "MMU power fails"
 msgstr ""
 
 #. MSG_MAGNETS_COMP c=13
-#: ../../Firmware/messages.cpp:181 ../../Firmware/ultralcd.cpp:6104
+#: ../../Firmware/messages.cpp:183 ../../Firmware/ultralcd.cpp:6082
 msgid "Magnets comp."
 msgstr ""
 
 #. MSG_MAIN c=18
-#: ../../Firmware/messages.cpp:68 ../../Firmware/ultralcd.cpp:1366
-#: ../../Firmware/ultralcd.cpp:1524 ../../Firmware/ultralcd.cpp:1566
-#: ../../Firmware/ultralcd.cpp:1877 ../../Firmware/ultralcd.cpp:4939
-#: ../../Firmware/ultralcd.cpp:5046 ../../Firmware/ultralcd.cpp:5268
-#: ../../Firmware/ultralcd.cpp:5301 ../../Firmware/ultralcd.cpp:5354
-#: ../../Firmware/ultralcd.cpp:6015
+#: ../../Firmware/messages.cpp:68 ../../Firmware/ultralcd.cpp:1360
+#: ../../Firmware/ultralcd.cpp:1518 ../../Firmware/ultralcd.cpp:1560
+#: ../../Firmware/ultralcd.cpp:1871 ../../Firmware/ultralcd.cpp:4924
+#: ../../Firmware/ultralcd.cpp:5025 ../../Firmware/ultralcd.cpp:5247
+#: ../../Firmware/ultralcd.cpp:5280 ../../Firmware/ultralcd.cpp:5333
+#: ../../Firmware/ultralcd.cpp:5994
 msgid "Main"
 msgstr ""
 
 #. MSG_MAINTENANCE c=18
-#: ../../Firmware/messages.cpp:91 ../../Firmware/ultralcd.cpp:5894
+#: ../../Firmware/messages.cpp:91 ../../Firmware/ultralcd.cpp:5873
 msgid "Maintenance"
 msgstr ""
 
 #. MSG_MATERIAL_CHANGES c=18
-#: ../../Firmware/messages.cpp:123 ../../Firmware/ultralcd.cpp:1369
-#: ../../Firmware/ultralcd.cpp:1443
+#: ../../Firmware/messages.cpp:125 ../../Firmware/ultralcd.cpp:1363
+#: ../../Firmware/ultralcd.cpp:1437
 msgid "Material changes"
 msgstr ""
 
 #. MSG_MEASURED_SKEW c=14
-#: ../../Firmware/messages.cpp:280 ../../Firmware/ultralcd.cpp:2883
+#: ../../Firmware/messages.cpp:282 ../../Firmware/ultralcd.cpp:2877
 msgid "Measured skew"
 msgstr ""
 
 #. MSG_MEASURE_BED_REFERENCE_HEIGHT_LINE1 c=20 r=3
-#: ../../Firmware/Marlin_main.cpp:3052
+#: ../../Firmware/Marlin_main.cpp:3053
 #: ../../Firmware/mesh_bed_calibration.cpp:2837 ../../Firmware/messages.cpp:72
 msgid "Measuring reference height of calibration point"
 msgstr ""
 
 #. MSG_MESH c=12
-#: ../../Firmware/messages.cpp:178 ../../Firmware/ultralcd.cpp:6100
+#: ../../Firmware/messages.cpp:180 ../../Firmware/ultralcd.cpp:6078
 msgid "Mesh"
 msgstr ""
 
 #. MSG_MESH_BED_LEVELING c=18
-#: ../../Firmware/messages.cpp:179 ../../Firmware/ultralcd.cpp:4974
-#: ../../Firmware/ultralcd.cpp:5062
+#: ../../Firmware/messages.cpp:181 ../../Firmware/ultralcd.cpp:4953
+#: ../../Firmware/ultralcd.cpp:5041
 msgid "Mesh Bed Leveling"
 msgstr ""
 
 #. MSG_MBL_FAILED c=20 r=4
-#: ../../Firmware/Marlin_main.cpp:2865 ../../Firmware/messages.cpp:225
+#: ../../Firmware/Marlin_main.cpp:2866 ../../Firmware/messages.cpp:227
 msgid "Mesh bed leveling failed. Print canceled."
 msgstr ""
 
 #. MSG_MODE c=6
-#: ../../Firmware/Marlin_main.cpp:7976 ../../Firmware/messages.cpp:127
-#: ../../Firmware/ultralcd.cpp:4610 ../../Firmware/ultralcd.cpp:4614
-#: ../../Firmware/ultralcd.cpp:4622 ../../Firmware/ultralcd.cpp:4626
-#: ../../Firmware/ultralcd.cpp:4634 ../../Firmware/ultralcd.cpp:4637
-#: ../../Firmware/ultralcd.cpp:4640 ../../Firmware/ultralcd.cpp:4643
-#: ../../Firmware/ultralcd.cpp:6131
+#: ../../Firmware/Marlin_main.cpp:7977 ../../Firmware/messages.cpp:129
+#: ../../Firmware/ultralcd.cpp:4587 ../../Firmware/ultralcd.cpp:4591
+#: ../../Firmware/ultralcd.cpp:4599 ../../Firmware/ultralcd.cpp:4603
+#: ../../Firmware/ultralcd.cpp:4611 ../../Firmware/ultralcd.cpp:4614
+#: ../../Firmware/ultralcd.cpp:4617 ../../Firmware/ultralcd.cpp:4620
+#: ../../Firmware/ultralcd.cpp:6109
 msgid "Mode"
 msgstr ""
 
 #. MSG_MODE_CHANGE_IN_PROGRESS c=20 r=3
-#: ../../Firmware/messages.cpp:309 ../../Firmware/ultralcd.cpp:3789
+#: ../../Firmware/messages.cpp:311 ../../Firmware/ultralcd.cpp:3783
 msgid "Mode change in progress..."
 msgstr ""
 
 #. MSG_MODEL c=8
-#: ../../Firmware/messages.cpp:157 ../../Firmware/ultralcd.cpp:4790
+#: ../../Firmware/messages.cpp:159 ../../Firmware/ultralcd.cpp:4767
 msgid "Model"
 msgstr ""
 
@@ -1302,29 +1302,29 @@ msgid "More details online."
 msgstr ""
 
 #. MSG_SELFTEST_MOTOR c=18
-#: ../../Firmware/messages.cpp:107 ../../Firmware/ultralcd.cpp:7240
-#: ../../Firmware/ultralcd.cpp:7249 ../../Firmware/ultralcd.cpp:7267
+#: ../../Firmware/messages.cpp:109 ../../Firmware/ultralcd.cpp:7218
+#: ../../Firmware/ultralcd.cpp:7227 ../../Firmware/ultralcd.cpp:7245
 msgid "Motor"
 msgstr ""
 
 #. MSG_MOVE_X c=18
-#: ../../Firmware/messages.cpp:304 ../../Firmware/ultralcd.cpp:3725
+#: ../../Firmware/messages.cpp:306 ../../Firmware/ultralcd.cpp:3719
 msgid "Move X"
 msgstr ""
 
 #. MSG_MOVE_Y c=18
-#: ../../Firmware/messages.cpp:305 ../../Firmware/ultralcd.cpp:3726
+#: ../../Firmware/messages.cpp:307 ../../Firmware/ultralcd.cpp:3720
 msgid "Move Y"
 msgstr ""
 
 #. MSG_MOVE_Z c=18
-#: ../../Firmware/messages.cpp:306 ../../Firmware/ultralcd.cpp:3727
-#: ../../Firmware/ultralcd.cpp:4876
+#: ../../Firmware/messages.cpp:308 ../../Firmware/ultralcd.cpp:3721
+#: ../../Firmware/ultralcd.cpp:4861
 msgid "Move Z"
 msgstr ""
 
 #. MSG_MOVE_AXIS c=18
-#: ../../Firmware/messages.cpp:337 ../../Firmware/ultralcd.cpp:4945
+#: ../../Firmware/messages.cpp:339 ../../Firmware/ultralcd.cpp:4930
 msgid "Move axis"
 msgstr ""
 
@@ -1335,83 +1335,83 @@ msgid "Moving selector"
 msgstr ""
 
 #. MSG_NA c=3
-#: ../../Firmware/menu.cpp:174 ../../Firmware/messages.cpp:152
-#: ../../Firmware/ultralcd.cpp:2848 ../../Firmware/ultralcd.cpp:2892
-#: ../../Firmware/ultralcd.cpp:3655 ../../Firmware/ultralcd.cpp:4525
-#: ../../Firmware/ultralcd.cpp:4526 ../../Firmware/ultralcd.cpp:4528
-#: ../../Firmware/ultralcd.cpp:6104
+#: ../../Firmware/menu.cpp:174 ../../Firmware/messages.cpp:154
+#: ../../Firmware/ultralcd.cpp:2842 ../../Firmware/ultralcd.cpp:2886
+#: ../../Firmware/ultralcd.cpp:3649 ../../Firmware/ultralcd.cpp:4519
+#: ../../Firmware/ultralcd.cpp:4520 ../../Firmware/ultralcd.cpp:4522
+#: ../../Firmware/ultralcd.cpp:6082
 msgid "N/A"
 msgstr ""
 
 #. MSG_NEW_FIRMWARE_AVAILABLE c=20 r=2
-#: ../../Firmware/messages.cpp:393 ../../Firmware/util.cpp:214
+#: ../../Firmware/messages.cpp:395 ../../Firmware/util.cpp:214
 msgid "New firmware version available:"
 msgstr ""
 
 #. MSG_NO c=4
-#: ../../Firmware/messages.cpp:77 ../../Firmware/ultralcd.cpp:3401
-#: ../../Firmware/ultralcd.cpp:4929 ../../Firmware/ultralcd.cpp:5017
-#: ../../Firmware/ultralcd.cpp:6310
+#: ../../Firmware/messages.cpp:77 ../../Firmware/ultralcd.cpp:3395
+#: ../../Firmware/ultralcd.cpp:4914 ../../Firmware/ultralcd.cpp:4996
+#: ../../Firmware/ultralcd.cpp:6288
 msgid "No"
 msgstr ""
 
 #. MSG_NO_CARD c=18
-#: ../../Firmware/messages.cpp:353 ../../Firmware/ultralcd.cpp:5811
+#: ../../Firmware/messages.cpp:355 ../../Firmware/ultralcd.cpp:5790
 msgid "No SD card"
 msgstr ""
 
 #. MSG_NO_MOVE c=20
-#: ../../Firmware/Marlin_main.cpp:4877 ../../Firmware/messages.cpp:232
+#: ../../Firmware/Marlin_main.cpp:4878 ../../Firmware/messages.cpp:234
 msgid "No move."
 msgstr ""
 
 #. MSG_NONE c=8
-#: ../../Firmware/messages.cpp:154 ../../Firmware/ultralcd.cpp:4772
-#: ../../Firmware/ultralcd.cpp:4781 ../../Firmware/ultralcd.cpp:5002
+#: ../../Firmware/messages.cpp:156 ../../Firmware/ultralcd.cpp:4749
+#: ../../Firmware/ultralcd.cpp:4758 ../../Firmware/ultralcd.cpp:4981
 msgid "None"
 msgstr ""
 
 #. MSG_NORMAL c=7
-#: ../../Firmware/Marlin_main.cpp:7978 ../../Firmware/messages.cpp:131
-#: ../../Firmware/ultralcd.cpp:4578 ../../Firmware/ultralcd.cpp:4614
-#: ../../Firmware/ultralcd.cpp:4997
+#: ../../Firmware/Marlin_main.cpp:7979 ../../Firmware/messages.cpp:133
+#: ../../Firmware/ultralcd.cpp:4572 ../../Firmware/ultralcd.cpp:4591
+#: ../../Firmware/ultralcd.cpp:4976
 msgid "Normal"
 msgstr ""
 
 #. MSG_SELFTEST_NOTCONNECTED c=20
-#: ../../Firmware/messages.cpp:373 ../../Firmware/ultralcd.cpp:7227
+#: ../../Firmware/messages.cpp:375 ../../Firmware/ultralcd.cpp:7205
 msgid "Not connected"
 msgstr ""
 
 #. MSG_SELFTEST_FAN_NO c=19
-#: ../../Firmware/messages.cpp:103 ../../Firmware/ultralcd.cpp:7384
+#: ../../Firmware/messages.cpp:105 ../../Firmware/ultralcd.cpp:7362
 msgid "Not spinning"
 msgstr ""
 
 #. MSG_WIZARD_V2_CAL c=20 r=8
-#: ../../Firmware/messages.cpp:316 ../../Firmware/ultralcd.cpp:4194
+#: ../../Firmware/messages.cpp:318 ../../Firmware/ultralcd.cpp:4188
 msgid ""
 "Now I will calibrate distance between tip of the nozzle and heatbed surface."
 msgstr ""
 
 #. MSG_WIZARD_WILL_PREHEAT c=20 r=4
-#: ../../Firmware/messages.cpp:325 ../../Firmware/ultralcd.cpp:4352
+#: ../../Firmware/messages.cpp:327 ../../Firmware/ultralcd.cpp:4346
 msgid "Now I will preheat nozzle for PLA."
 msgstr ""
 
 #. MSG_REMOVE_TEST_PRINT c=20 r=4
-#: ../../Firmware/messages.cpp:323 ../../Firmware/ultralcd.cpp:4341
+#: ../../Firmware/messages.cpp:325 ../../Firmware/ultralcd.cpp:4335
 msgid "Now remove the test print from steel sheet."
 msgstr ""
 
 #. MSG_NOZZLE c=10
-#: ../../Firmware/messages.cpp:78 ../../Firmware/ultralcd.cpp:1629
-#: ../../Firmware/ultralcd.cpp:4652 ../../Firmware/ultralcd.cpp:4789
+#: ../../Firmware/messages.cpp:78 ../../Firmware/ultralcd.cpp:1623
+#: ../../Firmware/ultralcd.cpp:4629 ../../Firmware/ultralcd.cpp:4766
 msgid "Nozzle"
 msgstr ""
 
 #. MSG_COLD_PULL_INSERT c=20 r=3
-#: ../../Firmware/messages.cpp:214 ../../Firmware/ultralcd.cpp:1135
+#: ../../Firmware/messages.cpp:216 ../../Firmware/ultralcd.cpp:1129
 msgid ""
 "Nozzle at 280C\n"
 "Insert NPA6 filament\n"
@@ -1419,7 +1419,7 @@ msgid ""
 msgstr ""
 
 #. MSG_COLD_PULL_PULL c=20 r=4
-#: ../../Firmware/messages.cpp:215 ../../Firmware/ultralcd.cpp:1220
+#: ../../Firmware/messages.cpp:217 ../../Firmware/ultralcd.cpp:1214
 msgid ""
 "Nozzle at 90C.\n"
 "Pull filament out\n"
@@ -1428,18 +1428,18 @@ msgid ""
 msgstr ""
 
 #. MSG_NOZZLE_CNG_MENU c=18
-#: ../../Firmware/messages.cpp:205 ../../Firmware/ultralcd.cpp:4861
-#: ../../Firmware/ultralcd.cpp:4909 ../../Firmware/ultralcd.cpp:4972
+#: ../../Firmware/messages.cpp:207 ../../Firmware/ultralcd.cpp:4845
+#: ../../Firmware/ultralcd.cpp:4894 ../../Firmware/ultralcd.cpp:4951
 msgid "Nozzle change"
 msgstr ""
 
 #. MSG_NOZZLE_CNG_CHANGED_QUICK c=20 r=3
-#: ../../Firmware/messages.cpp:209
+#: ../../Firmware/messages.cpp:211
 msgid "Nozzle changed?"
 msgstr ""
 
 #. MSG_NOZZLE_SAFETY_COOLING c=20 r=3
-#: ../../Firmware/Marlin_main.cpp:5132 ../../Firmware/messages.cpp:469
+#: ../../Firmware/Marlin_main.cpp:5133 ../../Firmware/messages.cpp:471
 msgid ""
 "Nozzle cooled for\n"
 "safety. Press knob\n"
@@ -1447,25 +1447,25 @@ msgid ""
 msgstr ""
 
 #. MSG_NOZZLE_DIAMETER c=10
-#: ../../Firmware/messages.cpp:167 ../../Firmware/ultralcd.cpp:4724
-#: ../../Firmware/ultralcd.cpp:4726 ../../Firmware/ultralcd.cpp:4727
-#: ../../Firmware/ultralcd.cpp:4728
+#: ../../Firmware/messages.cpp:169 ../../Firmware/ultralcd.cpp:4701
+#: ../../Firmware/ultralcd.cpp:4703 ../../Firmware/ultralcd.cpp:4704
+#: ../../Firmware/ultralcd.cpp:4705
 msgid "Nozzle d."
 msgstr ""
 
 #. MSG_NOZZLE_DIFFERS_CONTINUE c=20 r=3
-#: ../../Firmware/messages.cpp:165 ../../Firmware/util.cpp:296
+#: ../../Firmware/messages.cpp:167 ../../Firmware/util.cpp:296
 msgid "Nozzle diameter differs from the G-code."
 msgstr ""
 
 #. MSG_NOZZLE_DIFFERS_CANCELLED c=20 r=8
-#: ../../Firmware/messages.cpp:166 ../../Firmware/util.cpp:297
+#: ../../Firmware/messages.cpp:168 ../../Firmware/util.cpp:297
 msgid ""
 "Nozzle diameter differs from the G-code. Please check the value in settings."
 msgstr ""
 
 #. MSG_NOZZLE_CNG_COOLDOWN c=20 r=3
-#: ../../Firmware/messages.cpp:208 ../../Firmware/ultralcd.cpp:1081
+#: ../../Firmware/messages.cpp:210 ../../Firmware/ultralcd.cpp:1075
 msgid "Nozzle is hot! Wait for cooldown."
 msgstr ""
 
@@ -1476,91 +1476,90 @@ msgid "OK"
 msgstr ""
 
 #. MSG_STOP_AFTER_OBJECT c=12
-#: ../../Firmware/messages.cpp:81 ../../Firmware/ultralcd.cpp:4882
-#: ../../Firmware/ultralcd.cpp:6030
+#: ../../Firmware/messages.cpp:81 ../../Firmware/ultralcd.cpp:4867
+#: ../../Firmware/ultralcd.cpp:6008
 msgid "Object stop"
 msgstr ""
 
 #. MSG_OFF c=3
-#: ../../Firmware/SpoolJoin.cpp:25 ../../Firmware/messages.cpp:150
-#: ../../Firmware/mmu2.cpp:65 ../../Firmware/ultralcd.cpp:4521
-#: ../../Firmware/ultralcd.cpp:4532 ../../Firmware/ultralcd.cpp:4533
-#: ../../Firmware/ultralcd.cpp:4535 ../../Firmware/ultralcd.cpp:4558
-#: ../../Firmware/ultralcd.cpp:4573 ../../Firmware/ultralcd.cpp:4616
-#: ../../Firmware/ultralcd.cpp:4661 ../../Firmware/ultralcd.cpp:4879
-#: ../../Firmware/ultralcd.cpp:4882 ../../Firmware/ultralcd.cpp:4953
-#: ../../Firmware/ultralcd.cpp:4981 ../../Firmware/ultralcd.cpp:4984
-#: ../../Firmware/ultralcd.cpp:5939 ../../Firmware/ultralcd.cpp:6030
-#: ../../Firmware/ultralcd.cpp:6104 ../../Firmware/ultralcd.cpp:8019
-#: ../../Firmware/ultralcd.cpp:8023
+#: ../../Firmware/SpoolJoin.cpp:25 ../../Firmware/messages.cpp:152
+#: ../../Firmware/mmu2.cpp:65 ../../Firmware/ultralcd.cpp:4515
+#: ../../Firmware/ultralcd.cpp:4526 ../../Firmware/ultralcd.cpp:4527
+#: ../../Firmware/ultralcd.cpp:4529 ../../Firmware/ultralcd.cpp:4552
+#: ../../Firmware/ultralcd.cpp:4567 ../../Firmware/ultralcd.cpp:4593
+#: ../../Firmware/ultralcd.cpp:4638 ../../Firmware/ultralcd.cpp:4864
+#: ../../Firmware/ultralcd.cpp:4867 ../../Firmware/ultralcd.cpp:4960
+#: ../../Firmware/ultralcd.cpp:4963 ../../Firmware/ultralcd.cpp:5918
+#: ../../Firmware/ultralcd.cpp:6008 ../../Firmware/ultralcd.cpp:6082
+#: ../../Firmware/ultralcd.cpp:7997 ../../Firmware/ultralcd.cpp:8001
 msgid "Off"
 msgstr ""
 
 #. MSG_DEFAULT_SETTINGS_LOADED c=20 r=6
-#: ../../Firmware/Marlin_main.cpp:1541 ../../Firmware/messages.cpp:223
+#: ../../Firmware/Marlin_main.cpp:1542 ../../Firmware/messages.cpp:225
 msgid "Old settings found. Default PID, Esteps etc. will be set."
 msgstr ""
 
 #. MSG_ON c=3
-#: ../../Firmware/SpoolJoin.cpp:23 ../../Firmware/messages.cpp:151
-#: ../../Firmware/mmu2.cpp:63 ../../Firmware/ultralcd.cpp:4521
-#: ../../Firmware/ultralcd.cpp:4532 ../../Firmware/ultralcd.cpp:4533
-#: ../../Firmware/ultralcd.cpp:4535 ../../Firmware/ultralcd.cpp:4558
-#: ../../Firmware/ultralcd.cpp:4563 ../../Firmware/ultralcd.cpp:4616
-#: ../../Firmware/ultralcd.cpp:4661 ../../Firmware/ultralcd.cpp:4879
-#: ../../Firmware/ultralcd.cpp:4882 ../../Firmware/ultralcd.cpp:4953
-#: ../../Firmware/ultralcd.cpp:4981 ../../Firmware/ultralcd.cpp:4984
-#: ../../Firmware/ultralcd.cpp:6030 ../../Firmware/ultralcd.cpp:6104
-#: ../../Firmware/ultralcd.cpp:8019 ../../Firmware/ultralcd.cpp:8023
+#: ../../Firmware/SpoolJoin.cpp:23 ../../Firmware/messages.cpp:153
+#: ../../Firmware/mmu2.cpp:63 ../../Firmware/ultralcd.cpp:4515
+#: ../../Firmware/ultralcd.cpp:4526 ../../Firmware/ultralcd.cpp:4527
+#: ../../Firmware/ultralcd.cpp:4529 ../../Firmware/ultralcd.cpp:4552
+#: ../../Firmware/ultralcd.cpp:4557 ../../Firmware/ultralcd.cpp:4593
+#: ../../Firmware/ultralcd.cpp:4638 ../../Firmware/ultralcd.cpp:4864
+#: ../../Firmware/ultralcd.cpp:4867 ../../Firmware/ultralcd.cpp:4960
+#: ../../Firmware/ultralcd.cpp:4963 ../../Firmware/ultralcd.cpp:6008
+#: ../../Firmware/ultralcd.cpp:6082 ../../Firmware/ultralcd.cpp:7997
+#: ../../Firmware/ultralcd.cpp:8001
 msgid "On"
 msgstr ""
 
 #. MSG_SOUND_ONCE c=7
-#: ../../Firmware/messages.cpp:176 ../../Firmware/ultralcd.cpp:4678
+#: ../../Firmware/messages.cpp:178 ../../Firmware/ultralcd.cpp:4655
 msgid "Once"
 msgstr ""
 
 #. MSG_PAUSED_THERMAL_ERROR c=20
-#: ../../Firmware/Marlin_main.cpp:9354 ../../Firmware/messages.cpp:198
+#: ../../Firmware/Marlin_main.cpp:9329 ../../Firmware/messages.cpp:200
 msgid "PAUSED THERMAL ERROR"
 msgstr ""
 
 #. MSG_PID_RUNNING c=20
-#: ../../Firmware/messages.cpp:241 ../../Firmware/ultralcd.cpp:979
+#: ../../Firmware/messages.cpp:243 ../../Firmware/ultralcd.cpp:973
 msgid "PID cal."
 msgstr ""
 
 #. MSG_PID_FINISHED c=20
-#: ../../Firmware/messages.cpp:242 ../../Firmware/ultralcd.cpp:984
+#: ../../Firmware/messages.cpp:244 ../../Firmware/ultralcd.cpp:978
 msgid "PID cal. finished"
 msgstr ""
 
 #. MSG_PID_EXTRUDER c=17
-#: ../../Firmware/messages.cpp:345 ../../Firmware/ultralcd.cpp:4867
-#: ../../Firmware/ultralcd.cpp:5065
+#: ../../Firmware/messages.cpp:347 ../../Firmware/ultralcd.cpp:4851
+#: ../../Firmware/ultralcd.cpp:5044
 msgid "PID calibration"
 msgstr ""
 
 #. MSG_PINDA_PREHEAT c=20
-#: ../../Firmware/messages.cpp:240 ../../Firmware/ultralcd.cpp:630
+#: ../../Firmware/messages.cpp:242 ../../Firmware/ultralcd.cpp:634
 msgid "PINDA Heating"
 msgstr ""
 
 #. MSG_PINDA_CALIBRATION c=13
-#: ../../Firmware/Marlin_main.cpp:4458 ../../Firmware/Marlin_main.cpp:4560
-#: ../../Firmware/messages.cpp:137 ../../Firmware/ultralcd.cpp:627
-#: ../../Firmware/ultralcd.cpp:4981 ../../Firmware/ultralcd.cpp:5072
+#: ../../Firmware/Marlin_main.cpp:4459 ../../Firmware/Marlin_main.cpp:4561
+#: ../../Firmware/messages.cpp:139 ../../Firmware/ultralcd.cpp:631
+#: ../../Firmware/ultralcd.cpp:4960 ../../Firmware/ultralcd.cpp:5051
 msgid "PINDA cal."
 msgstr ""
 
 #. MSG_PINDA_CAL_FAILED c=20 r=4
-#: ../../Firmware/messages.cpp:303 ../../Firmware/ultralcd.cpp:3609
+#: ../../Firmware/messages.cpp:305 ../../Firmware/ultralcd.cpp:3603
 msgid "PINDA calibration failed"
 msgstr ""
 
 #. MSG_PINDA_CALIBRATION_DONE c=20 r=8
-#: ../../Firmware/Marlin_main.cpp:4635 ../../Firmware/messages.cpp:138
-#: ../../Firmware/ultralcd.cpp:3606
+#: ../../Firmware/Marlin_main.cpp:4636 ../../Firmware/messages.cpp:140
+#: ../../Firmware/ultralcd.cpp:3600
 msgid ""
 "PINDA calibration is finished and active. It can be disabled in menu "
 "Settings->PINDA cal."
@@ -1578,13 +1577,13 @@ msgid "Parking selector"
 msgstr ""
 
 #. MSG_PAUSE c=5
-#: ../../Firmware/messages.cpp:184 ../../Firmware/ultralcd.cpp:4544
+#: ../../Firmware/messages.cpp:186 ../../Firmware/ultralcd.cpp:4538
 msgid "Pause"
 msgstr ""
 
 #. MSG_PAUSE_PRINT c=18
-#: ../../Firmware/messages.cpp:80 ../../Firmware/ultralcd.cpp:5761
-#: ../../Firmware/ultralcd.cpp:5763
+#: ../../Firmware/messages.cpp:80 ../../Firmware/ultralcd.cpp:5740
+#: ../../Firmware/ultralcd.cpp:5742
 msgid "Pause print"
 msgstr ""
 
@@ -1595,60 +1594,60 @@ msgid "Performing cut"
 msgstr ""
 
 #. MSG_PAPER c=20 r=8
-#: ../../Firmware/Marlin_main.cpp:3071 ../../Firmware/messages.cpp:79
+#: ../../Firmware/Marlin_main.cpp:3072 ../../Firmware/messages.cpp:79
 msgid ""
 "Place a sheet of paper under the nozzle during the calibration of first 4 "
 "points. If the nozzle catches the paper, power off the printer immediately."
 msgstr ""
 
 #. MSG_WIZARD_CALIBRATION_FAILED c=20 r=8
-#: ../../Firmware/messages.cpp:142 ../../Firmware/ultralcd.cpp:4445
+#: ../../Firmware/messages.cpp:144 ../../Firmware/ultralcd.cpp:4439
 msgid ""
 "Please check our handbook and fix the problem. Then resume the Wizard by "
 "rebooting the printer."
 msgstr ""
 
 #. MSG_CHECK_IR_CONNECTION c=20 r=4
-#: ../../Firmware/messages.cpp:365 ../../Firmware/ultralcd.cpp:6544
+#: ../../Firmware/messages.cpp:367 ../../Firmware/ultralcd.cpp:6522
 msgid "Please check the IR sensor connection, unload filament if present."
 msgstr ""
 
 #. MSG_SELFTEST_PLEASECHECK c=20
-#: ../../Firmware/messages.cpp:371 ../../Firmware/ultralcd.cpp:7221
+#: ../../Firmware/messages.cpp:373 ../../Firmware/ultralcd.cpp:7199
 msgid "Please check:"
 msgstr ""
 
 #. MSG_WIZARD_CLEAN_HEATBED c=20 r=8
-#: ../../Firmware/messages.cpp:329 ../../Firmware/ultralcd.cpp:4408
+#: ../../Firmware/messages.cpp:331 ../../Firmware/ultralcd.cpp:4402
 msgid "Please clean heatbed and then press the knob."
 msgstr ""
 
 #. MSG_CONFIRM_NOZZLE_CLEAN c=20 r=8
-#: ../../Firmware/Marlin_main.cpp:3049 ../../Firmware/messages.cpp:29
+#: ../../Firmware/Marlin_main.cpp:3050 ../../Firmware/messages.cpp:29
 msgid "Please clean the nozzle for calibration. Click when done."
 msgstr ""
 
 #. MSG_WIZARD_LOAD_FILAMENT c=20 r=6
-#: ../../Firmware/messages.cpp:315 ../../Firmware/ultralcd.cpp:4180
+#: ../../Firmware/messages.cpp:317 ../../Firmware/ultralcd.cpp:4174
 msgid ""
 "Please insert filament into the extruder, then press the knob to load it."
 msgstr ""
 
 #. MSG_MMU_INSERT_FILAMENT_FIRST_TUBE c=20 r=6
-#: ../../Firmware/messages.cpp:314 ../../Firmware/ultralcd.cpp:4173
+#: ../../Firmware/messages.cpp:316 ../../Firmware/ultralcd.cpp:4167
 msgid ""
 "Please insert filament into the first tube of the MMU, then press the knob "
 "to load it."
 msgstr ""
 
 #. MSG_PLEASE_LOAD_PLA c=20 r=4
-#: ../../Firmware/messages.cpp:312 ../../Firmware/ultralcd.cpp:4008
-#: ../../Firmware/ultralcd.cpp:4090
+#: ../../Firmware/messages.cpp:314 ../../Firmware/ultralcd.cpp:4002
+#: ../../Firmware/ultralcd.cpp:4084
 msgid "Please load filament first."
 msgstr ""
 
 #. MSG_CHECK_IDLER c=20 r=4
-#: ../../Firmware/Marlin_main.cpp:3354 ../../Firmware/messages.cpp:228
+#: ../../Firmware/Marlin_main.cpp:3355 ../../Firmware/messages.cpp:230
 msgid "Please open idler and remove filament manually."
 msgstr ""
 
@@ -1658,98 +1657,98 @@ msgid "Please place steel sheet on heatbed."
 msgstr ""
 
 #. MSG_PRESS_TO_UNLOAD c=20 r=4
-#: ../../Firmware/Marlin_main.cpp:10644 ../../Firmware/Marlin_main.cpp:10674
+#: ../../Firmware/Marlin_main.cpp:10621 ../../Firmware/Marlin_main.cpp:10651
 #: ../../Firmware/messages.cpp:87
 msgid "Please press the knob to unload filament"
 msgstr ""
 
 #. MSG_PULL_OUT_FILAMENT c=20 r=4
-#: ../../Firmware/messages.cpp:89 ../../Firmware/ultralcd.cpp:5407
+#: ../../Firmware/messages.cpp:89 ../../Firmware/ultralcd.cpp:5386
 msgid "Please pull out filament immediately"
 msgstr ""
 
 #. MSG_REMOVE_SHIPPING_HELPERS c=20 r=3
-#: ../../Firmware/messages.cpp:322 ../../Firmware/ultralcd.cpp:4340
+#: ../../Firmware/messages.cpp:324 ../../Firmware/ultralcd.cpp:4334
 msgid "Please remove shipping helpers first."
 msgstr ""
 
 #. MSG_REMOVE_STEEL_SHEET c=20 r=4
-#: ../../Firmware/Marlin_main.cpp:4423 ../../Firmware/messages.cpp:95
+#: ../../Firmware/Marlin_main.cpp:4424 ../../Firmware/messages.cpp:95
 msgid "Please remove steel sheet from heatbed."
 msgstr ""
 
 #. MSG_RUN_XYZ c=20 r=4
-#: ../../Firmware/Marlin_main.cpp:4399 ../../Firmware/messages.cpp:229
+#: ../../Firmware/Marlin_main.cpp:4400 ../../Firmware/messages.cpp:231
 msgid "Please run XYZ calibration first."
 msgstr ""
 
 #. MSG_UNLOAD_FILAMENT_REPEAT c=20 r=4
-#: ../../Firmware/messages.cpp:364 ../../Firmware/ultralcd.cpp:4822
-#: ../../Firmware/ultralcd.cpp:6541
+#: ../../Firmware/messages.cpp:366 ../../Firmware/ultralcd.cpp:4799
+#: ../../Firmware/ultralcd.cpp:6519
 msgid "Please unload the filament first, then repeat this action."
 msgstr ""
 
 #. MSG_NEW_FIRMWARE_PLEASE_UPGRADE c=20
-#: ../../Firmware/messages.cpp:394 ../../Firmware/util.cpp:218
+#: ../../Firmware/messages.cpp:396 ../../Firmware/util.cpp:218
 msgid "Please upgrade."
 msgstr ""
 
 #. MSG_PLEASE_WAIT c=20
-#: ../../Firmware/Marlin_main.cpp:3350 ../../Firmware/Marlin_main.cpp:7548
-#: ../../Firmware/messages.cpp:84 ../../Firmware/ultralcd.cpp:2427
-#: ../../Firmware/ultralcd.cpp:2441
+#: ../../Firmware/Marlin_main.cpp:3351 ../../Firmware/Marlin_main.cpp:7549
+#: ../../Firmware/messages.cpp:84 ../../Firmware/ultralcd.cpp:2421
+#: ../../Firmware/ultralcd.cpp:2435
 msgid "Please wait"
 msgstr ""
 
 #. MSG_POWER_FAILURES c=15
-#: ../../Firmware/messages.cpp:85 ../../Firmware/ultralcd.cpp:1471
-#: ../../Firmware/ultralcd.cpp:1500
+#: ../../Firmware/messages.cpp:85 ../../Firmware/ultralcd.cpp:1465
+#: ../../Firmware/ultralcd.cpp:1494
 msgid "Power failures"
 msgstr ""
 
 #. MSG_PREHEAT c=18
-#: ../../Firmware/messages.cpp:350 ../../Firmware/ultralcd.cpp:5746
+#: ../../Firmware/messages.cpp:352 ../../Firmware/ultralcd.cpp:5725
 msgid "Preheat"
 msgstr ""
 
 #. MSG_NOZZLE_PREHEAT c=18
-#: ../../Firmware/messages.cpp:351 ../../Firmware/ultralcd.cpp:4862
+#: ../../Firmware/messages.cpp:353 ../../Firmware/ultralcd.cpp:4846
 msgid "Preheat nozzle"
 msgstr ""
 
 #. MSG_PREHEAT_NOZZLE c=20
-#: ../../Firmware/messages.cpp:86 ../../Firmware/ultralcd.cpp:2526
+#: ../../Firmware/messages.cpp:86 ../../Firmware/ultralcd.cpp:2520
 msgid "Preheat the nozzle!"
 msgstr ""
 
 #. MSG_WIZARD_HEATING c=20 r=3
-#: ../../Firmware/messages.cpp:144 ../../Firmware/ultralcd.cpp:3143
-#: ../../Firmware/ultralcd.cpp:4158 ../../Firmware/ultralcd.cpp:4160
+#: ../../Firmware/messages.cpp:146 ../../Firmware/ultralcd.cpp:3137
+#: ../../Firmware/ultralcd.cpp:4152 ../../Firmware/ultralcd.cpp:4154
 msgid "Preheating nozzle. Please wait."
 msgstr ""
 
 #. MSG_PREHEATING_TO_CUT c=20
-#: ../../Firmware/messages.cpp:259 ../../Firmware/ultralcd.cpp:2250
+#: ../../Firmware/messages.cpp:261 ../../Firmware/ultralcd.cpp:2244
 msgid "Preheating to cut"
 msgstr ""
 
 #. MSG_PREHEATING_TO_EJECT c=20
-#: ../../Firmware/messages.cpp:258 ../../Firmware/ultralcd.cpp:2247
+#: ../../Firmware/messages.cpp:260 ../../Firmware/ultralcd.cpp:2241
 msgid "Preheating to eject"
 msgstr ""
 
 #. MSG_PREHEATING_TO_LOAD c=20
-#: ../../Firmware/messages.cpp:256 ../../Firmware/ultralcd.cpp:2240
+#: ../../Firmware/messages.cpp:258 ../../Firmware/ultralcd.cpp:2234
 msgid "Preheating to load"
 msgstr ""
 
 #. MSG_PREHEATING_TO_UNLOAD c=20
-#: ../../Firmware/messages.cpp:257 ../../Firmware/ultralcd.cpp:2244
+#: ../../Firmware/messages.cpp:259 ../../Firmware/ultralcd.cpp:2238
 msgid "Preheating to unload"
 msgstr ""
 
 #. MSG_PRELOAD_TO_MMU c=17
-#: ../../Firmware/messages.cpp:61 ../../Firmware/ultralcd.cpp:5834
+#: ../../Firmware/messages.cpp:61 ../../Firmware/ultralcd.cpp:5813
 msgid "Preload to MMU"
 msgstr ""
 
@@ -1760,62 +1759,62 @@ msgid "Preparing blade"
 msgstr ""
 
 #. MSG_PRESS_KNOB c=20
-#: ../../Firmware/messages.cpp:253 ../../Firmware/ultralcd.cpp:2048
+#: ../../Firmware/messages.cpp:255 ../../Firmware/ultralcd.cpp:2042
 msgid "Press the knob"
 msgstr ""
 
 #. MSG_PRESS_KNOB_RESUME c=20 r=2
-#: ../../Firmware/Marlin_main.cpp:5112 ../../Firmware/messages.cpp:465
+#: ../../Firmware/Marlin_main.cpp:5113 ../../Firmware/messages.cpp:467
 msgid ""
 "Press the knob\n"
 "to resume print"
 msgstr ""
 
 #. MSG_PRESS_TO_PREHEAT c=20 r=4
-#: ../../Firmware/Marlin_main.cpp:10656 ../../Firmware/messages.cpp:234
+#: ../../Firmware/Marlin_main.cpp:10633 ../../Firmware/messages.cpp:236
 msgid "Press the knob to preheat nozzle and continue."
 msgstr ""
 
 #. MSG_PRINT_ABORTED c=20
-#: ../../Firmware/messages.cpp:88 ../../Firmware/ultralcd.cpp:830
+#: ../../Firmware/messages.cpp:88 ../../Firmware/ultralcd.cpp:824
 msgid "Print aborted"
 msgstr ""
 
 #. MSG_PRINT_FAN_SPEED c=15
-#: ../../Firmware/messages.cpp:42 ../../Firmware/ultralcd.cpp:1345
-#: ../../Firmware/ultralcd.cpp:7516
+#: ../../Firmware/messages.cpp:42 ../../Firmware/ultralcd.cpp:1339
+#: ../../Firmware/ultralcd.cpp:7494
 msgid "Print fan:"
 msgstr ""
 
 #. MSG_CARD_MENU c=18
-#: ../../Firmware/messages.cpp:25 ../../Firmware/ultralcd.cpp:5803
+#: ../../Firmware/messages.cpp:25 ../../Firmware/ultralcd.cpp:5782
 msgid "Print from SD"
 msgstr ""
 
 #. MSG_HOSTPRINT c=18
-#: ../../Firmware/messages.cpp:115 ../../Firmware/ultralcd.cpp:5755
+#: ../../Firmware/messages.cpp:117 ../../Firmware/ultralcd.cpp:5734
 msgid "Print from host"
 msgstr ""
 
 #. MSG_PRINT_PAUSED c=20
-#: ../../Firmware/Marlin_main.cpp:3417 ../../Firmware/messages.cpp:82
-#: ../../Firmware/ultralcd.cpp:845
+#: ../../Firmware/Marlin_main.cpp:3418 ../../Firmware/messages.cpp:82
+#: ../../Firmware/ultralcd.cpp:839
 msgid "Print paused"
 msgstr ""
 
 #. MSG_PRINT_TIME c=19
-#: ../../Firmware/Marlin_main.cpp:5470 ../../Firmware/messages.cpp:274
-#: ../../Firmware/ultralcd.cpp:2712
+#: ../../Firmware/Marlin_main.cpp:5471 ../../Firmware/messages.cpp:276
+#: ../../Firmware/ultralcd.cpp:2706
 msgid "Print time"
 msgstr ""
 
 #. MSG_PRINTER_IP c=18
-#: ../../Firmware/messages.cpp:247 ../../Firmware/ultralcd.cpp:1935
+#: ../../Firmware/messages.cpp:249 ../../Firmware/ultralcd.cpp:1929
 msgid "Printer IP Addr:"
 msgstr ""
 
 #. MSG_FOLLOW_CALIBRATION_FLOW c=20 r=8
-#: ../../Firmware/Marlin_main.cpp:1581 ../../Firmware/messages.cpp:48
+#: ../../Firmware/Marlin_main.cpp:1582 ../../Firmware/messages.cpp:48
 msgid ""
 "Printer has not been calibrated yet. Please follow the manual, chapter First"
 " steps, section Calibration flow."
@@ -1827,7 +1826,7 @@ msgid "Pulley motor stalled. Ensure the pulley can move and check the wiring."
 msgstr ""
 
 #. MSG_PURGE c=5
-#: ../../Firmware/messages.cpp:269 ../../Firmware/ultralcd.cpp:2540
+#: ../../Firmware/messages.cpp:271 ../../Firmware/ultralcd.cpp:2534
 msgid "Purge"
 msgstr ""
 
@@ -1843,22 +1842,22 @@ msgid "QUEUE FULL"
 msgstr ""
 
 #. MSG_QUICK_ACCESS c=12
-#: ../../Firmware/messages.cpp:90 ../../Firmware/ultralcd.cpp:5891
+#: ../../Firmware/messages.cpp:90 ../../Firmware/ultralcd.cpp:5870
 msgid "Quick access"
 msgstr ""
 
 #. MSG_RPI_PORT c=13
-#: ../../Firmware/messages.cpp:173 ../../Firmware/ultralcd.cpp:4984
+#: ../../Firmware/messages.cpp:175 ../../Firmware/ultralcd.cpp:4963
 msgid "RPi port"
 msgstr ""
 
 #. MSG_BED_CORRECTION_REAR c=14
-#: ../../Firmware/messages.cpp:288 ../../Firmware/ultralcd.cpp:3084
+#: ../../Firmware/messages.cpp:290 ../../Firmware/ultralcd.cpp:3078
 msgid "Rear side [µm]"
 msgstr ""
 
 #. MSG_RECOVERING_PRINT c=20
-#: ../../Firmware/messages.cpp:238 ../../Firmware/power_panic.cpp:367
+#: ../../Firmware/messages.cpp:240 ../../Firmware/power_panic.cpp:367
 msgid "Recovering print"
 msgstr ""
 
@@ -1868,18 +1867,18 @@ msgid "Remove the ejected filament from the front of the MMU."
 msgstr ""
 
 #. MSG_RENAME c=18
-#: ../../Firmware/messages.cpp:349 ../../Firmware/ultralcd.cpp:5622
+#: ../../Firmware/messages.cpp:351 ../../Firmware/ultralcd.cpp:5601
 msgid "Rename"
 msgstr ""
 
 #. MSG_COLD_PULL_REPEAT c=20
-#: ../../Firmware/messages.cpp:216 ../../Firmware/ultralcd.cpp:1223
+#: ../../Firmware/messages.cpp:218 ../../Firmware/ultralcd.cpp:1217
 msgid "Repeat cold pull?"
 msgstr ""
 
 #. MSG_REPRINT c=18
-#: ../../Firmware/messages.cpp:218 ../../Firmware/ultralcd.cpp:5725
-#: ../../Firmware/ultralcd.cpp:5727
+#: ../../Firmware/messages.cpp:220 ../../Firmware/ultralcd.cpp:5704
+#: ../../Firmware/ultralcd.cpp:5706
 msgid "Reprint"
 msgstr ""
 
@@ -1891,14 +1890,24 @@ msgid ""
 msgstr ""
 
 #. MSG_RESET c=14
-#: ../../Firmware/messages.cpp:96 ../../Firmware/ultralcd.cpp:3085
-#: ../../Firmware/ultralcd.cpp:5623
+#: ../../Firmware/messages.cpp:96 ../../Firmware/ultralcd.cpp:3079
+#: ../../Firmware/ultralcd.cpp:5602
 msgid "Reset"
 msgstr ""
 
 #. MSG_CALIBRATE_BED_RESET c=18
-#: ../../Firmware/messages.cpp:347 ../../Firmware/ultralcd.cpp:5069
+#: ../../Firmware/messages.cpp:349 ../../Firmware/ultralcd.cpp:5048
 msgid "Reset XYZ calibr."
+msgstr ""
+
+#. MSG_RESET_SERVICE c=18
+#: ../../Firmware/messages.cpp:97 ../../Firmware/ultralcd.cpp:4853
+msgid "Reset maintenance"
+msgstr ""
+
+#. MSG_RESET_SERVICE_CNT c=20 r=2
+#: ../../Firmware/messages.cpp:98 ../../Firmware/ultralcd.cpp:4836
+msgid "Reset maintenance counter?"
 msgstr ""
 
 #. MSG_BTN_RESET_MMU c=8
@@ -1907,13 +1916,13 @@ msgid "ResetMMU"
 msgstr ""
 
 #. MSG_RESUME_PRINT c=18
-#: ../../Firmware/Marlin_main.cpp:696 ../../Firmware/messages.cpp:97
-#: ../../Firmware/ultralcd.cpp:5776 ../../Firmware/ultralcd.cpp:5778
+#: ../../Firmware/Marlin_main.cpp:696 ../../Firmware/messages.cpp:99
+#: ../../Firmware/ultralcd.cpp:5755 ../../Firmware/ultralcd.cpp:5757
 msgid "Resume print"
 msgstr ""
 
 #. MSG_RESUMING_PRINT c=20
-#: ../../Firmware/messages.cpp:98 ../../Firmware/ultralcd.cpp:638
+#: ../../Firmware/messages.cpp:100 ../../Firmware/ultralcd.cpp:642
 msgid "Resuming print"
 msgstr ""
 
@@ -1935,30 +1944,30 @@ msgid "Returning selector"
 msgstr ""
 
 #. MSG_RIGHT c=10
-#: ../../Firmware/messages.cpp:279 ../../Firmware/ultralcd.cpp:2843
+#: ../../Firmware/messages.cpp:281 ../../Firmware/ultralcd.cpp:2837
 msgid "Right"
 msgstr ""
 
 #. MSG_BED_CORRECTION_RIGHT c=14
-#: ../../Firmware/messages.cpp:286 ../../Firmware/ultralcd.cpp:3082
+#: ../../Firmware/messages.cpp:288 ../../Firmware/ultralcd.cpp:3076
 msgid "Right side[µm]"
 msgstr ""
 
 #. MSG_WIZARD_RERUN c=20 r=7
-#: ../../Firmware/messages.cpp:313 ../../Firmware/ultralcd.cpp:4124
+#: ../../Firmware/messages.cpp:315 ../../Firmware/ultralcd.cpp:4118
 msgid ""
 "Running Wizard will delete current calibration results and start from the "
 "beginning."
 msgstr ""
 
 #. MSG_SD_CARD c=8
-#: ../../Firmware/messages.cpp:169 ../../Firmware/ultralcd.cpp:4995
-#: ../../Firmware/ultralcd.cpp:4997
+#: ../../Firmware/messages.cpp:171 ../../Firmware/ultralcd.cpp:4974
+#: ../../Firmware/ultralcd.cpp:4976
 msgid "SD card"
 msgstr ""
 
 #. MSG_SD_CARD_DETECTED_PRESS_KNOB c=20 r=3
-#: ../../Firmware/messages.cpp:397 ../../Firmware/power_panic.cpp:433
+#: ../../Firmware/messages.cpp:399 ../../Firmware/power_panic.cpp:433
 msgid ""
 "SD card detected.\n"
 "Press the knob\n"
@@ -1976,48 +1985,48 @@ msgid "SELECTOR CANNOT MOVE"
 msgstr ""
 
 #. MSG_STOPPED c=20
-#: ../../Firmware/Marlin_main.cpp:9380 ../../Firmware/messages.cpp:136
+#: ../../Firmware/Marlin_main.cpp:9355 ../../Firmware/messages.cpp:138
 msgid "STOPPED."
 msgstr ""
 
 #. MSG_FIND_BED_OFFSET_AND_SKEW_LINE1 c=20 r=3
-#: ../../Firmware/Marlin_main.cpp:3056 ../../Firmware/Marlin_main.cpp:3073
+#: ../../Firmware/Marlin_main.cpp:3057 ../../Firmware/Marlin_main.cpp:3074
 #: ../../Firmware/mesh_bed_calibration.cpp:2231 ../../Firmware/messages.cpp:46
 msgid "Searching bed calibration point"
 msgstr ""
 
 #. MSG_SELECT c=18
-#: ../../Firmware/messages.cpp:348 ../../Firmware/ultralcd.cpp:5615
+#: ../../Firmware/messages.cpp:350 ../../Firmware/ultralcd.cpp:5594
 msgid "Select"
 msgstr ""
 
 #. MSG_SELECT_FIL_1ST_LAYERCAL c=20 r=7
-#: ../../Firmware/messages.cpp:317 ../../Firmware/ultralcd.cpp:4198
+#: ../../Firmware/messages.cpp:319 ../../Firmware/ultralcd.cpp:4192
 msgid ""
 "Select a filament for the First Layer Calibration and select it in the on-"
 "screen menu."
 msgstr ""
 
 #. MSG_SELECT_FILAMENT c=20
-#: ../../Firmware/Marlin_main.cpp:3281 ../../Firmware/Tcodes.cpp:34
-#: ../../Firmware/messages.cpp:58 ../../Firmware/ultralcd.cpp:3987
-#: ../../Firmware/ultralcd.cpp:7343
+#: ../../Firmware/Marlin_main.cpp:3282 ../../Firmware/Tcodes.cpp:34
+#: ../../Firmware/messages.cpp:58 ../../Firmware/ultralcd.cpp:3981
+#: ../../Firmware/ultralcd.cpp:7321
 msgid "Select filament:"
 msgstr ""
 
 #. MSG_SELECT_LANGUAGE c=18
-#: ../../Firmware/messages.cpp:120 ../../Firmware/ultralcd.cpp:3840
-#: ../../Firmware/ultralcd.cpp:4990
+#: ../../Firmware/messages.cpp:122 ../../Firmware/ultralcd.cpp:3834
+#: ../../Firmware/ultralcd.cpp:4969
 msgid "Select language"
 msgstr ""
 
 #. MSG_SEL_PREHEAT_TEMP c=20 r=6
-#: ../../Firmware/messages.cpp:327 ../../Firmware/ultralcd.cpp:4382
+#: ../../Firmware/messages.cpp:329 ../../Firmware/ultralcd.cpp:4376
 msgid "Select nozzle preheat temperature which matches your material."
 msgstr ""
 
 #. MSG_SELECT_TEMP_MATCHES_MATERIAL c=20 r=4
-#: ../../Firmware/messages.cpp:318 ../../Firmware/ultralcd.cpp:4203
+#: ../../Firmware/messages.cpp:320 ../../Firmware/ultralcd.cpp:4197
 msgid "Select temperature which matches your material."
 msgstr ""
 
@@ -2035,77 +2044,77 @@ msgid ""
 msgstr ""
 
 #. MSG_SELFTEST c=18
-#: ../../Firmware/messages.cpp:342 ../../Firmware/ultralcd.cpp:4863
-#: ../../Firmware/ultralcd.cpp:5056
+#: ../../Firmware/messages.cpp:344 ../../Firmware/ultralcd.cpp:4847
+#: ../../Firmware/ultralcd.cpp:5035
 msgid "Selftest"
 msgstr ""
 
 #. MSG_SELFTEST_OK c=20
-#: ../../Firmware/messages.cpp:369 ../../Firmware/ultralcd.cpp:6795
+#: ../../Firmware/messages.cpp:371 ../../Firmware/ultralcd.cpp:6773
 msgid "Selftest OK"
 msgstr ""
 
 #. MSG_SELFTEST_ERROR c=20
-#: ../../Firmware/messages.cpp:370 ../../Firmware/ultralcd.cpp:7220
+#: ../../Firmware/messages.cpp:372 ../../Firmware/ultralcd.cpp:7198
 msgid "Selftest error!"
 msgstr ""
 
 #. MSG_SELFTEST_FAILED c=20
-#: ../../Firmware/messages.cpp:101 ../../Firmware/ultralcd.cpp:6800
-#: ../../Firmware/ultralcd.cpp:7307 ../../Firmware/ultralcd.cpp:7506
+#: ../../Firmware/messages.cpp:103 ../../Firmware/ultralcd.cpp:6778
+#: ../../Firmware/ultralcd.cpp:7285 ../../Firmware/ultralcd.cpp:7484
 msgid "Selftest failed"
 msgstr ""
 
 #. MSG_SELFTEST_START c=20
-#: ../../Firmware/messages.cpp:368 ../../Firmware/ultralcd.cpp:6578
+#: ../../Firmware/messages.cpp:370 ../../Firmware/ultralcd.cpp:6556
 msgid "Selftest start"
 msgstr ""
 
 #. MSG_FORCE_SELFTEST c=20 r=8
-#: ../../Firmware/Marlin_main.cpp:1556 ../../Firmware/messages.cpp:224
+#: ../../Firmware/Marlin_main.cpp:1557 ../../Firmware/messages.cpp:226
 msgid "Selftest will be run to calibrate accurate sensorless rehoming."
 msgstr ""
 
 #. MSG_MMU_SENSITIVITY c=18
-#: ../../Firmware/messages.cpp:237 ../../Firmware/mmu2_reporting.cpp:459
+#: ../../Firmware/messages.cpp:239 ../../Firmware/mmu2_reporting.cpp:459
 msgid "Sensitivity"
 msgstr ""
 
 #. MSG_INFO_SENSORS c=18
-#: ../../Firmware/messages.cpp:250 ../../Firmware/ultralcd.cpp:1947
+#: ../../Firmware/messages.cpp:252 ../../Firmware/ultralcd.cpp:1941
 msgid "Sensor info"
 msgstr ""
 
 #. MSG_FS_VERIFIED c=20 r=3
-#: ../../Firmware/messages.cpp:366 ../../Firmware/ultralcd.cpp:6548
+#: ../../Firmware/messages.cpp:368 ../../Firmware/ultralcd.cpp:6526
 msgid "Sensor verified, remove the filament now."
 msgstr ""
 
 #. MSG_SET_READY c=18
-#: ../../Firmware/messages.cpp:112 ../../Firmware/ultralcd.cpp:5752
+#: ../../Firmware/messages.cpp:114 ../../Firmware/ultralcd.cpp:5731
 msgid "Set Ready"
 msgstr ""
 
 #. MSG_SET_NOT_READY c=18
-#: ../../Firmware/messages.cpp:113 ../../Firmware/ultralcd.cpp:5750
+#: ../../Firmware/messages.cpp:115 ../../Firmware/ultralcd.cpp:5729
 msgid "Set not Ready"
 msgstr ""
 
 #. MSG_SET_TEMPERATURE c=20
-#: ../../Firmware/messages.cpp:289 ../../Firmware/ultralcd.cpp:3102
+#: ../../Firmware/messages.cpp:291 ../../Firmware/ultralcd.cpp:3096
 msgid "Set temperature:"
 msgstr ""
 
 #. MSG_SETTINGS c=18
-#: ../../Firmware/messages.cpp:110 ../../Firmware/ultralcd.cpp:3724
-#: ../../Firmware/ultralcd.cpp:3855 ../../Firmware/ultralcd.cpp:4466
-#: ../../Firmware/ultralcd.cpp:5868 ../../Firmware/ultralcd.cpp:6095
-#: ../../Firmware/ultralcd.cpp:6141
+#: ../../Firmware/messages.cpp:112 ../../Firmware/ultralcd.cpp:3718
+#: ../../Firmware/ultralcd.cpp:3849 ../../Firmware/ultralcd.cpp:4460
+#: ../../Firmware/ultralcd.cpp:5847 ../../Firmware/ultralcd.cpp:6073
+#: ../../Firmware/ultralcd.cpp:6119
 msgid "Settings"
 msgstr ""
 
 #. MSG_SEVERE_SKEW c=14
-#: ../../Firmware/messages.cpp:282 ../../Firmware/ultralcd.cpp:2886
+#: ../../Firmware/messages.cpp:284 ../../Firmware/ultralcd.cpp:2880
 msgid "Severe skew"
 msgstr ""
 
@@ -2116,8 +2125,8 @@ msgid "Sheet"
 msgstr ""
 
 #. MSG_SHEET_OFFSET c=20 r=4
-#: ../../Firmware/messages.cpp:311 ../../Firmware/ultralcd.cpp:3979
-#: ../../Firmware/ultralcd.cpp:4065
+#: ../../Firmware/messages.cpp:313 ../../Firmware/ultralcd.cpp:3973
+#: ../../Firmware/ultralcd.cpp:4059
 msgid ""
 "Sheet %.7s\n"
 "Z offset: %+1.3fmm\n"
@@ -2126,91 +2135,91 @@ msgid ""
 msgstr ""
 
 #. MSG_SHORT_EXTRUSION c=19
-#: ../../Firmware/messages.cpp:268 ../../Firmware/ultralcd.cpp:2457
+#: ../../Firmware/messages.cpp:270 ../../Firmware/ultralcd.cpp:2451
 msgid "Short extrusion"
 msgstr ""
 
 #. MSG_SHOW_END_STOPS c=18
-#: ../../Firmware/messages.cpp:346 ../../Firmware/ultralcd.cpp:5067
+#: ../../Firmware/messages.cpp:348 ../../Firmware/ultralcd.cpp:5046
 msgid "Show end stops"
 msgstr ""
 
 #. MSG_SHUTDOWN_HOST c=18
-#: ../../Firmware/messages.cpp:118 ../../Firmware/ultralcd.cpp:5884
+#: ../../Firmware/messages.cpp:120 ../../Firmware/ultralcd.cpp:5863
 msgid "Shutdown host"
 msgstr ""
 
 #. MSG_SILENT c=7
-#: ../../Firmware/Marlin_main.cpp:7978 ../../Firmware/messages.cpp:130
-#: ../../Firmware/ultralcd.cpp:4637 ../../Firmware/ultralcd.cpp:4681
+#: ../../Firmware/Marlin_main.cpp:7979 ../../Firmware/messages.cpp:132
+#: ../../Firmware/ultralcd.cpp:4614 ../../Firmware/ultralcd.cpp:4658
 msgid "Silent"
 msgstr ""
 
 #. MSG_SLIGHT_SKEW c=14
-#: ../../Firmware/messages.cpp:281 ../../Firmware/ultralcd.cpp:2885
+#: ../../Firmware/messages.cpp:283 ../../Firmware/ultralcd.cpp:2879
 msgid "Slight skew"
 msgstr ""
 
 #. MSG_FILE_CNT c=20 r=6
-#: ../../Firmware/cardreader.cpp:806 ../../Firmware/messages.cpp:219
+#: ../../Firmware/cardreader.cpp:806 ../../Firmware/messages.cpp:221
 msgid ""
 "Some files will not be sorted. Max. No. of files in 1 folder for sorting is "
 "100."
 msgstr ""
 
 #. MSG_ZLEVELING_ENFORCED c=20 r=4
-#: ../../Firmware/Marlin_main.cpp:2872 ../../Firmware/messages.cpp:226
+#: ../../Firmware/Marlin_main.cpp:2873 ../../Firmware/messages.cpp:228
 msgid "Some problem encountered, Z-leveling enforced ..."
 msgstr ""
 
 #. MSG_SORT c=7
-#: ../../Firmware/messages.cpp:170 ../../Firmware/ultralcd.cpp:5000
-#: ../../Firmware/ultralcd.cpp:5001 ../../Firmware/ultralcd.cpp:5002
+#: ../../Firmware/messages.cpp:172 ../../Firmware/ultralcd.cpp:4979
+#: ../../Firmware/ultralcd.cpp:4980 ../../Firmware/ultralcd.cpp:4981
 msgid "Sort"
 msgstr ""
 
 #. MSG_SORTING_FILES c=20
 #: ../../Firmware/cardreader.cpp:850 ../../Firmware/cardreader.cpp:917
-#: ../../Firmware/messages.cpp:121
+#: ../../Firmware/messages.cpp:123
 msgid "Sorting files"
 msgstr ""
 
 #. MSG_SOUND c=9
-#: ../../Firmware/messages.cpp:174 ../../Firmware/ultralcd.cpp:4675
-#: ../../Firmware/ultralcd.cpp:4678 ../../Firmware/ultralcd.cpp:4681
-#: ../../Firmware/ultralcd.cpp:4684 ../../Firmware/ultralcd.cpp:4687
+#: ../../Firmware/messages.cpp:176 ../../Firmware/ultralcd.cpp:4652
+#: ../../Firmware/ultralcd.cpp:4655 ../../Firmware/ultralcd.cpp:4658
+#: ../../Firmware/ultralcd.cpp:4661 ../../Firmware/ultralcd.cpp:4664
 msgid "Sound"
 msgstr ""
 
 #. MSG_SPEED c=15
-#: ../../Firmware/messages.cpp:361 ../../Firmware/ultralcd.cpp:6016
+#: ../../Firmware/messages.cpp:363
 msgid "Speed"
 msgstr ""
 
 #. MSG_SELFTEST_FAN_YES c=19
-#: ../../Firmware/messages.cpp:104 ../../Firmware/ultralcd.cpp:7382
+#: ../../Firmware/messages.cpp:106 ../../Firmware/ultralcd.cpp:7360
 msgid "Spinning"
 msgstr ""
 
 #. MSG_TEMP_CAL_WARNING c=20 r=4
-#: ../../Firmware/Marlin_main.cpp:4412 ../../Firmware/messages.cpp:230
+#: ../../Firmware/Marlin_main.cpp:4413 ../../Firmware/messages.cpp:232
 msgid "Stable ambient temperature 21-26C is needed a rigid stand is required."
 msgstr ""
 
 #. MSG_STATISTICS c=18
-#: ../../Firmware/messages.cpp:357 ../../Firmware/ultralcd.cpp:5873
+#: ../../Firmware/messages.cpp:359 ../../Firmware/ultralcd.cpp:5852
 msgid "Statistics"
 msgstr ""
 
 #. MSG_STEALTH c=7
-#: ../../Firmware/messages.cpp:132 ../../Firmware/ultralcd.cpp:4578
-#: ../../Firmware/ultralcd.cpp:4626
+#: ../../Firmware/messages.cpp:134 ../../Firmware/ultralcd.cpp:4572
+#: ../../Firmware/ultralcd.cpp:4603
 msgid "Stealth"
 msgstr ""
 
 #. MSG_STEEL_SHEETS c=18
-#: ../../Firmware/messages.cpp:71 ../../Firmware/ultralcd.cpp:4907
-#: ../../Firmware/ultralcd.cpp:5612
+#: ../../Firmware/messages.cpp:71 ../../Firmware/ultralcd.cpp:4892
+#: ../../Firmware/ultralcd.cpp:5591
 msgid "Steel sheets"
 msgstr ""
 
@@ -2220,28 +2229,28 @@ msgid "Stop"
 msgstr ""
 
 #. MSG_STOP_PRINT c=18
-#: ../../Firmware/messages.cpp:135 ../../Firmware/ultralcd.cpp:5783
-#: ../../Firmware/ultralcd.cpp:6302
+#: ../../Firmware/messages.cpp:137 ../../Firmware/ultralcd.cpp:5762
+#: ../../Firmware/ultralcd.cpp:6280
 msgid "Stop print"
 msgstr ""
 
 #. MSG_STRICT c=8
-#: ../../Firmware/messages.cpp:156 ../../Firmware/ultralcd.cpp:4778
+#: ../../Firmware/messages.cpp:158 ../../Firmware/ultralcd.cpp:4755
 msgid "Strict"
 msgstr ""
 
 #. MSG_SUPPORT c=18
-#: ../../Firmware/messages.cpp:360 ../../Firmware/ultralcd.cpp:5888
+#: ../../Firmware/messages.cpp:362 ../../Firmware/ultralcd.cpp:5867
 msgid "Support"
 msgstr ""
 
 #. MSG_SELFTEST_SWAPPED c=16
-#: ../../Firmware/messages.cpp:382 ../../Firmware/ultralcd.cpp:7279
+#: ../../Firmware/messages.cpp:384 ../../Firmware/ultralcd.cpp:7257
 msgid "Swapped"
 msgstr ""
 
 #. MSG_THERMAL_ANOMALY c=20
-#: ../../Firmware/messages.cpp:200 ../../Firmware/temperature.cpp:2214
+#: ../../Firmware/messages.cpp:202 ../../Firmware/temperature.cpp:2214
 msgid "THERMAL ANOMALY"
 msgstr ""
 
@@ -2276,12 +2285,12 @@ msgid "TMC UNDERVOLTAGE ERR"
 msgstr ""
 
 #. MSG_TEMPERATURE c=18
-#: ../../Firmware/messages.cpp:336 ../../Firmware/ultralcd.cpp:4941
+#: ../../Firmware/messages.cpp:338 ../../Firmware/ultralcd.cpp:4926
 msgid "Temperature"
 msgstr ""
 
 #. MSG_MENU_TEMPERATURES c=18
-#: ../../Firmware/messages.cpp:251 ../../Firmware/ultralcd.cpp:1953
+#: ../../Firmware/messages.cpp:253 ../../Firmware/ultralcd.cpp:1947
 msgid "Temperatures"
 msgstr ""
 
@@ -2303,7 +2312,7 @@ msgid ""
 msgstr ""
 
 #. MSG_WIZARD_V2_CAL_2 c=20 r=12
-#: ../../Firmware/messages.cpp:319 ../../Firmware/ultralcd.cpp:4206
+#: ../../Firmware/messages.cpp:321 ../../Firmware/ultralcd.cpp:4200
 msgid ""
 "The printer will start printing a zig-zag line. Rotate the knob until you "
 "reach the optimal height. Check the pictures in the handbook (Calibration "
@@ -2311,68 +2320,68 @@ msgid ""
 msgstr ""
 
 #. MSG_MISSING_FILAMENT c=20 r=3
-#: ../../Firmware/messages.cpp:164 ../../Firmware/util.cpp:388
+#: ../../Firmware/messages.cpp:166 ../../Firmware/util.cpp:388
 #: ../../Firmware/util.cpp:389
 msgid "There is no filament loaded."
 msgstr ""
 
 #. MSG_FOLLOW_Z_CALIBRATION_FLOW c=20 r=8
-#: ../../Firmware/Marlin_main.cpp:1585 ../../Firmware/messages.cpp:49
+#: ../../Firmware/Marlin_main.cpp:1586 ../../Firmware/messages.cpp:49
 msgid ""
 "There is still a need to make Z calibration. Please follow the manual, "
 "chapter First steps, section Calibration flow."
 msgstr ""
 
 #. MSG_TM_CAL c=20 r=4
-#: ../../Firmware/messages.cpp:326 ../../Firmware/ultralcd.cpp:4363
+#: ../../Firmware/messages.cpp:328 ../../Firmware/ultralcd.cpp:4357
 msgid ""
 "Thermal model cal. takes approx. 12 mins. See\n"
 "prusa.io/tm-cal"
 msgstr ""
 
 #. MSG_TM_NOT_CAL c=20 r=4
-#: ../../Firmware/Marlin_main.cpp:1592 ../../Firmware/messages.cpp:201
+#: ../../Firmware/Marlin_main.cpp:1593 ../../Firmware/messages.cpp:203
 msgid "Thermal model not calibrated yet."
 msgstr ""
 
 #. MSG_SORT_TIME c=8
-#: ../../Firmware/messages.cpp:171 ../../Firmware/ultralcd.cpp:5000
+#: ../../Firmware/messages.cpp:173 ../../Firmware/ultralcd.cpp:4979
 msgid "Time"
 msgstr ""
 
 #. MSG_TIMEOUT c=12
-#: ../../Firmware/messages.cpp:188 ../../Firmware/ultralcd.cpp:1204
-#: ../../Firmware/ultralcd.cpp:6132
+#: ../../Firmware/messages.cpp:190 ../../Firmware/ultralcd.cpp:1198
+#: ../../Firmware/ultralcd.cpp:6110
 msgid "Timeout"
 msgstr ""
 
 #. MSG_TOTAL c=6
-#: ../../Firmware/messages.cpp:122 ../../Firmware/ultralcd.cpp:1368
-#: ../../Firmware/ultralcd.cpp:1526
+#: ../../Firmware/messages.cpp:124 ../../Firmware/ultralcd.cpp:1362
+#: ../../Firmware/ultralcd.cpp:1520
 msgid "Total"
 msgstr ""
 
 #. MSG_TOTAL_FAILURES c=20
-#: ../../Firmware/messages.cpp:124 ../../Firmware/ultralcd.cpp:1416
-#: ../../Firmware/ultralcd.cpp:1470 ../../Firmware/ultralcd.cpp:1556
+#: ../../Firmware/messages.cpp:126 ../../Firmware/ultralcd.cpp:1410
+#: ../../Firmware/ultralcd.cpp:1464 ../../Firmware/ultralcd.cpp:1550
 msgid "Total failures"
 msgstr ""
 
 #. MSG_TOTAL_FILAMENT c=19
-#: ../../Firmware/Marlin_main.cpp:5480 ../../Firmware/messages.cpp:275
-#: ../../Firmware/ultralcd.cpp:2733
+#: ../../Firmware/Marlin_main.cpp:5481 ../../Firmware/messages.cpp:277
+#: ../../Firmware/ultralcd.cpp:2727
 msgid "Total filament"
 msgstr ""
 
 #. MSG_TOTAL_PRINT_TIME c=19
-#: ../../Firmware/Marlin_main.cpp:5481 ../../Firmware/messages.cpp:276
-#: ../../Firmware/ultralcd.cpp:2734
+#: ../../Firmware/Marlin_main.cpp:5482 ../../Firmware/messages.cpp:278
+#: ../../Firmware/ultralcd.cpp:2728
 msgid "Total print time"
 msgstr ""
 
 #. MSG_TUNE c=8
-#: ../../Firmware/messages.cpp:126 ../../Firmware/mmu2/errors_list.h:372
-#: ../../Firmware/ultralcd.cpp:5744
+#: ../../Firmware/messages.cpp:128 ../../Firmware/mmu2/errors_list.h:372
+#: ../../Firmware/ultralcd.cpp:5723
 msgid "Tune"
 msgstr ""
 
@@ -2397,16 +2406,16 @@ msgid "Unload"
 msgstr ""
 
 #. MSG_UNLOAD_FILAMENT c=18
-#: ../../Firmware/messages.cpp:139 ../../Firmware/ultralcd.cpp:2458
-#: ../../Firmware/ultralcd.cpp:5837 ../../Firmware/ultralcd.cpp:5851
-#: ../../Firmware/ultralcd.cpp:5863
+#: ../../Firmware/messages.cpp:141 ../../Firmware/ultralcd.cpp:2452
+#: ../../Firmware/ultralcd.cpp:5816 ../../Firmware/ultralcd.cpp:5830
+#: ../../Firmware/ultralcd.cpp:5842
 msgid "Unload filament"
 msgstr ""
 
 #. MSG_UNLOADING_FILAMENT c=20
-#: ../../Firmware/Marlin_main.cpp:3264 ../../Firmware/messages.cpp:140
+#: ../../Firmware/Marlin_main.cpp:3265 ../../Firmware/messages.cpp:142
 #: ../../Firmware/mmu2_progress_converter.cpp:50
-#: ../../Firmware/ultralcd.cpp:5386
+#: ../../Firmware/ultralcd.cpp:5365
 msgid "Unloading filament"
 msgstr ""
 
@@ -2423,19 +2432,19 @@ msgid "Unloading to pulley"
 msgstr ""
 
 #. MSG_FIL_FAILED c=20 r=4
-#: ../../Firmware/messages.cpp:367 ../../Firmware/ultralcd.cpp:6551
+#: ../../Firmware/messages.cpp:369 ../../Firmware/ultralcd.cpp:6529
 msgid "Verification failed, remove the filament and try again."
 msgstr ""
 
 #. MSG_RECOVER_PRINT_ADC c=20 r=2
-#: ../../Firmware/Marlin_main.cpp:1668 ../../Firmware/messages.cpp:93
+#: ../../Firmware/Marlin_main.cpp:1669 ../../Firmware/messages.cpp:93
 msgid ""
 "Voltage drop.\n"
 "Recover print?"
 msgstr ""
 
 #. MSG_MENU_VOLTAGES c=18
-#: ../../Firmware/messages.cpp:252 ../../Firmware/ultralcd.cpp:1956
+#: ../../Firmware/messages.cpp:254 ../../Firmware/ultralcd.cpp:1950
 msgid "Voltages"
 msgstr ""
 
@@ -2446,7 +2455,7 @@ msgid "WARNING TMC TOO HOT"
 msgstr ""
 
 #. MSG_CRASH_DET_STEALTH_FORCE_OFF c=20 r=4
-#: ../../Firmware/messages.cpp:308 ../../Firmware/ultralcd.cpp:3757
+#: ../../Firmware/messages.cpp:310 ../../Firmware/ultralcd.cpp:3751
 msgid ""
 "WARNING:\n"
 "Crash detection\n"
@@ -2455,177 +2464,177 @@ msgid ""
 msgstr ""
 
 #. MSG_USERWAIT c=20
-#: ../../Firmware/Marlin_main.cpp:4846 ../../Firmware/messages.cpp:231
+#: ../../Firmware/Marlin_main.cpp:4847 ../../Firmware/messages.cpp:233
 msgid "Wait for user..."
 msgstr ""
 
 #. MSG_WAITING_TEMP_PINDA c=20 r=3
-#: ../../Firmware/messages.cpp:290 ../../Firmware/ultralcd.cpp:3125
+#: ../../Firmware/messages.cpp:292 ../../Firmware/ultralcd.cpp:3119
 msgid "Waiting for PINDA probe cooling"
 msgstr ""
 
 #. MSG_WAITING_TEMP c=20 r=4
-#: ../../Firmware/messages.cpp:291 ../../Firmware/ultralcd.cpp:3154
+#: ../../Firmware/messages.cpp:293 ../../Firmware/ultralcd.cpp:3148
 msgid "Waiting for nozzle and bed cooling"
 msgstr ""
 
 #. MSG_WARN c=8
-#: ../../Firmware/messages.cpp:155 ../../Firmware/ultralcd.cpp:4775
+#: ../../Firmware/messages.cpp:157 ../../Firmware/ultralcd.cpp:4752
 msgid "Warn"
 msgstr ""
 
 #. MSG_CHANGED_BOTH c=20 r=4
-#: ../../Firmware/Marlin_main.cpp:1533 ../../Firmware/messages.cpp:222
+#: ../../Firmware/Marlin_main.cpp:1534 ../../Firmware/messages.cpp:224
 msgid "Warning: both printer type and motherboard type changed."
 msgstr ""
 
 #. MSG_CHANGED_MOTHERBOARD c=20 r=4
-#: ../../Firmware/Marlin_main.cpp:1525 ../../Firmware/messages.cpp:220
+#: ../../Firmware/Marlin_main.cpp:1526 ../../Firmware/messages.cpp:222
 msgid "Warning: motherboard type changed."
 msgstr ""
 
 #. MSG_CHANGED_PRINTER c=20 r=4
-#: ../../Firmware/Marlin_main.cpp:1529 ../../Firmware/messages.cpp:221
+#: ../../Firmware/Marlin_main.cpp:1530 ../../Firmware/messages.cpp:223
 msgid "Warning: printer type changed."
 msgstr ""
 
 #. MSG_UNLOAD_SUCCESSFUL c=20 r=3
-#: ../../Firmware/Marlin_main.cpp:3346 ../../Firmware/messages.cpp:227
+#: ../../Firmware/Marlin_main.cpp:3347 ../../Firmware/messages.cpp:229
 msgid "Was filament unload successful?"
 msgstr ""
 
 #. MSG_SELFTEST_WIRINGERROR c=18
-#: ../../Firmware/messages.cpp:109 ../../Firmware/ultralcd.cpp:7231
-#: ../../Firmware/ultralcd.cpp:7235 ../../Firmware/ultralcd.cpp:7255
-#: ../../Firmware/ultralcd.cpp:7261 ../../Firmware/ultralcd.cpp:7285
+#: ../../Firmware/messages.cpp:111 ../../Firmware/ultralcd.cpp:7209
+#: ../../Firmware/ultralcd.cpp:7213 ../../Firmware/ultralcd.cpp:7233
+#: ../../Firmware/ultralcd.cpp:7239 ../../Firmware/ultralcd.cpp:7263
 msgid "Wiring error"
 msgstr ""
 
 #. MSG_WIZARD c=17
-#: ../../Firmware/messages.cpp:340 ../../Firmware/ultralcd.cpp:5047
+#: ../../Firmware/messages.cpp:342 ../../Firmware/ultralcd.cpp:5026
 msgid "Wizard"
 msgstr ""
 
 #. MSG_X_CORRECTION c=13
-#: ../../Firmware/messages.cpp:331 ../../Firmware/ultralcd.cpp:4468
+#: ../../Firmware/messages.cpp:333 ../../Firmware/ultralcd.cpp:4462
 msgid "X-correct"
 msgstr ""
 
 #. MSG_XYZ_DETAILS c=18
-#: ../../Firmware/messages.cpp:248 ../../Firmware/ultralcd.cpp:1945
+#: ../../Firmware/messages.cpp:250 ../../Firmware/ultralcd.cpp:1939
 msgid "XYZ cal. details"
 msgstr ""
 
 #. MSG_BED_SKEW_OFFSET_DETECTION_SKEW_EXTREME c=20 r=8
-#: ../../Firmware/messages.cpp:302 ../../Firmware/ultralcd.cpp:3583
+#: ../../Firmware/messages.cpp:304 ../../Firmware/ultralcd.cpp:3577
 msgid "XYZ calibration all right. Skew will be corrected automatically."
 msgstr ""
 
 #. MSG_BED_SKEW_OFFSET_DETECTION_SKEW_MILD c=20 r=8
-#: ../../Firmware/messages.cpp:301 ../../Firmware/ultralcd.cpp:3580
+#: ../../Firmware/messages.cpp:303 ../../Firmware/ultralcd.cpp:3574
 msgid "XYZ calibration all right. X/Y axes are slightly skewed. Good job!"
 msgstr ""
 
 #. MSG_BED_SKEW_OFFSET_DETECTION_WARNING_FRONT_BOTH_FAR c=20 r=8
-#: ../../Firmware/messages.cpp:298 ../../Firmware/ultralcd.cpp:3561
+#: ../../Firmware/messages.cpp:300 ../../Firmware/ultralcd.cpp:3555
 msgid "XYZ calibration compromised. Front calibration points not reachable."
 msgstr ""
 
 #. MSG_BED_SKEW_OFFSET_DETECTION_WARNING_FRONT_RIGHT_FAR c=20 r=8
-#: ../../Firmware/messages.cpp:299 ../../Firmware/ultralcd.cpp:3564
+#: ../../Firmware/messages.cpp:301 ../../Firmware/ultralcd.cpp:3558
 msgid ""
 "XYZ calibration compromised. Right front calibration point not reachable."
 msgstr ""
 
 #. MSG_BED_SKEW_OFFSET_DETECTION_POINT_NOT_FOUND c=20 r=6
-#: ../../Firmware/messages.cpp:295 ../../Firmware/ultralcd.cpp:3543
+#: ../../Firmware/messages.cpp:297 ../../Firmware/ultralcd.cpp:3537
 msgid "XYZ calibration failed. Bed calibration point was not found."
 msgstr ""
 
 #. MSG_BED_SKEW_OFFSET_DETECTION_FAILED_FRONT_BOTH_FAR c=20 r=6
-#: ../../Firmware/messages.cpp:296 ../../Firmware/ultralcd.cpp:3549
+#: ../../Firmware/messages.cpp:298 ../../Firmware/ultralcd.cpp:3543
 msgid "XYZ calibration failed. Front calibration points not reachable."
 msgstr ""
 
 #. MSG_BED_SKEW_OFFSET_DETECTION_FITTING_FAILED c=20 r=8
-#: ../../Firmware/messages.cpp:20 ../../Firmware/ultralcd.cpp:3546
-#: ../../Firmware/ultralcd.cpp:3574
+#: ../../Firmware/messages.cpp:20 ../../Firmware/ultralcd.cpp:3540
+#: ../../Firmware/ultralcd.cpp:3568
 msgid "XYZ calibration failed. Please consult the manual."
 msgstr ""
 
 #. MSG_BED_SKEW_OFFSET_DETECTION_FAILED_FRONT_RIGHT_FAR c=20 r=6
-#: ../../Firmware/messages.cpp:297 ../../Firmware/ultralcd.cpp:3552
+#: ../../Firmware/messages.cpp:299 ../../Firmware/ultralcd.cpp:3546
 msgid "XYZ calibration failed. Right front calibration point not reachable."
 msgstr ""
 
 #. MSG_BED_SKEW_OFFSET_DETECTION_PERFECT c=20 r=8
-#: ../../Firmware/messages.cpp:300 ../../Firmware/ultralcd.cpp:3577
+#: ../../Firmware/messages.cpp:302 ../../Firmware/ultralcd.cpp:3571
 msgid "XYZ calibration ok. X/Y axes are perpendicular. Congratulations!"
 msgstr ""
 
 #. MSG_Y_DIST_FROM_MIN c=20
-#: ../../Firmware/messages.cpp:277 ../../Firmware/ultralcd.cpp:2840
+#: ../../Firmware/messages.cpp:279 ../../Firmware/ultralcd.cpp:2834
 msgid "Y distance from min"
 msgstr ""
 
 #. MSG_Y_CORRECTION c=13
-#: ../../Firmware/messages.cpp:332 ../../Firmware/ultralcd.cpp:4469
+#: ../../Firmware/messages.cpp:334 ../../Firmware/ultralcd.cpp:4463
 msgid "Y-correct"
 msgstr ""
 
 #. MSG_YES c=4
-#: ../../Firmware/messages.cpp:148 ../../Firmware/ultralcd.cpp:3401
-#: ../../Firmware/ultralcd.cpp:4929 ../../Firmware/ultralcd.cpp:5017
-#: ../../Firmware/ultralcd.cpp:6311
+#: ../../Firmware/messages.cpp:150 ../../Firmware/ultralcd.cpp:3395
+#: ../../Firmware/ultralcd.cpp:4914 ../../Firmware/ultralcd.cpp:4996
+#: ../../Firmware/ultralcd.cpp:6289
 msgid "Yes"
 msgstr ""
 
 #. MSG_WIZARD_QUIT c=20 r=8
-#: ../../Firmware/messages.cpp:145 ../../Firmware/ultralcd.cpp:4432
+#: ../../Firmware/messages.cpp:147 ../../Firmware/ultralcd.cpp:4426
 msgid "You can always resume the Wizard from Calibration -> Wizard."
 msgstr ""
 
 #. MSG_Z_CALIBRATION_PROMPT c=20 r=3
-#: ../../Firmware/messages.cpp:134 ../../Firmware/ultralcd.cpp:4210
+#: ../../Firmware/messages.cpp:136 ../../Firmware/ultralcd.cpp:4204
 msgid "Z calibration recommended. Run it now?"
 msgstr ""
 
 #. MSG_Z_CORRECTION c=13
-#: ../../Firmware/messages.cpp:333 ../../Firmware/ultralcd.cpp:4470
+#: ../../Firmware/messages.cpp:335 ../../Firmware/ultralcd.cpp:4464
 msgid "Z-correct"
 msgstr ""
 
 #. MSG_Z_PROBE_NR c=14
-#: ../../Firmware/messages.cpp:180 ../../Firmware/ultralcd.cpp:6103
+#: ../../Firmware/messages.cpp:182 ../../Firmware/ultralcd.cpp:6081
 msgid "Z-probe nr."
 msgstr ""
 
 #. MSG_MEASURED_OFFSET c=20
-#: ../../Firmware/messages.cpp:283 ../../Firmware/ultralcd.cpp:2910
+#: ../../Firmware/messages.cpp:285 ../../Firmware/ultralcd.cpp:2904
 msgid "[0;0] point offset"
 msgstr ""
 
 #. MSG_PRESS c=20 r=2
-#: ../../Firmware/messages.cpp:261 ../../Firmware/ultralcd.cpp:2398
+#: ../../Firmware/messages.cpp:263 ../../Firmware/ultralcd.cpp:2392
 msgid "and press the knob"
 msgstr ""
 
 #. MSG_TO_LOAD_FIL c=20
-#: ../../Firmware/messages.cpp:254 ../../Firmware/ultralcd.cpp:2055
+#: ../../Firmware/messages.cpp:256 ../../Firmware/ultralcd.cpp:2049
 msgid "to load filament"
 msgstr ""
 
 #. MSG_TO_UNLOAD_FIL c=20
-#: ../../Firmware/messages.cpp:255 ../../Firmware/ultralcd.cpp:2059
+#: ../../Firmware/messages.cpp:257 ../../Firmware/ultralcd.cpp:2053
 msgid "to unload filament"
 msgstr ""
 
 #. MSG_UNKNOWN c=13
-#: ../../Firmware/messages.cpp:246 ../../Firmware/ultralcd.cpp:1912
+#: ../../Firmware/messages.cpp:248 ../../Firmware/ultralcd.cpp:1906
 msgid "unknown"
 msgstr ""
 
 #. MSG_IR_UNKNOWN c=18
-#: ../../Firmware/Filament_sensor.cpp:288 ../../Firmware/messages.cpp:196
+#: ../../Firmware/Filament_sensor.cpp:288 ../../Firmware/messages.cpp:198
 msgid "unknown state"
 msgstr ""
