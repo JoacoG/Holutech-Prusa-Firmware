@@ -4950,6 +4950,8 @@ void process_commands()
 #ifndef LA_NOCOMPAT
         la10c_reset();
 #endif
+        // Lift the nozzle immediately so it can be wiped before the print homes/heats.
+        raise_z(NOZZLE_CLEAN_Z_LIFT);
       }
 
       card.startFileprint();

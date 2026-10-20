@@ -77,6 +77,7 @@
 #define X_PAUSE_POS 50
 #define Y_PAUSE_POS 190
 #define Z_PAUSE_LIFT 20
+#define NOZZLE_CLEAN_Z_LIFT 40
 
 #define NUM_AXIS 4 // The axis order in all axis related arrays is X, Y, Z, E
 #define HOMING_FEEDRATE {3000, 3000, 800, 0}  // set the homing speeds (mm/min) // 3000 is also valid for stallGuard homing. Valid range: 2200 - 3000
