@@ -13,7 +13,6 @@ extern "C" {
 //internationalized messages
 extern const char MSG_ALWAYS[];
 extern const char MSG_AUTO_HOME[];
-extern const char MSG_AUTO_RECOVER_PRESS_KNOB[];
 extern const char MSG_BABYSTEP_Z[];
 extern const char MSG_BABYSTEP_Z_NOT_SET[];
 extern const char MSG_BED[];
@@ -435,7 +434,6 @@ extern const char MSG_HOST_ACTION_READY[];
 extern const char MSG_HOST_ACTION_NOT_READY[];
 extern const char MSG_HOST_ACTION_START[];
 extern const char MSG_HOST_ACTION_UVLO_RECOVERY_READY[];
-extern const char MSG_HOST_ACTION_UVLO_AUTO_RECOVERY_READY[];
 extern const char MSG_HOST_ACTION_NOTIFICATION[];
 #ifdef HOST_SHUTDOWN
 extern const char MSG_HOST_ACTION_SHUTDOWN[];

@@ -371,9 +371,9 @@ ISR(INT4_vect) {
     }
 }
 
-void recover_print(PowerPanic::RecoveryMode mode) {
+void recover_print() {
 #ifdef DEBUG_UVLO_SD_RECOVERY
-    printf_P(PSTR("DBG_UVLO: recover_print mode=%d type=%d\n"), (int)mode, eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE));
+    printf_P(PSTR("DBG_UVLO: recover_print type=%d\n"), eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE));
 #endif //DEBUG_UVLO_SD_RECOVERY
     lcd_setstatuspgm(_T(MSG_RECOVERING_PRINT));
 
@@ -406,15 +406,11 @@ void recover_print(PowerPanic::RecoveryMode mode) {
     }
     enquecommand_P(MSG_M83); //E axis relative mode
 
-    // If not automatically recovered (long power loss), re-prime the cold nozzle.
-    // The manual "clean nozzle" path after a short power panic skips this purge:
-    // the nozzle is still hot, so purging would only add more ooze.
-    if (mode == PowerPanic::RECOVERY_MANUAL_PURGE) {
-        //Extrude some filament to stabilize the pressure
-        enquecommand_P(PSTR("G1 E5 F120"));
-        // Retract to be consistent with a short pause
-        enquecommandf_P(G1_E_F2700, default_retraction);
-    }
+    // Re-prime the nozzle before resuming: every recovery uses the manual path,
+    // so this purge is unconditional. Extrude some filament to stabilize the
+    // pressure, then retract to be consistent with a short pause.
+    enquecommand_P(PSTR("G1 E5 F120"));
+    enquecommandf_P(G1_E_F2700, default_retraction);
 
     puts_P(_N("Temperature Restored\n"));
     gcode_M114();
@@ -437,12 +433,10 @@ void recover_print(PowerPanic::RecoveryMode mode) {
         // The SD card wait loop disabled LCD updates, re-enable them so the
         // confirmation screen below and subsequent recovery steps are shown.
         lcd_update_enable(true);
-        if (mode != PowerPanic::RECOVERY_AUTO) {
 #ifdef DEBUG_UVLO_SD_RECOVERY
-            printf_P(PSTR("DBG_UVLO: SD prompt shown\n"));
+        printf_P(PSTR("DBG_UVLO: SD prompt shown\n"));
 #endif //DEBUG_UVLO_SD_RECOVERY
-            lcd_show_fullscreen_message_and_wait_P(_T(MSG_SD_CARD_DETECTED_PRESS_KNOB));
-        }
+        lcd_show_fullscreen_message_and_wait_P(_T(MSG_SD_CARD_DETECTED_PRESS_KNOB));
 
         // Verify the saved file actually exists on the SD card
         {
@@ -472,20 +466,16 @@ void recover_print(PowerPanic::RecoveryMode mode) {
             card.cdroot(false);
         }
 
-        if (mode != PowerPanic::RECOVERY_AUTO) {
 #ifdef DEBUG_UVLO_SD_RECOVERY
-            printf_P(PSTR("DBG_UVLO: M997 enqueued\n"));
+        printf_P(PSTR("DBG_UVLO: M997 enqueued\n"));
 #endif //DEBUG_UVLO_SD_RECOVERY
-            uvlo_wait_for_knob = true;
-            // Long outage (manual purge path): let the operator swap to dry filament
-            // before resuming. The old filament may be humid after an overnight standstill.
-            if (mode == PowerPanic::RECOVERY_MANUAL_PURGE) {
-                enquecommand_P(PSTR("M998"));
-            }
-            enquecommand_P(PSTR("M997"));
-        }
+        uvlo_wait_for_knob = true;
+        // Let the operator swap to dry filament before resuming. The old
+        // filament may be humid after an overnight standstill.
+        enquecommand_P(PSTR("M998"));
+        enquecommand_P(PSTR("M997"));
     }
-    else if (eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE) == PowerPanic::PRINT_TYPE_HOST && mode != PowerPanic::RECOVERY_AUTO)
+    else if (eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE) == PowerPanic::PRINT_TYPE_HOST)
     {
         // Host prints park and wait for the host after the restore moves.
         // Reuse the SD knob-wait so the user can confirm the recovery and

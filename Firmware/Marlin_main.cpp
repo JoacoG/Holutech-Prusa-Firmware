@@ -355,7 +355,6 @@ uint8_t saved_bed_temperature; //!< Bed temperature
 bool saved_extruder_relative_mode;
 uint8_t saved_fan_speed = 0; //!< Print fan speed
 //! @}
-static bool uvlo_auto_recovery_ready = false;
 
 static int saved_feedmultiply_mm = 100;
 
@@ -587,7 +586,6 @@ void debug_printer_states()
     printf_P(PSTR("DBG:fsensor.isEnabled() = %d\n"), (int)fsensor.isEnabled());
     printf_P(PSTR("DBG:fsensor.getAutoLoadEnabled() = %d\n"), (int)fsensor.getAutoLoadEnabled());
     printf_P(PSTR("DBG:custom_message_type = %d\n"), (int)custom_message_type);
-    printf_P(PSTR("DBG:uvlo_auto_recovery_ready = %d\n"), (int)uvlo_auto_recovery_ready);
     SERIAL_ECHOLN("");
 }
 #endif //End DEBUG_PRINTER_STATES
@@ -1621,58 +1619,18 @@ void setup()
       manage_heater(); // Update temperatures
       //Restore printing type
       saved_printing_type = eeprom_read_byte((uint8_t*)EEPROM_UVLO_PRINT_TYPE);
-#ifdef DEBUG_UVLO_AUTOMATIC_RECOVER
-      printf_P(_N("Power panic detected!\nCurrent bed temp:%d\nSaved bed temp:%d\n"), (int)degBed(), eeprom_read_byte((uint8_t*)EEPROM_UVLO_TARGET_BED));
-#endif //DEBUG_UVLO_AUTOMATIC_RECOVER
-      uvlo_auto_recovery_ready = (degBed() > ( (float)eeprom_read_byte((uint8_t*)EEPROM_UVLO_TARGET_BED) - AUTOMATIC_UVLO_BED_TEMP_OFFSET));
+      // Every power panic is recovered manually, even if the bed is still hot.
+      // There is no automatic (no user interaction) recovery path anymore.
 #ifdef DEBUG_UVLO_SD_RECOVERY
-      printf_P(PSTR("DBG_UVLO: setup type=%d auto_ready=%d\n"), (int)saved_printing_type, (int)uvlo_auto_recovery_ready);
+      printf_P(PSTR("DBG_UVLO: setup type=%d\n"), (int)saved_printing_type);
 #endif //DEBUG_UVLO_SD_RECOVERY
-      if (uvlo_auto_recovery_ready){
-#ifdef DEBUG_UVLO_AUTOMATIC_RECOVER
-        puts_P(_N("Automatic recovery!"));
-#endif //DEBUG_UVLO_AUTOMATIC_RECOVER
-        // Keep the bed and nozzle at their saved temperatures while the user is
-        // offered the chance to switch to a manual recovery and clean the nozzle.
-        target_temperature[active_extruder] = eeprom_read_word((uint16_t*)EEPROM_UVLO_TARGET_HOTEND);
-        target_temperature_bed = eeprom_read_byte((uint8_t*)EEPROM_UVLO_TARGET_BED);
-
-        bool manual_clean = false;
-#if UVLO_AUTO_RECOVERY_OVERRIDE_WINDOW > 0
-        // Only SD prints are interrupted here: host prints already park and wait for the host.
-        if (saved_printing_type == PowerPanic::PRINT_TYPE_SD) {
-            lcd_display_message_fullscreen_P(_T(MSG_AUTO_RECOVER_PRESS_KNOB));
-            lcd_consume_click();
-            KEEPALIVE_STATE(PAUSED_FOR_USER);
-            const uint32_t deadline = _millis() + (uint32_t)UVLO_AUTO_RECOVERY_OVERRIDE_WINDOW * 1000ul;
-            while (_millis() < deadline) {
-                delay_keep_alive(50);
-                if (lcd_clicked()) {
-                    manual_clean = true;
-                    break;
-                }
-            }
-            KEEPALIVE_STATE(IN_HANDLER);
-            lcd_update_enable(true);
-        }
-#endif //UVLO_AUTO_RECOVERY_OVERRIDE_WINDOW > 0
-        if (manual_clean) {
-            recover_print(PowerPanic::RECOVERY_MANUAL_CLEAN);
-        } else {
-            recover_print(PowerPanic::RECOVERY_AUTO);
-        }
-      } else {
-#ifdef DEBUG_UVLO_AUTOMATIC_RECOVER
-        puts_P(_N("Normal recovery!"));
-#endif //DEBUG_UVLO_AUTOMATIC_RECOVER
-        uint8_t trigger_source = eeprom_read_byte((uint8_t*)EEPROM_UVLO_TRIGGER_SOURCE);
-        const char *msg = (trigger_source == 1) ? _T(MSG_RECOVER_PRINT_ADC) : _T(MSG_RECOVER_PRINT);
-        const uint8_t btn = lcd_show_multiscreen_message_yes_no_and_wait_P(msg, false);
-        if ( btn == LCD_LEFT_BUTTON_CHOICE) {
-          recover_print(PowerPanic::RECOVERY_MANUAL_PURGE);
-        } else { // LCD_MIDDLE_BUTTON_CHOICE
-          cancel_saved_printing();
-        }
+      uint8_t trigger_source = eeprom_read_byte((uint8_t*)EEPROM_UVLO_TRIGGER_SOURCE);
+      const char *msg = (trigger_source == 1) ? _T(MSG_RECOVER_PRINT_ADC) : _T(MSG_RECOVER_PRINT);
+      const uint8_t btn = lcd_show_multiscreen_message_yes_no_and_wait_P(msg, false);
+      if ( btn == LCD_LEFT_BUTTON_CHOICE) {
+        recover_print();
+      } else { // LCD_MIDDLE_BUTTON_CHOICE
+        cancel_saved_printing();
       }
   }
 
@@ -5521,11 +5479,7 @@ void process_commands()
             // but up to this point the printer has been waiting for the M79 from the host
             // Send action to the host, so the host can resume the print. It is up to the host
             // to resume the print correctly.
-            if (uvlo_auto_recovery_ready) {
-                SERIAL_ECHOLNRPGM(MSG_HOST_ACTION_UVLO_AUTO_RECOVERY_READY);
-            } else {
-                SERIAL_ECHOLNRPGM(MSG_HOST_ACTION_UVLO_RECOVERY_READY);
-            }
+            SERIAL_ECHOLNRPGM(MSG_HOST_ACTION_UVLO_RECOVERY_READY);
         }
 
         break;
