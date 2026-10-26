@@ -4900,6 +4900,10 @@ void process_commands()
         break;
       }
 
+      // Start the print first so a lingering post-print keep-warm (and its
+      // finish beep) is cancelled before any blocking move below.
+      card.startFileprint();
+
       if (!card.get_sdpos())
       {
               // A new print has started from scratch, reset stats
@@ -4912,7 +4916,6 @@ void process_commands()
         raise_z(NOZZLE_CLEAN_Z_LIFT);
       }
 
-      card.startFileprint();
       print_job_timer.start();
 #ifdef DEBUG_UVLO_SD_RECOVERY
       printf_P(PSTR("DBG_UVLO: M24 started sdprint=%d eof=%d sdpos=%lu size=%lu\n"),
