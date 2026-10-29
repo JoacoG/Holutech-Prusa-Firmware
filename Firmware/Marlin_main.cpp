@@ -3248,7 +3248,7 @@ static void mmu_M600_load_filament(bool automatic) {
     st_synchronize();
 }
 
-static void gcode_M600(const bool automatic, const float x_position, const float y_position, const float z_shift, const float e_shift, const float e_shift_late, const char* filament_name) {
+static void gcode_M600(const bool automatic, const float x_position, const float y_position, const float z_shift, const float e_shift, const float e_shift_late, const char* filament_name, const bool park = true) {
     st_synchronize();
 
     // When using an MMU, save the currently use slot number
@@ -3275,13 +3275,15 @@ static void gcode_M600(const bool automatic, const float x_position, const float
     }
 
     // Raise the Z axis
-    raise_z(z_shift);
+    if (park) {
+        raise_z(z_shift);
 
-    // Move XY to side
-    current_position[X_AXIS] = x_position;
-    current_position[Y_AXIS] = y_position;
-    plan_buffer_line_curposXYZE(FILAMENTCHANGE_XYFEED);
-    st_synchronize();
+        // Move XY to side
+        current_position[X_AXIS] = x_position;
+        current_position[Y_AXIS] = y_position;
+        plan_buffer_line_curposXYZE(FILAMENTCHANGE_XYFEED);
+        st_synchronize();
+    }
 
     bool repeat = false;
     do {
@@ -3354,13 +3356,19 @@ static void gcode_M600(const bool automatic, const float x_position, const float
         current_position[E_AXIS] += FILAMENTCHANGE_FINALFEED * 0.5f;
     }
 
-    // Move XY back
-    plan_buffer_line(saved_pos[X_AXIS], saved_pos[Y_AXIS], current_position[Z_AXIS], current_position[E_AXIS], FILAMENTCHANGE_XYFEED);
-    st_synchronize();
+    if (park) {
+        // Move XY back
+        plan_buffer_line(saved_pos[X_AXIS], saved_pos[Y_AXIS], current_position[Z_AXIS], current_position[E_AXIS], FILAMENTCHANGE_XYFEED);
+        st_synchronize();
 
-    // Move Z back
-    plan_buffer_line(saved_pos[X_AXIS], saved_pos[Y_AXIS], saved_pos[Z_AXIS], current_position[E_AXIS], FILAMENTCHANGE_ZFEED);
-    st_synchronize();
+        // Move Z back
+        plan_buffer_line(saved_pos[X_AXIS], saved_pos[Y_AXIS], saved_pos[Z_AXIS], current_position[E_AXIS], FILAMENTCHANGE_ZFEED);
+        st_synchronize();
+    } else {
+        // In-place: extrude the "changed correctly" purge without moving XY/Z.
+        plan_buffer_line_curposXYZE(FILAMENTCHANGE_EXFEED);
+        st_synchronize();
+    }
 
     // Set E position to original
     plan_set_e_position(saved_pos[E_AXIS]);
@@ -5157,7 +5165,7 @@ void process_commands()
             saved_feedmultiply2 = eeprom_read_word((uint16_t*)EEPROM_UVLO_FEEDMULTIPLY);
             saved_extruder_temperature = (uint16_t)target_temperature[active_extruder];
             gcode_M600(false, FILAMENTCHANGE_XPOS, FILAMENTCHANGE_YPOS, MIN_Z_FOR_SWAP,
-                       FILAMENTCHANGE_FIRSTRETRACT, FILAMENTCHANGE_FINALRETRACT, "");
+                       FILAMENTCHANGE_FIRSTRETRACT, FILAMENTCHANGE_FINALRETRACT, "", false);
         }
         break;
 #endif //UVLO_SUPPORT
