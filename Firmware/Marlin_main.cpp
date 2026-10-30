@@ -595,6 +595,13 @@ bool __attribute__((noinline)) printer_recovering() {
     return (eeprom_read_byte((uint8_t*)EEPROM_UVLO) != PowerPanic::NO_PENDING_RECOVERY);
 }
 
+//! True while the firmware is executing the given M-code.
+//! mcode_in_progress is set as soon as the command starts being processed and
+//! cleared once it finishes, so this covers the whole (blocking) command.
+bool mcode_in_progress_is(uint16_t mcode) {
+    return mcode_in_progress == mcode;
+}
+
 // Currently only used in one place, allowed to be inlined
 bool check_fsensor() {
     return printJobOngoing()

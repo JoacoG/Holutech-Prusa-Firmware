@@ -307,6 +307,9 @@ bool printJobOngoing();
 void debug_printer_states();
 #endif //DEBUG_PRINTER_STATES
 
+//! True while the firmware is executing the given M-code (e.g. 600 for M600).
+bool mcode_in_progress_is(uint16_t mcode);
+
 // Printing is paused according to SD or host indicators
 bool printingIsPaused();
 

@@ -13,6 +13,11 @@
 #include "temperature.h"
 #include "ultralcd.h"
 
+// Log over serial when a filament runout is ignored because an M600 filament
+// change is already running. Enabled by default so the M600/runout race can be
+// confirmed on a live printer; comment out to drop the string from production.
+#define DEBUG_FSENSOR_RUNOUT
+
 #ifdef FILAMENT_SENSOR
 FSensorBlockRunout::FSensorBlockRunout() {
     fsensor.setRunoutEnabled(false); //suppress filament runouts while loading filament.
@@ -127,6 +132,23 @@ void Filament_sensor::triggerFilamentInserted() {
 
 void Filament_sensor::triggerFilamentRemoved() {
 //    SERIAL_ECHOLNPGM("triggerFilamentRemoved");
+    // A filament change (M600) is already running, either triggered by the user
+    // or by an earlier runout. Firing another runout here would re-enter
+    // stop_and_save_print_to_ram()/restore_print_from_ram_and_continue() while
+    // the M600 is mid-sequence: it overwrites saved_pos with the parked
+    // position and leaves planner_aborted set, silently dropping every
+    // remaining plan_buffer_line() of the M600 (no Z lift/park) and losing the
+    // print. Suppress it, mirroring check_fsensor() for the MMU path.
+    if (mcode_in_progress_is(600)) {
+#ifdef DEBUG_FSENSOR_RUNOUT
+        if (runoutEnabled && (eFilamentAction == FilamentAction::None)
+            && (moves_planned() != 0 || printJobOngoing())) {
+            SERIAL_ECHO_START;
+            SERIAL_ECHOLNPGM("fsensor: runout ignored, M600 in progress");
+        }
+#endif
+        return;
+    }
     if (runoutEnabled
         && (eFilamentAction == FilamentAction::None)
         && (
